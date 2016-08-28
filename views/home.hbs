@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="shell-wrap">
+    <p class="shell-top-bar">Running Oh Please Discord Bot... - <i>/app-root/repo</i></p>
+    <ul class="shell-body">
+      <li class="command">node index.js</li><br>
+      <div id="logs">
+        {{#each logs}}
+        <li><pre>{{this}}</pre></li>
+        {{/each}}
+      </div>
+      <li id="lastLi"></li>
+    </ul>
+  </div>
+</div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+var socket = io(); // TIP: io() with no args does auto-discovery
+$('.shell-body').animate({
+  scrollTop: $("#lastLi").offset().top
+}, 5000);
+socket.on('log', log => {
+  $('#logs').append('<li><pre>' + log + '</pre></li>');
+  $('.shell-body').animate({
+    scrollTop: $("#lastLi").offset().top
+  }, 1000);
+})
+</script>

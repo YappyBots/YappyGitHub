@@ -1,0 +1,29 @@
+{
+  "name": "discord-bot-trello-discordjs-rewrite",
+  "version": "1.0.0",
+  "description": "Keeps track of changes in the DiscordJS Rewrite Trello board",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datitisev/DiscordBot-TrelloDiscordJSRewrite.git"
+  },
+  "author": "David Sevilla Martín <dsevilla192@icloud.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/datitisev/DiscordBot-TrelloDiscordJSRewrite/issues"
+  },
+  "homepage": "https://github.com/datitisev/DiscordBot-TrelloDiscordJSRewrite#readme",
+  "dependencies": {
+    "discord.js": "github:hydrabolt/discord.js#indev-rewrite",
+    "express": "^4.14.0",
+    "express-handlebars": "^3.0.0",
+    "moment": "^2.14.1",
+    "node-trello": "^1.1.2",
+    "socket.io": "^1.4.8",
+    "trello-events": "^0.1.6"
+  }
+}

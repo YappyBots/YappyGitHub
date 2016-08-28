@@ -273,9 +273,6 @@ bot.on('message', msg => {
 
 bot.on('ready', () => {
   Log.info('=> Logged in!');
-  bot.channels.get(channel).sendMessage(`Trello bot is ready!`).then(message => {
-    setTimeout(() => message.delete(), 5000)
-  });
   setTimeout(() => {
     ClientReady = true;
   }, 7000);

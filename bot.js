@@ -4,7 +4,7 @@ const trello_events = require('trello-events');
 const TrelloEvents = new trello_events({
   pollFrequency: 1000 * 60,
   minId: 0,
-  start: true,
+  start: false,
   trello: {
     boards: ['YC5ZhyHZ'],
     key: '757b8b7388014629fc1e624bde8cc600',
@@ -104,7 +104,7 @@ TrelloEvents.on('updateCard', e => {
 
   if (e.data.old.desc && e.data.old.desc !== e.data.new.desc) {
     bot.channels.get(channel).sendMessage(`**${card.author.fullName}** changed the description of __${card.name}__ to \n \`\`\`xl\n${card.new.desc}\n\`\`\``);
-  } else if (e.data.old.name && e.data.old.name !== e.data.new.idList) {
+  } else if (e.data.old && e.data.new && e.data.old.name !== e.data.new.name) {
     bot.channels.get(channel).sendMessage(`**${card.author.fullName}** renamed card _${card.old.name}_ to __${card.new.name}__`);
   } else if (e.data.listBefore && e.data.listAfter) {
     return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** moved card __${card.name}__ to \`${card.data.listAfter.name}\` (from _${card.data.listBefore.name}_)`);

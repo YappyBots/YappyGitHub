@@ -17,8 +17,8 @@ const Log = require('./lib/Logger').Logger;
 
 
 const token = process.env.BOT_TOKEN;
-// const channel = '219479229979426816'; // los discordos channel
-const channel = '175021235384614912'; // testing channel
+const channel = '219479229979426816'; // los discordos channel
+// const channel = '175021235384614912'; // testing channel
 let Prefix = 'T! ';
 let ClientReady = false;
 

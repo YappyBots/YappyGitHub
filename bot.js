@@ -212,11 +212,11 @@ bot.on('message', msg => {
       message = message.join('\n');
 
       if (message.length < 2000) {
-        msg.channel.sendMessage(messagelol);
+        msg.channel.sendMessage(message);
       } else if (message.length > 2000) {
         let message1 = message.substring(0, 1999);
-        msg.channel.sendMessage(message1);
-        msg.channel.sendMessage(message.replace(message1, ''));
+        msg.channel.sendMessage(message1).catch(Log.error);
+        msg.channel.sendMessage(message.replace(message1, '')).catch(Log.error);
       }
 
     }).catch(Log.error);

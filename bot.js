@@ -4,9 +4,10 @@ const trello_events = require('trello-events');
 const TrelloEvents = new trello_events({
   pollFrequency: 1000 * 60,
   minId: 0,
-  start: false,
+  start: true,
   trello: {
     boards: ['YC5ZhyHZ'],
+    // boards: ['3AwqHhQy'],
     key: '757b8b7388014629fc1e624bde8cc600',
     token: process.env.TRELLO_TOKEN
   }
@@ -16,7 +17,8 @@ const Log = require('./lib/Logger').Logger;
 
 
 const token = process.env.BOT_TOKEN;
-const channel = '219479229979426816';
+const channel = '219479229979426816'; // los discordos channel
+// const channel = '175021235384614912'; // testing channel
 let Prefix = 'T! ';
 let ClientReady = false;
 
@@ -40,10 +42,10 @@ TrelloEvents.on('createCard', e => {
 
   Trello.AddCard(card.id, {
     name: card.name,
-    desc: e.desc,
+    desc: card.desc,
     idList: card.list.id
   }).then(() => {
-    bot.channels.get(channel).sendMessage(`**${card.author.fullName}** created card __${card.name}__ in _${card.list.name}_`);
+    return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** created card __${card.name}__ in _${card.list.name}_`);
   }).catch(Log.error);
 
 });
@@ -80,9 +82,10 @@ TrelloEvents.on('commentCard', e => {
     date: e.date,
   };
 
-  Trello.AddComment(e.id, e);
+  Trello.AddComment(e.id, e).then(() => {
+    return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** commented on __${card.name}__: \n \`\`\`xl\n${card.comment}\n\`\`\``);
+  }).catch(Log.error);
 
-  bot.channels.get(channel).sendMessage(`**${card.author.fullName}** commented on __${card.name}__: \n \`\`\`xl\n${card.comment}\n\`\`\``);
 });
 
 TrelloEvents.on('updateCard', e => {
@@ -102,15 +105,15 @@ TrelloEvents.on('updateCard', e => {
     data: e.data
   };
 
-  if (e.data.old.desc && e.data.old.desc !== e.data.new.desc) {
-    bot.channels.get(channel).sendMessage(`**${card.author.fullName}** changed the description of __${card.name}__ to \n \`\`\`xl\n${card.new.desc}\n\`\`\``);
-  } else if (e.data.old && e.data.new && e.data.old.name !== e.data.new.name) {
-    bot.channels.get(channel).sendMessage(`**${card.author.fullName}** renamed card _${card.old.name}_ to __${card.new.name}__`);
-  } else if (e.data.listBefore && e.data.listAfter) {
-    return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** moved card __${card.name}__ to \`${card.data.listAfter.name}\` (from _${card.data.listBefore.name}_)`);
-  }
-
-  Trello.UpdateCard(card.id, card.new);
+  Trello.UpdateCard(card.id, card.new).then(() => {
+    if (e.data.old.desc && e.data.old.desc !== e.data.new.desc) {
+      bot.channels.get(channel).sendMessage(`**${card.author.fullName}** changed the description of __${card.name}__ to \n \`\`\`xl\n${card.new.desc}\n\`\`\``);
+    } else if (e.data.old && e.data.new && e.data.old.name !== e.data.new.name) {
+      bot.channels.get(channel).sendMessage(`**${card.author.fullName}** renamed card _${card.old.name}_ to __${card.new.name}__`);
+    } else if (e.data.listBefore && e.data.listAfter) {
+      return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** moved card __${card.name}__ to \`${card.data.listAfter.name}\` (from _${card.data.listBefore.name}_)`);
+    }
+  }).catch(Log.error)
 
 });
 
@@ -127,7 +130,7 @@ TrelloEvents.on('createList', e => {
     date: e.date,
   };
 
-  bot.channels.get(channel).sendMessage(`**${list.author.fullName}** created list __${list.name}__ in _${list.board.name}_`);
+  bot.channels.get(channel).sendMessage(`**${list.author.fullName}** created list __${list.name}__ in _${list.board.name}_`).catch(Log.error);
 });
 
 TrelloEvents.on('updateList', e => {
@@ -145,7 +148,7 @@ TrelloEvents.on('updateList', e => {
   };
 
   if (e.data.old.name && e.data.old.name !== e.data.list.name) {
-    bot.channels.get(channel).sendMessage(`**${list.author.fullName}** renamed list _${list.old.name}_ to __${list.new.name}__`);
+    bot.channels.get(channel).sendMessage(`**${list.author.fullName}** renamed list _${list.old.name}_ to __${list.new.name}__`).catch(Log.error);
   }
 });
 
@@ -170,7 +173,7 @@ TrelloEvents.on('addMemberToBoard', e => {
     message = `**${member.name}** was invited to _${member.board.name}_`;
   }
 
-  bot.channels.get(channel).sendMessage(message);
+  bot.channels.get(channel).sendMessage(message).catch(Log.error);
 });
 
 TrelloEvents.on('updateBoard', e => {
@@ -187,7 +190,7 @@ TrelloEvents.on('updateBoard', e => {
       author: e.memberCreator
     }
 
-    bot.channels.get(channel).sendMessage(`**${board.author.fullName}** changed the background to \`${board.newBackground}\` (from _${board.oldBackground}_)`);
+    bot.channels.get(channel).sendMessage(`**${board.author.fullName}** changed the background to \`${board.newBackground}\` (from _${board.oldBackground}_)`).catch(Log.error);
   }
 
 });
@@ -270,7 +273,12 @@ bot.on('message', msg => {
 
 bot.on('ready', () => {
   Log.info('=> Logged in!');
-  ClientReady = true;
+  bot.channels.get(channel).sendMessage(`Trello bot is ready!`).then(message => {
+    setTimeout(() => message.delete(), 5000)
+  });
+  setTimeout(() => {
+    ClientReady = true;
+  }, 7000);
 });
 
 bot.on('error', Log.error);

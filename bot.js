@@ -297,7 +297,8 @@ process.on('uncaughtException', err => {
   ].join('\n');
 
   Log.error(err.stack);
-  bot.users.get('175008284263186437').sendMessage(message);
+
+  if (ClientReady) bot.users.get('175008284263186437').sendMessage(message);
 });
 
 bot.login(token).then(token => {

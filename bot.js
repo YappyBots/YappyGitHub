@@ -22,8 +22,8 @@ let Prefix = 'T! ';
 let ClientReady = false;
 
 const Commands = {
-  Eval: require('./commands/Eval'),
-  Exec: require('./commands/Exec')
+  Eval: require('./commands/Eval')(bot),
+  Exec: require('./commands/Exec')(bot)
 }
 
 // ===== TRELLO =====

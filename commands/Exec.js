@@ -23,59 +23,60 @@ const clean = text => {
   }
 }
 
+module.exports = bot => {
+  return (msg, command) => {
 
-module.exports = (msg, command) => {
-
-  let runningMessage = [
-    '`RUNNING`',
-    '```xl',
-    clean(command),
-    '```'
-  ].join('\n')
-
-  let messageToEdit;
-
-  msg.channel.sendMessage(runningMessage).then(message => {
-    messageToEdit = message;
-  }).then(() => Exec(command))
-  .then(data => {
-    let { stdout, startTime, endTime } = data;
-
-    stdout = stdout.substring(0, stdout.length - 1);
-
-    let message = [
-      '`EXEC`',
+    let runningMessage = [
+      '`RUNNING`',
       '```xl',
       clean(command),
-      '```',
-      '`STDOUT`',
-      '```xl',
-      clean(stdout),
       '```'
-    ].join('\n');
+    ].join('\n')
 
-    messageToEdit.edit(message);
-  }).catch(data => {
-    if (data && data.stack) {
-      Log.error(data);
-      throw data;
-    }
-    let { stderr, startTime, endTime } = data;
+    let messageToEdit;
 
-    stderr = stderr.substring(0, stderr.length - 1);
+    msg.channel.sendMessage(runningMessage).then(message => {
+      messageToEdit = message;
+    }).then(() => Exec(command))
+    .then(data => {
+      let { stdout, startTime, endTime } = data;
 
-    let message = [
-      '`EXEC`',
-      '```xl',
-      clean(command),
-      '```',
-      '`STDERR`',
-      '```xl',
-      clean(stderr),
-      '```'
-    ].join('\n');
+      stdout = stdout.substring(0, stdout.length - 1);
 
-    messageToEdit.edit(message);
-  });
+      let message = [
+        '`EXEC`',
+        '```xl',
+        clean(command),
+        '```',
+        '`STDOUT`',
+        '```xl',
+        clean(stdout),
+        '```'
+      ].join('\n');
 
+      messageToEdit.edit(message);
+    }).catch(data => {
+      if (data && data.stack) {
+        Log.error(data);
+        throw data;
+      }
+      let { stderr, startTime, endTime } = data;
+
+      stderr = stderr.substring(0, stderr.length - 1);
+
+      let message = [
+        '`EXEC`',
+        '```xl',
+        clean(command),
+        '```',
+        '`STDERR`',
+        '```xl',
+        clean(stderr),
+        '```'
+      ].join('\n');
+
+      messageToEdit.edit(message);
+    });
+
+  }  
 }

@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const trello_events = require('trello-events');
+const trello_events = require('./lib/TrelloEvents');
 const TrelloEvents = new trello_events({
   pollFrequency: 1000 * 60,
   minId: 0,
@@ -15,12 +15,14 @@ const TrelloEvents = new trello_events({
 const Trello = require('./lib/Cache');
 const Log = require('./lib/Logger').Logger;
 
-
-const token = process.env.BOT_TOKEN;
+const token = process.env.DISCORD_TESTING_BOT_TOKEN || process.env.BOT_TOKEN;
 const channel = '219479229979426816'; // los discordos channel
 // const channel = '175021235384614912'; // testing channel
 let Prefix = 'T! ';
 let ClientReady = false;
+
+Log.debug(token);
+Log.debug(process.env.TRELLO_TOKEN);
 
 // ===== TRELLO =====
 

@@ -22,8 +22,14 @@ let Prefix = 'T! ';
 let ClientReady = false;
 
 const Commands = {
+  Help: require('./commands/Help')(bot),
+  Clean: require('./commands/Clean')(bot),
   Eval: require('./commands/Eval')(bot),
-  Exec: require('./commands/Exec')(bot)
+  Exec: require('./commands/Exec')(bot),
+  Cards: require('./commands/Cards')(bot),
+  CardsSearch: require('./commands/CardsSearch')(bot),
+  Members: require('./commands/Members')(bot),
+  MembersSearch: require('./commands/MembersSearch')(bot)
 }
 
 // ===== TRELLO =====
@@ -216,71 +222,14 @@ bot.on('message', msg => {
   let command = msg.content.replace(Prefix, '').replace(`<@${bot.user.id}> ` , '').replace(`<@!${bot.user.id}> `, '');
   let args = command.split(' ').slice(1);
 
-  if (command == 'cards') {
-    Trello.Cards().then(cards => {
-      let message = [`**CARDS**`, ``];
+  if (command == 'cards') return Commands.Cards(msg, command, args);
+  if (command.startsWith('cards search ')) return Commands.CardsSearch(msg, command, args);
+  if (command == 'members') return Commands.Members(msg, command, args);
+  if (command.startsWith('members search ')) return Commands.MembersSearch(msg, command, args);
+  if (command == 'clean') return Commands.Clean(msg, command, args);
+  if (command == 'help') return Commands.Help(msg, command, args);
 
-      cards.forEach(card => {
-        message.push(` - ${card.name.replace('`', '\`')}`);
-      });
-
-      message = message.join('\n');
-
-      if (message.length < 2000) {
-        msg.channel.sendMessage(message);
-      } else if (message.length > 2000) {
-        let message1 = message.substring(0, 1999);
-        msg.channel.sendMessage(message1).catch(Log.error);
-        msg.channel.sendMessage(message.replace(message1, '')).catch(Log.error);
-      }
-
-    }).catch(Log.error);
-  } else if (command.startsWith('cards search ')) {
-    let search = command.replace('cards search ', '');
-    Trello.Search(search, ['cards']).then(data => {
-      let message = [`**CARD RESULTS**`, ``];
-      let cards = data.cards;
-
-      if (!cards.length) {
-        message.push(`No results found for the query \`${search}\``);
-      }
-
-      cards.forEach(card => {
-        message.push(` - ${card.name.replace('`', '\`')} (<https://trello.com/c/${card.shortLink}>)`);
-      });
-
-      return msg.channel.sendMessage(message.join('\n'));
-    }).catch(Log.error);
-  } else if (command == 'clean') {
-    msg.channel.getMessages().then(messages => {
-      messages.filter(e => e.author.equals(bot.user)).forEach(message => {
-        message.delete().catch(Log.error);
-      });
-    }).catch(Log.error);
-  } else if (command == 'help') {
-    let message = [
-      '**DiscordJS Rewrite Trello**',
-      'A bot that sends new activity on board to <#219479229979426816>',
-      '',
-      `Prefix: \`${Prefix}\` or <@!219218963647823872>`,
-      '',
-      'Commands:',
-      '  • \`cards\` : shows a list of all cards',
-      '  • \`cards search <query>\` : returns cards matching the query provided and their short link',
-      '  • \`clean\` : cleans the bot\'s messages',
-      '  • \`help\` : sends you this help :)',
-    ];
-
-    msg.author.sendMessage(message.join('\n')).catch(Log.error);
-
-    if (msg.guild) {
-      msg.channel.sendMessage(`<@!${msg.author.id}>, help has been sent to your DM!`).then(message => {
-        setTimeout(() => {
-          message.delete();
-        }, 5000);
-      })
-    }
-  } else if (command.startsWith('eval')) {
+  if (command.startsWith('eval')) {
     Commands.Eval(msg, args.join(' '));
   } else if (command.startsWith('exec')) {
     Commands.Exec(msg, args.join(' '));

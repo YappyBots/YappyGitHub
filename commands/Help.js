@@ -1,5 +1,7 @@
 const Log = require('../lib/Logger').Logger;
 
+const Prefix = 'T!';
+
 const Help = msg => {
 
   let message = [

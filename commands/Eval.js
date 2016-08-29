@@ -1,0 +1,58 @@
+const EvalCode = require('../lib/EvalCode');
+const Log = require('../lib/Logger').Logger;
+
+module.exports = (msg, command) => {
+  EvalCode(msg, command).then(data => {
+    var {
+      evaled,
+      startTime,
+      endTime
+    } = data;
+
+    let message = [
+      '`EVAL`',
+      '```xl',
+      clean(command),
+      '- - - - - - evaluates-to- - - - - - -',
+      evaled == undefined ? clean(evaled) : 'undefined',
+      '- - - - - - - - - - - - - - - - - - -',
+      `In ${endTime - startTime} milliseconds!`,
+      '- - - - - - - of type - - - - - - - -',
+      typeof evaled,
+      '```'
+    ].join('\n');
+
+    msg.channel.sendMessage(message).catch(err => {
+      Log.error(err);
+    });
+  }).catch(data => {
+
+    let {
+      error,
+      startTime,
+      endTime
+    } = data;
+
+    let message = [
+      '`EVAL`',
+      '```xl',
+      clean(command),
+      '- - - - - - - errors-in- - - - - - -',
+      clean(error),
+      '- - - - - - - - - - - - - - - - - - -',
+      `In ${endTime - startTime} milliseconds!`,
+      '```'
+    ].join('\n');
+
+    msg.channel.sendMessage(message);
+  });
+}
+
+function clean(text) {
+  if (typeof(text) === "string") {
+    return text.replace("``", "`" + String.fromCharCode(8203) + "`");
+  }
+  else {
+    return text;
+  }
+}

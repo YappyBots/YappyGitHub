@@ -24,7 +24,7 @@
     "express-handlebars": "^3.0.0",
     "moment": "^2.14.1",
     "node-trello": "^1.1.2",
-    "socket.io": "^1.4.8",
-    "trello-events": "^0.1.6"
+    "performance-now": "^0.2.0",
+    "socket.io": "^1.4.8"
   }
 }

@@ -21,6 +21,11 @@ const channel = '219479229979426816'; // los discordos channel
 let Prefix = 'T! ';
 let ClientReady = false;
 
+const Commands = {
+  Eval: require('./commands/Eval'),
+  Exec: require('./commands/Exec')
+}
+
 Log.debug(token);
 Log.debug(process.env.TRELLO_TOKEN);
 
@@ -212,6 +217,7 @@ bot.on('message', msg => {
   if (!msg.content.startsWith(Prefix) && !msg.content.startsWith(`<@!${bot.user.id}> `) && !msg.content.startsWith(`<@${bot.user.id}> `)) return false;
 
   let command = msg.content.replace(Prefix, '').replace(`<@${bot.user.id}> ` , '').replace(`<@!${bot.user.id}> `, '');
+  let args = command.split(' ').slice(1);
 
   if (command == 'cards') {
     Trello.Cards().then(cards => {
@@ -277,6 +283,10 @@ bot.on('message', msg => {
         }, 5000);
       })
     }
+  } else if (command.startsWith('eval')) {
+    Commands.Eval(msg, args.join(' '));
+  } else if (command.startsWith('exec')) {
+    Commands.Exec(msg, args.join(' '));
   }
 })
 

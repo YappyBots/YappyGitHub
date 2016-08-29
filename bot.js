@@ -26,9 +26,6 @@ const Commands = {
   Exec: require('./commands/Exec')
 }
 
-Log.debug(token);
-Log.debug(process.env.TRELLO_TOKEN);
-
 // ===== TRELLO =====
 
 TrelloEvents.on('trelloError', Log.error);

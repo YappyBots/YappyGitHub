@@ -243,7 +243,7 @@ bot.on('ready', () => {
   }, 7000);
 });
 
-bot.on('error', Log.error);
+bot.on('error', err => Log.error(err));
 
 process.on('uncaughtException', err => {
   if (typeof err == 'object' && err.stack) {

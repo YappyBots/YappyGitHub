@@ -11,6 +11,8 @@ const Help = msg => {
     'Commands:',
     '  • \`cards\` : shows a list of all cards',
     '  • \`cards search <query>\` : returns cards matching the query provided and their short link',
+    '  • \`members\` : shows a list of all members in the board',
+    '  • \`members search <query>\` : returns members matching the query provided and their profile link',
     '  • \`clean\` : cleans the bot\'s messages',
     '  • \`help\` : sends you this help :)',
   ];

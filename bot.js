@@ -40,11 +40,18 @@ TrelloEvents.on('createCard', e => {
     date: e.date
   };
 
-  Trello.AddCard(card.id, {
-    name: card.name,
-    desc: card.desc,
-    idList: card.list.id
+  Trello.GetCard(card.id).then(el => {
+    if (el) {
+      card = null;
+      return;
+    }
+    return Trello.AddCard(card.id, {
+      name: card.name,
+      desc: card.desc,
+      idList: card.list.id
+    })
   }).then(() => {
+    if (!card) return false;
     return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** created card __${card.name}__ in _${card.list.name}_`);
   }).catch(Log.error);
 

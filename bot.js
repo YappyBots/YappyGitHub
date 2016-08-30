@@ -23,6 +23,7 @@ let ClientReady = false;
 
 const Commands = {
   Help: require('./commands/Help')(bot),
+  Say: require('./commands/Say')(bot),
   Clean: require('./commands/Clean')(bot),
   Eval: require('./commands/Eval')(bot),
   Exec: require('./commands/Exec')(bot),
@@ -228,6 +229,7 @@ bot.on('message', msg => {
   if (command.startsWith('members search ')) return Commands.MembersSearch(msg, command, args);
   if (command == 'clean') return Commands.Clean(msg, command, args);
   if (command == 'help') return Commands.Help(msg, command, args);
+  if (command.startsWith('say')) return Commands.Say(msg, command, args);
 
   if (command.startsWith('eval')) {
     Commands.Eval(msg, args.join(' '));

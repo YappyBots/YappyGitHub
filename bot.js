@@ -34,7 +34,7 @@ const Commands = {
 
 // ===== TRELLO =====
 
-TrelloEvents.on('trelloError', Log.error);
+TrelloEvents.on('trelloError', err => Log.error(err));
 
 
 // Card events

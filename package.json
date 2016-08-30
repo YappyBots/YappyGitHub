@@ -22,6 +22,7 @@
     "discord.js": "github:hydrabolt/discord.js#indev-rewrite",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
+    "logdna": "^1.1.0",
     "moment": "^2.14.1",
     "node-trello": "^1.1.2",
     "performance-now": "^0.2.0",

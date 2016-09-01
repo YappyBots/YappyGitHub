@@ -2,6 +2,7 @@ const Log = require('../lib/Logger').Logger;
 const Trello = require('../lib/Cache');
 
 const CardsSearch = (msg, command, args) => {
+  args.shift();
   let search = args.join(' ');
 
   Trello.Search(search, ['cards']).then(data => {
@@ -18,6 +19,6 @@ const CardsSearch = (msg, command, args) => {
 
     return msg.channel.sendMessage(message.join('\n'));
   }).catch(err => Log.error(err));
-}
+};
 
 module.exports = bot => CardsSearch;

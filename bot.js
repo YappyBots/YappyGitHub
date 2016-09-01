@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const trello_events = require('./lib/TrelloEvents');
+const BotCache = new require('./lib/BotCache')(bot);
 const TrelloEvents = new trello_events({
   pollFrequency: 1000 * 60,
   minId: 0,
@@ -21,8 +22,10 @@ const channel = '219479229979426816'; // los discordos channel
 let Prefix = 'T! ';
 let ClientReady = false;
 
+
 const Commands = {
   Help: require('./commands/Help')(bot),
+  Stats: require('./commands/Stats')(bot),
   Say: require('./commands/Say')(bot),
   Clean: require('./commands/Clean')(bot),
   Eval: require('./commands/Eval')(bot),
@@ -31,12 +34,11 @@ const Commands = {
   CardsSearch: require('./commands/CardsSearch')(bot),
   Members: require('./commands/Members')(bot),
   MembersSearch: require('./commands/MembersSearch')(bot)
-}
+};
 
 // ===== TRELLO =====
 
 TrelloEvents.on('trelloError', err => Log.error(err));
-
 
 // Card events
 
@@ -60,7 +62,7 @@ TrelloEvents.on('createCard', e => {
       name: card.name,
       desc: card.desc,
       idList: card.list.id
-    })
+    });
   }).then(() => {
     if (!card) return false;
     return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** created card __${card.name}__ in _${card.list.name}_`);
@@ -101,7 +103,7 @@ TrelloEvents.on('commentCard', e => {
   };
 
   Trello.AddComment(e.id, e).then(() => {
-    return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** commented on __${card.name}__: \n \`\`\`xl\n${card.comment}\n\`\`\``);
+    return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** commented on __${card.name}__: \n\n \`\`\`xl\n${card.comment}\n\`\`\``);
   }).catch(Log.error);
 
 });
@@ -125,13 +127,13 @@ TrelloEvents.on('updateCard', e => {
 
   Trello.UpdateCard(card.id, card.new).then(() => {
     if (e.data.old.desc && e.data.old.desc !== e.data.new.desc) {
-      bot.channels.get(channel).sendMessage(`**${card.author.fullName}** changed the description of __${card.name}__ to \n \`\`\`xl\n${card.new.desc}\n\`\`\``);
+      bot.channels.get(channel).sendMessage(`**${card.author.fullName}** changed the description of __${card.name}__ to \n\n \`\`\`xl\n${card.new.desc}\n\`\`\``);
     } else if (e.data.old && e.data.new && e.data.old.name !== e.data.new.name) {
       bot.channels.get(channel).sendMessage(`**${card.author.fullName}** renamed card _${card.old.name}_ to __${card.new.name}__`);
     } else if (e.data.listBefore && e.data.listAfter) {
       return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** moved card __${card.name}__ to \`${card.data.listAfter.name}\` (from _${card.data.listBefore.name}_)`);
     }
-  }).catch(Log.error)
+  }).catch(Log.error);
 
 });
 
@@ -206,7 +208,7 @@ TrelloEvents.on('updateBoard', e => {
       oldBackground: e.data.old.prefs.background,
       date: e.date,
       author: e.memberCreator
-    }
+    };
 
     bot.channels.get(channel).sendMessage(`**${board.author.fullName}** changed the background to \`${board.newBackground}\` (from _${board.oldBackground}_)`).catch(Log.error);
   }
@@ -220,8 +222,9 @@ require('./lib/CommandLogger')(bot);
 bot.on('message', msg => {
   if (!msg.content.startsWith(Prefix) && !msg.content.startsWith(`<@!${bot.user.id}> `) && !msg.content.startsWith(`<@${bot.user.id}> `)) return false;
 
-  let command = msg.content.replace(Prefix, '').replace(`<@${bot.user.id}> ` , '').replace(`<@!${bot.user.id}> `, '');
-  let args = command.split(' ').slice(1);
+  let content = msg.content.replace(Prefix, '').replace(`<@${bot.user.id}> ` , '').replace(`<@!${bot.user.id}> `, '');
+  let command = content.toLowerCase();
+  let args = content.split(' ').slice(1);
 
   if (command == 'cards') return Commands.Cards(msg, command, args);
   if (command.startsWith('cards search ')) return Commands.CardsSearch(msg, command, args);
@@ -229,6 +232,7 @@ bot.on('message', msg => {
   if (command.startsWith('members search ')) return Commands.MembersSearch(msg, command, args);
   if (command == 'clean') return Commands.Clean(msg, command, args);
   if (command == 'help') return Commands.Help(msg, command, args);
+  if (command == 'stats') return Commands.Stats(msg, command, args);
   if (command.startsWith('say')) return Commands.Say(msg, command, args);
 
   if (command.startsWith('eval')) {
@@ -236,7 +240,7 @@ bot.on('message', msg => {
   } else if (command.startsWith('exec')) {
     Commands.Exec(msg, args.join(' '));
   }
-})
+});
 
 bot.on('ready', () => {
   Log.info('=> Logged in!');

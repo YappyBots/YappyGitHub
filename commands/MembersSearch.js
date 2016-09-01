@@ -9,11 +9,11 @@ const MembersSearch = (msg, command, args) => {
     let message = [`**MEMBER RESULTS**`, ``];
     let members = data.members;
 
-    if (!members.length) {
+    if (!members || !members.length) {
       message.push(`No members found for the query \`${search}\``);
     }
 
-    members.forEach(member => {
+    if (members) members.forEach(member => {
       message.push(` - ${member.fullName} (<https://trello.com/${member.username}>)`);
     });
 

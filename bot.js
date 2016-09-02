@@ -99,7 +99,7 @@ TrelloEvents.on('commentCard', e => {
     board: e.data.board,
     comment: e.data.text,
     author: e.memberCreator,
-    date: e.date,
+    date: e.date
   };
 
   return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** commented on __${card.name}__: \n\n \`\`\`xl\n${card.comment}\n\`\`\``);
@@ -145,7 +145,7 @@ TrelloEvents.on('createList', e => {
     board: e.data.board,
     id: e.data.list.id,
     author: e.memberCreator,
-    date: e.date,
+    date: e.date
   };
 
   bot.channels.get(channel).sendMessage(`**${list.author.fullName}** created list __${list.name}__ in _${list.board.name}_`).catch(Log.error);
@@ -162,7 +162,7 @@ TrelloEvents.on('updateList', e => {
     new: e.data.list,
     old: e.data.old,
     author: e.memberCreator,
-    date: e.date,
+    date: e.date
   };
 
   if (e.data.old.name && e.data.old.name !== e.data.list.name) {
@@ -180,7 +180,7 @@ TrelloEvents.on('addMemberToBoard', e => {
     id: e.member.id,
     board: e.data.board,
     invitedByLink: e.data.method == 'invitationSecret',
-    date: e.date,
+    date: e.date
   };
 
   let message;
@@ -224,13 +224,13 @@ bot.on('message', msg => {
   let command = content.toLowerCase();
   let args = content.split(' ').slice(1);
 
-  if (command == 'cards') return Commands.Cards(msg, command, args);
+  if (command === 'cards') return Commands.Cards(msg, command, args);
   if (command.startsWith('cards search ')) return Commands.CardsSearch(msg, command, args);
-  if (command == 'members') return Commands.Members(msg, command, args);
+  if (command === 'members') return Commands.Members(msg, command, args);
   if (command.startsWith('members search ')) return Commands.MembersSearch(msg, command, args);
-  if (command == 'clean') return Commands.Clean(msg, command, args);
-  if (command == 'help') return Commands.Help(msg, command, args);
-  if (command == 'stats') return Commands.Stats(msg, command, args);
+  if (command === 'clean') return Commands.Clean(msg, command, args);
+  if (command === 'help') return Commands.Help(msg, command, args);
+  if (command === 'stats') return Commands.Stats(msg, command, args);
   if (command.startsWith('say')) return Commands.Say(msg, command, args);
 
   if (command.startsWith('eval')) {

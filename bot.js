@@ -102,9 +102,7 @@ TrelloEvents.on('commentCard', e => {
     date: e.date,
   };
 
-  Trello.AddComment(e.id, e).then(() => {
-    return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** commented on __${card.name}__: \n\n \`\`\`xl\n${card.comment}\n\`\`\``);
-  }).catch(Log.error);
+  return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** commented on __${card.name}__: \n\n \`\`\`xl\n${card.comment}\n\`\`\``);
 
 });
 

@@ -17,9 +17,9 @@ module.exports = bot => (msg, command, args) => {
   let message = [
     `DiscordJS Rewrite Trello has been up for **${GetUptime(bot)}**`,
     '',
-    `Connected to **${bot.guilds.length}** ${bot.guilds.length == 1 ? 'server' : 'servers'}`,
-    `Seen **${bot.users.length}** ${bot.users.length == 1 ? 'user' : 'users'}`,
-    `In **${bot.channels.length}** ${bot.channels.length == 1 ? 'channel' : 'channels'} (**${bot.channels.filter(e => e.type !== 'voice').length}** text, **${bot.channels.filter(e => e.type == 'voice').length}** voice)`,
+    `Connected to **${bot.guilds.size}** ${bot.guilds.size == 1 ? 'server' : 'servers'}`,
+    `Seen **${bot.users.size}** ${bot.users.size == 1 ? 'user' : 'users'}`,
+    `In **${bot.channels.size}** ${bot.channels.size == 1 ? 'channel' : 'channels'} (**${bot.channels.filter(e => e.type !== 'voice').size}** text, **${bot.channels.filter(e => e.type == 'voice').size}** voice)`,
     '',
     `**${SeenMessages}** seen messages in the last hour (**~${(SeenMessages / 60).toFixed(2)}** per minute)`,
     `**${SentMessages}** sent messages in the last hour (**~${(SentMessages / 60).toFixed(2)}** per minute)`,

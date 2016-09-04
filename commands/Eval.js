@@ -19,12 +19,16 @@ module.exports = bot => {
         endTime
       } = data;
 
+      if (evaled && evaled.indexOf(bot.token) >= 0) {
+        return msg.channel.sendMessage('Cannot complete eval due to token made visible by command.');
+      }
+
       let message = [
         '`EVAL`',
         '```xl',
         clean(command),
         '- - - - - - evaluates-to- - - - - - -',
-        evaled != undefined ? clean(evaled) : 'undefined',
+        evaled !== undefined ? clean(evaled) : 'undefined',
         '- - - - - - - - - - - - - - - - - - -',
         `In ${endTime - startTime} milliseconds!`,
         '- - - - - - - of type - - - - - - - -',

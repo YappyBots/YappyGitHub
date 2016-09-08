@@ -268,6 +268,7 @@ process.on('uncaughtException', err => {
 });
 
 bot.login(token).then(token => {
+  bot.token = token.replace('Bot ', '');
   Log.info('=> Logging in...');
 
   // Detect if login failed or didn't occur after 7.5s

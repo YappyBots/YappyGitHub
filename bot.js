@@ -25,6 +25,7 @@ let ClientReady = false;
 
 const Commands = {
   Help: require('./commands/Help')(bot),
+  Ping: require('./commands/Ping')(bot),
   Stats: require('./commands/Stats')(bot),
   Say: require('./commands/Say')(bot),
   Clean: require('./commands/Clean')(bot),
@@ -231,6 +232,7 @@ bot.on('message', msg => {
   if (command === 'clean') return Commands.Clean(msg, command, args);
   if (command === 'help') return Commands.Help(msg, command, args);
   if (command === 'stats') return Commands.Stats(msg, command, args);
+  if (command === 'ping') return Commands.Ping(msg, command, args);
   if (command.startsWith('say')) return Commands.Say(msg, command, args);
 
   if (command.startsWith('eval')) {
@@ -247,7 +249,10 @@ bot.on('ready', () => {
   }, 7000);
 });
 
-bot.on('error', err => Log.error(err));
+bot.on('error', err => {
+  Log.error(err);
+});
+bot.on('disconnect', () => Log.info('Disconnected! Reconnecting...'));
 
 process.on('uncaughtException', err => {
   if (typeof err == 'object' && err.stack) {

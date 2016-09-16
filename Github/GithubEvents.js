@@ -12,8 +12,8 @@ class GithubEvents {
   constructor() {
     this._events = new EventEmitter();
     this._gh = new gh_events({
-      user: 'datitisev',
-      repo: 'TestRepo'
+      user: 'hydrabolt',
+      repo: 'discord.js'
     });
 
     this.Issues = this.Issues.bind(this);

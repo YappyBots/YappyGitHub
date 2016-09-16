@@ -15,6 +15,7 @@ class GithubEvents {
       user: 'hydrabolt',
       repo: 'discord.js'
     });
+    this._latestEvents = [];
 
     this.Issues = this.Issues.bind(this);
     this.IssueComment = this.IssueComment.bind(this);
@@ -52,39 +53,49 @@ class GithubEvents {
 
   Issues(event, payload) {
     const events = this._events;
+    this._latestEvents.push(payload);
     events.emit(`issues`, Issues(payload));
   }
 
   IssueComment(event, payload) {
     const events = this._events;
+    this._latestEvents.push(payload);
     events.emit(`issueComment`, IssueComment(payload));
   }
 
   Fork(event, payload) {
     const events = this._events;
+    this._latestEvents.push(payload);
     events.emit('fork', payload);
   }
 
   PullRequest(event, payload) {
     const events = this._events;
+    this._latestEvents.push(payload);
     events.emit(`pr`, PullRequest(payload));
   }
 
   Push(event, payload) {
     const events = this._events;
+    this._latestEvents.push(payload);
     events.emit(`push`, Push(payload));
   }
 
   Watch(event, payload) {
     const events = this._events;
+    this._latestEvents.push(payload);
     events.emit(`watch`, payload);
   }
 
   Release(event, payload) {
     const events = this._events;
+    this._latestEvents.push(payload);
     events.emit(`release`, Release(payload));
   }
 
+  events() {
+    return this._latestEvents;
+  }
 }
 
 module.exports = new GithubEvents();

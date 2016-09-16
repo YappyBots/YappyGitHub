@@ -7,7 +7,6 @@ module.exports = payload => {
   let msg = `⚡ **${actor.login}** pushed ${commitCount} commits to \`${branch}\`\n`;
 
   commits.forEach(commit => {
-    console.log(commit.author);
     msg += `        \`${commit.sha.slice(1, 7)}\` ${commit.message} [${commit.author.username || actor.login}]`;
   });
 

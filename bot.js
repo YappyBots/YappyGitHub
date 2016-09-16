@@ -217,6 +217,7 @@ TrelloEvents.on('updateBoard', e => {
 // ===== DISCORD =====
 
 require('./lib/CommandLogger')(bot);
+require('./lib/Github')(bot);
 
 bot.on('message', msg => {
   if (!msg.content.startsWith(Prefix) && !msg.content.startsWith(`<@!${bot.user.id}> `) && !msg.content.startsWith(`<@${bot.user.id}> `)) return false;

@@ -12,8 +12,12 @@ class GithubEvents {
   constructor() {
     this._events = new EventEmitter();
     this._gh = new gh_events({
-      user: 'hydrabolt',
-      repo: 'discord.js'
+      user: 'datitisev',
+      repo: 'TestRepo',
+      auth: {
+        type: "oauth",
+        token: process.env.GITHUB_TOKEN
+      }
     });
     this._latestEvents = [];
 
@@ -48,48 +52,45 @@ class GithubEvents {
     github_events.on('PushEvent', this.Push);
     github_events.on('WatchEvent', this.Watch);
     github_events.on('ReleaseEvent', this.Release);
+    github_events.on('all', (e, data) => {
+      Log.debug(data.payload.action);
+      this._latestEvents.push(data)
+    });
 
   }
 
   Issues(event, payload) {
     const events = this._events;
-    this._latestEvents.push(payload);
     events.emit(`issues`, Issues(payload));
   }
 
   IssueComment(event, payload) {
     const events = this._events;
-    this._latestEvents.push(payload);
     events.emit(`issueComment`, IssueComment(payload));
   }
 
   Fork(event, payload) {
     const events = this._events;
-    this._latestEvents.push(payload);
     events.emit('fork', payload);
   }
 
   PullRequest(event, payload) {
     const events = this._events;
-    this._latestEvents.push(payload);
     events.emit(`pr`, PullRequest(payload));
   }
 
   Push(event, payload) {
     const events = this._events;
-    this._latestEvents.push(payload);
     events.emit(`push`, Push(payload));
   }
 
   Watch(event, payload) {
     const events = this._events;
-    this._latestEvents.push(payload);
     events.emit(`watch`, payload);
   }
 
   Release(event, payload) {
     const events = this._events;
-    this._latestEvents.push(payload);
     events.emit(`release`, Release(payload));
   }
 

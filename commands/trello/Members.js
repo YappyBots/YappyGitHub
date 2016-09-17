@@ -1,5 +1,5 @@
-const Log = require('../lib/Logger').Logger;
-const Trello = require('../lib/Cache');
+const Log = require('../../lib/Logger').Logger;
+const Trello = require('../../lib/Cache');
 
 const Members = (msg, command, args) => {
 

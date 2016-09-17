@@ -20,6 +20,7 @@ const token = process.env.DISCORD_TESTING_BOT_TOKEN || process.env.BOT_TOKEN;
 const channel = '219479229979426816'; // los discordos channel
 // const channel = '175021235384614912'; // testing channel
 let Prefix = 'T! ';
+let GithubPrefix = 'G! ';
 let ClientReady = false;
 
 
@@ -31,15 +32,22 @@ const Commands = {
   Clean: require('./commands/Clean')(bot),
   Eval: require('./commands/Eval')(bot),
   Exec: require('./commands/Exec')(bot),
-  Cards: require('./commands/Cards')(bot),
-  CardsSearch: require('./commands/CardsSearch')(bot),
-  Members: require('./commands/Members')(bot),
-  MembersSearch: require('./commands/MembersSearch')(bot)
+
+  Trello: {
+    Cards: require('./commands/trello/Cards')(bot),
+    CardsSearch: require('./commands/trello/CardsSearch')(bot),
+    Members: require('./commands/trello/Members')(bot),
+    MembersSearch: require('./commands/trello/MembersSearch')(bot)
+  },
+
+  Github: {
+    LatestEvents: require('./commands/github/Events')(bot)
+  }
 };
 
 // ===== TRELLO =====
 
-TrelloEvents.on('trelloError', err => Log.error(err));
+TrelloEvents.on('trelloError', Log.error);
 
 // Card events
 
@@ -226,10 +234,13 @@ bot.on('message', msg => {
   let command = content.toLowerCase();
   let args = content.split(' ').slice(1);
 
-  if (command === 'cards') return Commands.Cards(msg, command, args);
-  if (command.startsWith('cards search ')) return Commands.CardsSearch(msg, command, args);
-  if (command === 'members') return Commands.Members(msg, command, args);
-  if (command.startsWith('members search ')) return Commands.MembersSearch(msg, command, args);
+  // Trello Commands
+  if (command === 'cards') return Commands.Trello.Cards(msg, command, args);
+  if (command.startsWith('cards search ')) return Commands.Trello.CardsSearch(msg, command, args);
+  if (command === 'members') return Commands.Trello.Members(msg, command, args);
+  if (command.startsWith('members search ')) return Commands.Trello.MembersSearch(msg, command, args);
+
+  // Other Commands
   if (command === 'clean') return Commands.Clean(msg, command, args);
   if (command === 'help') return Commands.Help(msg, command, args);
   if (command === 'stats') return Commands.Stats(msg, command, args);
@@ -242,6 +253,17 @@ bot.on('message', msg => {
     Commands.Exec(msg, args.join(' '));
   }
 });
+
+bot.on('message', msg => {
+  if (!msg.content.startsWith(GithubPrefix) && !msg.content.startsWith(`<@!${bot.user.id}> `) && !msg.content.startsWith(`<@${bot.user.id}> `)) return false;
+
+  let content = msg.content.replace(GithubPrefix, '').replace(`<@${bot.user.id}> ` , '').replace(`<@!${bot.user.id}> `, '');
+  let command = content.toLowerCase();
+  let args = content.split(' ').slice(1);
+
+  // Github Commands
+  if (command.startsWith('events')) return Commands.Github.LatestEvents(msg, command, args);
+})
 
 bot.on('ready', () => {
   Log.info('=> Logged in!');

@@ -14,7 +14,7 @@ module.exports = payload => {
     msg += `**${actor.login}** edited a comment on issue **#${issue.number}** (${issue.title}) \n`;
   }
 
-  msg += (action !== 'deleted' ? `<${comment.html_url}>` : '');
+  msg += (action !== 'deleted' ? `<${comment.html_url}>\n` : '');
 
   return msg;
 }

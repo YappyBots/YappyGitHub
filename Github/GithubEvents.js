@@ -57,15 +57,7 @@ class GithubEvents {
     github_events.on('all', (e, data) => {
       // Log.debug(e);
 
-      this._latestEvents.push(data)
-
-      if (e == 'IssuesEvent') return Log.debug(Issues(data));
-      if (e == 'IssueCommentEvent') return Log.debug(IssueComment(data));
-      if (e == 'ForkEvent') return Log.debug(Fork(data));
-      if (e == 'PullRequestEvent') return Log.debug(PullRequest(data));
-      if (e == 'PushEvent') return Log.debug(Push(data));
-      if (e == 'WatchEvent') return Log.debug(Watch(data));
-      if (e == 'ReleaseEvent') return Log.debug(Release(data));
+      this._latestEvents.push(data);
     });
 
   }

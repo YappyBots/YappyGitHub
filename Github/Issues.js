@@ -2,9 +2,9 @@ const NormalActionIssue = payload => {
   let actor = payload.actor;
   let issue = payload.payload.issue;
 
-  let msg = `:tools: **${actor.login}** ${payload.payload.action} issue **#${issue.number}** \n`;
+  let msg = `🛠 **${actor.login}** ${payload.payload.action} issue **#${issue.number}** \n`;
   msg += `        ${issue.title} \n`;
-  msg += `<${issue.html_url}>`;
+  msg += `<${issue.html_url}>\n`;
 
   return msg;
 }
@@ -13,7 +13,7 @@ const EditedIssue = payload => {
   let issue = payload.payload.issue;
   let changes = payload.payload.changes;
 
-  let msg = `:tools: **${actor.login}** edited issue **#${issue.number}** \n`;
+  let msg = `🛠 **${actor.login}** edited issue **#${issue.number}** \n`;
 
   for (change in changes) {
     console.log('Change', change);
@@ -25,7 +25,7 @@ const EditedIssue = payload => {
     msg += `        Edited ${change} from _${changed.from}_ to **${changed.to}** \n`;
   }
 
-  msg += `<${issue.html_url}>`;
+  msg += `<${issue.html_url}>\n`;
 
   return msg;
 }
@@ -34,8 +34,8 @@ const AssignedIssue = payload => {
   let issue = payload.payload.issue;
   let assigned = payload.payload.assignee;
 
-  let msg = `:tools: **${actor.login}** assigned ${actor.login == assigned.login ? 'themselves' : `**${assigned.login}**`} to **#${issue.number}** (${issue.title}) \n`;
-  msg += `<${issue.html_url}>`;
+  let msg = `🛠 **${actor.login}** assigned ${actor.login == assigned.login ? 'themselves' : `**${assigned.login}**`} to **#${issue.number}** (${issue.title}) \n`;
+  msg += `<${issue.html_url}>\n`;
 
   return msg;
 }
@@ -43,7 +43,7 @@ const AssignedIssue = payload => {
 //   let actor = payload.actor;
 //   let issue = payload.payload.issue;
 //
-//   let msg = `:tools: **${actor.login}** reopened issue **#${issue.number}** \n`;
+//   let msg = `🛠 **${actor.login}** reopened issue **#${issue.number}** \n`;
 //   msg += `        ${issue.title} \n`;
 //   msg += `<${issue.html_url}>`;
 //

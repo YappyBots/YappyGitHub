@@ -11,7 +11,7 @@ const Watch = require('../../Github/Watch');
 
 module.exports = bot => (msg, command, args) => {
   let events = GithubEvents.events();
-  let eventsToGet = parseInt(args[0]) || 5;
+  let eventsToGet = parseInt(args[0]) < 20 ? parseInt(args[0]) : 20;
   let latestEvents = events.slice(Math.max(events.length - eventsToGet));
 
   latestEvents = latestEvents.map(e => {

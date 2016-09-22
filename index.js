@@ -1,12 +1,14 @@
-let express = require('express');
-let exphbs  = require('express-handlebars');
-let path    = require('path');
+const express = require('express');
+const exphbs  = require('express-handlebars');
+const path    = require('path');
+const Log = require('./lib/Logger');
 
-let app = express();
-let server = require('http').Server(app);
-let io = require('socket.io')(server);
+const app = express();
+const bodyParser = require('body-parser')
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
-let Log = require('./lib/Logger');
+const GithubWebhooks = require('./Github/webhooks');
 
 const stopSignals = [
   'SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
@@ -31,13 +33,16 @@ app.engine('hbs', exphbs({
   extname: '.hbs'
 }));
 app.set('view engine', 'hbs');
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   res.render('home', {
     logs: Log.Logger.logs
   });
 });
+
+app.post('/', GithubWebhooks);
 
 Log.Logger.info(`=> Starting app on ${IP || 'localhost'}:${PORT}`);
 

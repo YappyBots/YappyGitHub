@@ -1,14 +1,19 @@
-module.exports = payload => {
-  let actor = payload.actor;
-  let branch = payload.payload.ref.split('/')[2];
-  let commits = payload.payload.commits;
-  let commitCount = payload.payload.size;
+module.exports = data => {
+  let actor = data.sender;
+  let branch = data.ref.split('/')[2];
+  let commits = data.commits;
+  let commitCount = data.commits.length;
+
+  if (!commitCount) return '';
 
   let msg = `⚡ **${actor.login}** pushed ${commitCount} commits to \`${branch}\`\n`;
 
   commits.forEach(commit => {
-    msg += `        \`${commit.sha.slice(1, 7)}\` ${commit.message.replace(/\n/g, '\n          ')} [${commit.author.username || actor.login}]\n`;
+    let commitMessage = commit.message.replace(/\n/g, '\n               ');
+    msg += `        \`${commit.id.slice(1, 7)}\` ${commitMessage} [${commit.committer.username || commit.author.username || actor.login}]\n`;
   });
+
+  console.log(msg);
 
   return msg;
 }

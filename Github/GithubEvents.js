@@ -1,11 +1,12 @@
 const { EventEmitter } = require('events');
 const Log = require('../lib/Logger').Logger;
-const gh_events = require('gh-events');
+const github = require('github');
 
 const Issues = require('./Issues');
 const IssueComment = require('./IssueComment');
 const Push = require('./Push');
 const PullRequest = require('./PullRequest');
+const Branch = require('./Branch');
 const Release = require('./Release');
 const Fork = require('./Fork');
 const Watch = require('./Watch');
@@ -13,9 +14,7 @@ const Watch = require('./Watch');
 class GithubEvents {
   constructor() {
     this._events = new EventEmitter();
-    this._gh = new gh_events({
-      user: 'hydrabolt',
-      repo: 'discord.js',
+    this._gh = new github({
       auth: {
         type: "oauth",
         token: process.env.GITHUB_TOKEN
@@ -31,71 +30,59 @@ class GithubEvents {
     this.Push = this.Push.bind(this);
     this.Watch = this.Watch.bind(this);
     this.Release = this.Release.bind(this);
-
-    this.init();
+    this.Branch = this.Branch.bind(this);
   }
 
   on(e, cb) {
     this._events.on(e, cb);
   }
 
+  emit(e, data) {
+    this._events.emit(e, data);
+  }
+
   Event(e, cb) {
     this._events.on(e, cb);
   }
 
-  init() {
-    const github_events = this._gh;
-
-    github_events.start();
-
-    github_events.on('IssuesEvent', this.Issues);
-    github_events.on('IssueCommentEvent', this.IssueComment);
-    github_events.on('ForkEvent', this.Fork);
-    github_events.on('PullRequestEvent', this.PullRequest);
-    github_events.on('PushEvent', this.Push);
-    github_events.on('WatchEvent', this.Watch);
-    github_events.on('ReleaseEvent', this.Release);
-    github_events.on('all', (e, data) => {
-      // Log.debug(e);
-
-      this._latestEvents.push(data);
-    });
-
-  }
-
-  Issues(event, payload) {
+  Issues(payload) {
     const events = this._events;
     events.emit(`issues`, Issues(payload));
   }
 
-  IssueComment(event, payload) {
+  IssueComment(payload) {
     const events = this._events;
     events.emit(`issueComment`, IssueComment(payload));
   }
 
-  Fork(event, payload) {
+  Fork(payload) {
     const events = this._events;
     events.emit('fork', Fork(payload));
   }
 
-  PullRequest(event, payload) {
+  PullRequest(payload) {
     const events = this._events;
     events.emit(`pr`, PullRequest(payload));
   }
 
-  Push(event, payload) {
+  Push(payload) {
     const events = this._events;
     events.emit(`push`, Push(payload));
   }
 
-  Watch(event, payload) {
+  Watch(payload) {
     const events = this._events;
     events.emit(`watch`, Watch(payload));
   }
 
-  Release(event, payload) {
+  Release(payload) {
     const events = this._events;
     events.emit(`release`, Release(payload));
+  }
+
+  Branch(action, payload) {
+    const events = this._events;
+    events.emit('branch', Branch(action, payload))
   }
 
   events() {

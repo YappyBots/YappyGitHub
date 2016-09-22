@@ -1,70 +1,79 @@
-const NormalActionIssue = payload => {
-  let actor = payload.actor;
-  let issue = payload.payload.issue;
+const OpenedIssue = payload => {
+  let actor = payload.sender;
+  let issue = payload.issue;
 
-  let msg = `🛠 **${actor.login}** ${payload.payload.action} issue **#${issue.number}** \n`;
+  let msg = `🛠 **${actor.login}** ${payload.action} issue **#${issue.number}** \n`;
   msg += `        ${issue.title} \n`;
   msg += `<${issue.html_url}>\n`;
 
   return msg;
 }
+const ClosedIssue = payload => {
+  let actor = payload.sender;
+  let issue = payload.issue;
+
+  let msg = `🛠 **${actor.login}** closed issue **#${issue.number}** (_${issue.title}_) \n`;
+  msg += `<${issue.html_url}>\n`;
+
+  return msg;
+}
 const EditedIssue = payload => {
-  let actor = payload.actor;
-  let issue = payload.payload.issue;
-  let changes = payload.payload.changes;
+  let actor = payload.sender;
+  let issue = payload.issue;
+  let changes = payload.changes;
 
-  let msg = `🛠 **${actor.login}** edited issue **#${issue.number}** \n`;
+  if (!changes.title || !changes.title.from) return '';
 
-  for (change in changes) {
-    console.log('Change', change);
-
-    if (!changes.hasOwnProperty(change) || changes[change].from == changes[change].to) return false;
-    let changed = changes[change];
-
-    console.log('Changed', changed);
-    msg += `        Edited ${change} from _${changed.from}_ to **${changed.to}** \n`;
-  }
-
+  let msg = `🛠 **${actor.login}** renamed issue **#${issue.number}** to ${issue.title}\n`;
   msg += `<${issue.html_url}>\n`;
 
   return msg;
 }
 const AssignedIssue = payload => {
-  let actor = payload.actor;
-  let issue = payload.payload.issue;
-  let assigned = payload.payload.assignee;
+  let actor = payload.sender;
+  let issue = payload.issue;
+  let assigned = payload.assignee;
 
   let msg = `🛠 **${actor.login}** assigned ${actor.login == assigned.login ? 'themselves' : `**${assigned.login}**`} to **#${issue.number}** (${issue.title}) \n`;
   msg += `<${issue.html_url}>\n`;
 
   return msg;
 }
-// const ReopenedIssue = payload => {
-//   let actor = payload.actor;
-//   let issue = payload.payload.issue;
-//
-//   let msg = `🛠 **${actor.login}** reopened issue **#${issue.number}** \n`;
-//   msg += `        ${issue.title} \n`;
-//   msg += `<${issue.html_url}>`;
-//
-//   return msg;
-// }
+const UnassignedIssue = payload => {
+  let actor = payload.sender;
+  let issue = payload.issue;
+  let assigned = payload.assignee;
+
+  let msg = `🛠 **${actor.login}** unassigned ${actor.login == assigned.login ? 'themselves' : `**${assigned.login}**`} from **#${issue.number}** (${issue.title}) \n`;
+  msg += `<${issue.html_url}>\n`;
+
+  return msg;
+}
+const ReopenedIssue = payload => {
+  let actor = payload.sender;
+  let issue = payload.issue;
+
+  let msg = `🛠 **${actor.login}** reopened issue **#${issue.number}** (${issue.title}) \n`;
+  msg += `<${issue.html_url}>`;
+
+  return msg;
+}
 
 
 module.exports = payload => {
 
-  switch (payload.payload.action) {
+  switch (payload.action) {
     case 'opened':
-      return NormalActionIssue(payload);
+      return OpenedIssue(payload);
       break;
     case 'edited':
       return EditedIssue(payload);
       break;
     case 'closed':
-      return NormalActionIssue(payload);
+      return ClosedIssue(payload);
       break;
     case 'reopened':
-      return NormalActionIssue(payload);
+      return ReopenedIssue(payload);
       break;
     case 'assigned':
       return AssignedIssue(payload);

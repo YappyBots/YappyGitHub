@@ -1,8 +1,8 @@
-module.exports = payload => {
-  let actor = payload.actor;
-  let action = payload.payload.action;
-  let issue = payload.payload.issue;
-  let comment = payload.payload.comment;
+module.exports = data => {
+  let actor = data.sender;
+  let action = data.action;
+  let issue = data.issue;
+  let comment = data.comment;
 
   let msg = `💬 `;
 

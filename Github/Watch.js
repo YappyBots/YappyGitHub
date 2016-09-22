@@ -1,3 +1,3 @@
 module.exports = payload => {
-  return `👀 **${payload.actor.login}** is now watching hydrabolt/discord.js`;
+  return `👀 **${payload.sender.login}** is now watching hydrabolt/discord.js`;
 }

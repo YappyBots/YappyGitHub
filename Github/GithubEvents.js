@@ -21,6 +21,7 @@ class GithubEvents {
         token: process.env.GITHUB_TOKEN
       }
     });
+
     this._latestEvents = [];
 
     this.Issues = this.Issues.bind(this);

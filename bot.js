@@ -41,7 +41,12 @@ const Commands = {
   },
 
   Github: {
-    LatestEvents: require('./commands/github/Events')(bot)
+    LatestEvents: require('./commands/github/Events')(bot),
+    IssuesSearch: require('./commands/github/IssuesSearch')(bot),
+    IssueNumber: require('./commands/github/IssueNumber')(bot),
+    PullRequestsSearch: require('./commands/github/PullRequestsSearch')(bot),
+    PullRequestNumber: require('./commands/github/PullRequestNumber')(bot),
+    ReleaseNumber: require('./commands/github/ReleaseNumber')(bot),
   }
 };
 
@@ -263,6 +268,11 @@ bot.on('message', msg => {
 
   // Github Commands
   if (command.startsWith('events')) return Commands.Github.LatestEvents(msg, command, args);
+  if (command.startsWith('issues search ')) return Commands.Github.IssuesSearch(msg, command, args);
+  if (command.startsWith('issue ')) return Commands.Github.IssueNumber(msg, command, args);
+  if (command.startsWith('pr search ')) return Commands.Github.PullRequestsSearch(msg, command, args);
+  if (command.startsWith('pr ')) return Commands.Github.PullRequestNumber(msg, command, args);
+  if (command.startsWith('release ')) return Commands.Github.ReleaseNumber(msg, command, args);
 })
 
 bot.on('ready', () => {
@@ -278,7 +288,7 @@ bot.on('error', err => {
 bot.on('disconnect', () => Log.info('Disconnected! Reconnecting...'));
 
 process.on('uncaughtException', err => {
-  if (typeof err == 'object' && err.stack) {
+  if (typeof err == 'object' && !!err.stack) {
     err.stack = err.stack.replace(new RegExp(__dirname, 'g'), '.');
   }
 
@@ -286,7 +296,7 @@ process.on('uncaughtException', err => {
     '**UNCAUGHT EXCEPTION**',
     '',
     '```xl',
-    err.stack,
+    err.stack || err,
     '```'
   ].join('\n');
 

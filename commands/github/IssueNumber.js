@@ -35,7 +35,9 @@ module.exports = bot => (msg, command, args) => {
       '```'
     ];
 
-    if (msg.author.equals(bot.user)) msg.edit(message) || msg.channel.sendMessage(message);
+    if (msg.author.equals(bot.user)) return msg.edit(message);
+    
+    msg.channel.sendMessage(message);
   });
 
 }

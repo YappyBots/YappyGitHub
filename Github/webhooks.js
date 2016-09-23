@@ -12,8 +12,9 @@ const ValidateSecret = req => {
   console.log(`Signature: ${signature}`);
   console.log(`Secret: ${secret}`);
   console.log(`Decrypted: ${decrypted}`);
+  console.log(`Equals: ${signature == decrypted}`)
 
-  return signature == secret;
+  return signature == decrypted;
 }
 
 module.exports = (req, res, next) => {

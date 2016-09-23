@@ -24,6 +24,7 @@
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
     "gh-events": "^1.0.1",
+    "github-webhook-handler": "^0.6.0",
     "logdna": "^1.1.0",
     "moment": "^2.14.1",
     "moment-duration-format": "^1.3.0",

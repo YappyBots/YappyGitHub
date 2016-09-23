@@ -5,13 +5,13 @@ const Log = require('../lib/Logger').Logger;
 
 const ValidateSecret = req => {
   let secret = process.env.GITHUB_SECRET;
-  let buffer = Buffer.from(process.env.GITHUB_SECRET);
   let signature = req.headers['x-hub-signature'].replace(/^sha1=/, '');
-  let decrypted = crypto.createHmac('sha1', secret).digest('hex');
+  let payload = JSON.stringify(req.body);
+  let decrypted = crypto.createHmac('sha1', secret).update(payload).digest('hex');
+
   console.log(`Signature: ${signature}`);
   console.log(`Secret: ${secret}`);
   console.log(`Decrypted: ${decrypted}`);
-  console.log(`Buffer: ${buffer.toString()}`);
 
   return signature == secret;
 }

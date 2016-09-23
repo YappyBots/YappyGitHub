@@ -14,7 +14,9 @@ module.exports = data => {
     msg += `**${actor.login}** edited a comment on issue **#${issue.number}** (${issue.title}) \n`;
   }
 
-  msg += (action !== 'deleted' ? `<${comment.html_url}>\n` : '');
+  msg += (action !== 'deleted' && comment ? `<${comment.html_url}>\n` : '');
+
+  if (msg == `💬 `) msg = false;
 
   return msg;
 }

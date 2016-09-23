@@ -7,7 +7,7 @@ const ValidateSecret = req => {
   let secret = process.env.GITHUB_SECRET;
   let buffer = Buffer.from(process.env.GITHUB_SECRET);
   let signature = req.headers['x-hub-signature'].replace(/^sha1=/, '');
-  let decrypted = crypto.createHmac('sha1', secret).update(buffer).digest('hex');
+  let decrypted = crypto.createHmac('sha1', secret).digest('hex');
   console.log(`Signature: ${signature}`);
   console.log(`Secret: ${secret}`);
   console.log(`Decrypted: ${decrypted}`);

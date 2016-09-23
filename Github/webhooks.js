@@ -2,7 +2,7 @@ const GithubEvents = require('./GithubEvents');
 const crypto = require('crypto');
 const Log = require('../lib/Logger').Logger;
 
-let signature = 'sha1=' + crypto.createHmac('sha256', process.env.GITHUB_SECRET).digest('hex');
+let signature = 'sha1=' + crypto.createHmac('sha1', process.env.GITHUB_SECRET).digest('hex');
 
 const ValidateSecret = secret => {
   return signature == secret;

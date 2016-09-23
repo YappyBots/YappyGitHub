@@ -1,8 +1,9 @@
 const GithubEvents = require('./GithubEvents');
 const Log = require('../lib/Logger').Logger;
 
+let signature = 'sha1=' + crypto.createHmac('sha256', process.env.GITHUB_SECRET).digest('hex');
+
 const ValidateSecret = secret => {
-  let signature = 'sha1=' + crypto.createHmac('sha256', process.env.GITHUB_SECRET).digest('hex');
   return signature == secret;
 }
 
@@ -11,7 +12,7 @@ module.exports = (req, res, next) => {
   const secret = req.headers['x-hub-signature'];
   const data = req.body;
 
-  if (!secret || !ValidateSecret(secret)) return res.status(401).json({ error: `${secret} is an invalid secret` });
+  if (!secret || !ValidateSecret(secret)) return res.status(401).send(`${secret} is an invalid secret. Actual secret is ${signature}` );
 
   switch (event) {
     case 'push': {

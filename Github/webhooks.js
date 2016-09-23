@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
   const secret = req.headers['x-hub-signature'];
   const data = req.body;
 
-  if (!secret || secret !== process.env.GITHUB_SECRET) return false;
+  if (!secret || secret !== process.env.GITHUB_SECRET) return res.status(401).json({ error: `${secret} is an invalid secret` });
 
   switch (event) {
     case 'push': {

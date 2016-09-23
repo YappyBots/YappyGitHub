@@ -4,7 +4,7 @@ const path    = require('path');
 const Log = require('./lib/Logger');
 
 const app = express();
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 

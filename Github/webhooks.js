@@ -3,9 +3,10 @@ const Log = require('../lib/Logger').Logger;
 
 module.exports = (req, res, next) => {
   const event = req.headers['x-github-event'];
+  const secret = req.headers['x-hub-signature'];
   const data = req.body;
 
-  if (data.repository.full_name !== 'hydrabolt/discord.js') return false;
+  if (!secret || secret !== process.env.GITHUB_SECRET) return false;
 
   switch (event) {
     case 'push': {

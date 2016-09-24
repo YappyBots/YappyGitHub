@@ -35,7 +35,7 @@ module.exports = bot => (msg, command, args) => {
       '```'
     ];
 
-    if (msg.author.equals(bot.user)) return msg.edit(message).catch(console.log);
+    if (msg.author.equals(bot.user)) return msg.edit(message.join('\n')).catch(e => { throw e });
 
     msg.channel.sendMessage(message);
   });

@@ -1,6 +1,6 @@
 const { EventEmitter } = require('events');
 const Log = require('../lib/Logger').Logger;
-const github = require('github');
+const GithubApi = require('github');
 
 const Issues = require('./Issues');
 const IssueComment = require('./IssueComment');
@@ -14,11 +14,14 @@ const Watch = require('./Watch');
 class GithubEvents {
   constructor() {
     this._events = new EventEmitter();
-    this._gh = new github({
-      auth: {
-        type: "oauth",
-        token: process.env.GITHUB_TOKEN
-      }
+    this.github = new GithubApi({
+      protocol: 'https',
+      timeout: 5000
+    });
+
+    this.github.authenticate({
+      type: "oauth",
+      token: process.env.GITHUB_TOKEN
     });
 
     this._latestEvents = [];

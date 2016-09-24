@@ -1,4 +1,4 @@
-const github = require('../../Github/GithubEvents')._gh.github;
+const github = require('../../Github/GithubEvents').github;
 const Util = require('../../lib/Util');
 const Log = require('../../lib/Logger').Logger;
 

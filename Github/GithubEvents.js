@@ -50,42 +50,66 @@ class GithubEvents {
 
   Issues(payload) {
     const events = this._events;
-    events.emit(`issues`, Issues(payload));
+    events.emit(`issues`, {
+      repo: payload.repository.full_name,
+      str: Issues(payload)
+    });
   }
 
   IssueComment(payload) {
     const events = this._events;
-    events.emit(`issueComment`, IssueComment(payload));
+    events.emit(`issueComment`, {
+      repo: payload.repository.full_name,
+      str: IssueComment(payload)
+    });
   }
 
   Fork(payload) {
     const events = this._events;
-    events.emit('fork', Fork(payload));
+    events.emit('fork', {
+      repo: payload.repository.full_name,
+      str: Fork(payload)
+    });
   }
 
   PullRequest(payload) {
     const events = this._events;
-    events.emit(`pr`, PullRequest(payload));
+    events.emit(`pr`, {
+      repo: payload.repository.full_name,
+      str: PullRequest(payload)
+    });
   }
 
   Push(payload) {
     const events = this._events;
-    events.emit(`push`, Push(payload));
+    events.emit(`push`, {
+      repo: payload.repository.full_name,
+      str: Push(payload)
+    });
   }
 
   Watch(payload) {
     const events = this._events;
-    events.emit(`watch`, Watch(payload));
+    events.emit(`watch`, {
+      repo: payload.repository.full_name,
+      str: Watch(payload)
+    });
   }
 
   Release(payload) {
     const events = this._events;
-    events.emit(`release`, Release(payload));
+    events.emit(`release`, {
+      repo: payload.repository.full_name,
+      str: Release(payload)
+    });
   }
 
   Branch(action, payload) {
     const events = this._events;
-    events.emit('branch', Branch(action, payload))
+    events.emit('branch', {
+      repo: payload.repository.full_name,
+      str: Branch(action, payload)
+    })
   }
 
   events() {

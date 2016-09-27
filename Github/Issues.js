@@ -12,7 +12,7 @@ const ClosedIssue = payload => {
   let actor = payload.sender;
   let issue = payload.issue;
 
-  let msg = `🛠 **${actor.login}** closed issue **#${issue.number}** (_${issue.title}_) \n`;
+  let msg = `🛠 **${actor.login}** closed issue **#${issue.number}** (${issue.title}) \n`;
   msg += `<${issue.html_url}>\n`;
 
   return msg;
@@ -24,7 +24,7 @@ const EditedIssue = payload => {
 
   if (!changes.title || !changes.title.from) return '';
 
-  let msg = `🛠 **${actor.login}** renamed issue **#${issue.number}** to ${issue.title}\n`;
+  let msg = `🛠 **${actor.login}** renamed issue **#${issue.number}** to _${issue.title}_\n`;
   msg += `<${issue.html_url}>\n`;
 
   return msg;

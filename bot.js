@@ -47,6 +47,7 @@ const Commands = {
     PullRequestsSearch: require('./commands/github/PullRequestsSearch')(bot),
     PullRequestNumber: require('./commands/github/PullRequestNumber')(bot),
     ReleaseNumber: require('./commands/github/ReleaseNumber')(bot),
+    Init: require('./commands/github/Init')(bot),
   }
 };
 
@@ -273,6 +274,8 @@ bot.on('message', msg => {
   if (command.startsWith('pr search ')) return Commands.Github.PullRequestsSearch(msg, command, args);
   if (command.startsWith('pr ')) return Commands.Github.PullRequestNumber(msg, command, args);
   if (command.startsWith('release ')) return Commands.Github.ReleaseNumber(msg, command, args);
+  
+  if (command.startsWith('init ')) return Commands.Github.Init(msg, command, args);
 })
 
 bot.on('ready', () => {

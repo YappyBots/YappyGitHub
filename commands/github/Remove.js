@@ -14,7 +14,7 @@ module.exports = (bot) => (msg, command, args) => {
     return msg.channel.sendMessage(':x: Insuficient permissions! You must have administrator permissions to delete repository events!');
   }
 
-  ChannelConf.add(channelid, repo, secret).then(() => {
+  ChannelConf.delete(conf.channel_id).then(() => {
     msg.channel.sendMessage(`:white_check_mark: Successfully removed repository events in this channel for **${conf.repo}**.`);
   }).catch(err => {
     Log.error(err);

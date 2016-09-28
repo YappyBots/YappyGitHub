@@ -8,11 +8,11 @@ module.exports = data => {
   let msg = `💬 `;
 
   if (action == 'deleted') {
-    msg += `**${actor.login}** deleted a comment on ${isComment ? 'comment' : 'pull request'} **#${issue.number}** (${issue.title}) \n`;
+    msg += `**${actor.login}** deleted a comment on ${isComment ? 'issue' : 'pull request'} **#${issue.number}** (${issue.title}) \n`;
   } else if (action == 'created') {
-    msg += `**${actor.login}** commented on ${isComment ? 'comment' : 'pull request'} **#${issue.number}** (${issue.title}) \n`;
+    msg += `**${actor.login}** commented on ${isComment ? 'issue' : 'pull request'} **#${issue.number}** (${issue.title}) \n`;
   } else if (action == 'edited') {
-    msg += `**${actor.login}** edited a comment on ${isComment ? 'comment' : 'pull request'} **#${issue.number}** (${issue.title}) \n`;
+    msg += `**${actor.login}** edited a comment on ${isComment ? 'issue' : 'pull request'} **#${issue.number}** (${issue.title}) \n`;
   }
 
   msg += (action !== 'deleted' && comment ? `<${comment.html_url}>\n` : '');

@@ -16,7 +16,10 @@ module.exports = (bot) => (msg, command, args) => {
   }
 
   ChannelConf.add(channelid, repo).then(() => {
-    msg.channel.sendMessage(`:white_check_mark: Successfully initialized repository events in this channel for **${repo}**.`);
+    msg.channel.sendMessage([
+      `:white_check_mark: Successfully initialized repository events in this channel for **${repo}**.`,
+      `The repo must a webhook pointing to <http://discordjsrewritetrello-datitisev.rhcloud.com/> with every event except for \`watch\` and \`fork\`, they are buggy for some reason :/`
+    ]);
   }).catch(err => {
     Log.error(err);
     msg.channel.sendMessage(`:x: An error occurred while trying to initialize repository events for **${repo}** in this channel.\n\`${err}\``);

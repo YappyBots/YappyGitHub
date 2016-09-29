@@ -50,6 +50,7 @@ const Commands = {
     Init: require('./commands/github/Init')(bot),
     Remove: require('./commands/github/Remove')(bot),
 
+    Help: require('./commands/github/Help')(bot),
     Announce: require('./commands/github/Announce')(bot),
   }
 };
@@ -281,6 +282,7 @@ bot.on('message', msg => {
   if (command.startsWith('init ')) return Commands.Github.Init(msg, command, args);
   if (command.startsWith('remove')) return Commands.Github.Remove(msg, command, args);
   if (command.startsWith('announce ')) return Commands.Github.Announce(msg, command, args);
+  if (command.startsWith('help')) return Commands.Github.Help(msg, command, args);
 })
 
 bot.on('ready', () => {

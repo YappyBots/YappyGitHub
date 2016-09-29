@@ -15,7 +15,7 @@ module.exports = (bot) => (msg, command, args) => {
   }
 
   ChannelConf.delete(conf.channel_id).then(() => {
-    msg.channel.sendMessage(`:white_check_mark: Successfully removed repository events in this channel for **${conf.repo}**.`);
+    msg.channel.sendMessage(`✅ Successfully removed repository events in this channel for **${conf.repo}**.`);
   }).catch(err => {
     Log.error(err);
     msg.channel.sendMessage(`❌ An error occurred while trying to remove repository events for **${conf.repo}** in this channel.\n\`${err}\``);

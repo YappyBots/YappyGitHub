@@ -8,9 +8,6 @@ module.exports = (bot) => (msg, command, args) => {
   let message = args.join(' ');
   let channels = ChannelConf.array();
 
-  Log.debug(`Message: ${message}`);
-  Log.debug(`Channels: ${channels}`);
-
   if (!message) return false;
 
   for (let prop in channels) {

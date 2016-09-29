@@ -7,12 +7,12 @@ module.exports = (bot) => (msg, command, args) => {
   let repo = args[0];
   let conf = ChannelConf.find('channel_id', channelid)
 
-  msg.channel.sendMessage(':gear: Working...');
+  msg.channel.sendMessage('⚙ Working...');
 
   if (conf) {
-    return msg.channel.sendMessage(':x: This channel already has events for a github repo!');
+    return msg.channel.sendMessage('❌ This channel already has events for a github repo!');
   } else if (!msg.member.permissions.hasPermission('ADMINISTRATOR')) {
-    return msg.channel.sendMessage(':x: Insuficient permissions! You must have administrator permissions to initialize repository events!');
+    return msg.channel.sendMessage('❌ Insuficient permissions! You must have administrator permissions to initialize repository events!');
   }
 
   ChannelConf.add(channelid, repo).then(() => {
@@ -22,7 +22,7 @@ module.exports = (bot) => (msg, command, args) => {
     ]);
   }).catch(err => {
     Log.error(err);
-    msg.channel.sendMessage(`:x: An error occurred while trying to initialize repository events for **${repo}** in this channel.\n\`${err}\``);
+    msg.channel.sendMessage(`❌ An error occurred while trying to initialize repository events for **${repo}** in this channel.\n\`${err}\``);
   });
 
 }

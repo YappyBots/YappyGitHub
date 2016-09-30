@@ -1,5 +1,5 @@
 const HelpMessage = [
-  '**Yappy, a Github Monitor**',
+  '**Yappy, the Github Monitor**',
   'Created by @datitisev#4934 with `discord.js`',
   '',
   'Commands:',

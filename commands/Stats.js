@@ -15,7 +15,7 @@ module.exports = bot => (msg, command, args) => {
   let TrelloEvents = BotCache.TrelloEvents.length;
 
   let message = [
-    `DiscordJS Rewrite Trello has been up for **${GetUptime(bot)}**`,
+    `**Yappy, the Github Monitor** has been up for **${GetUptime(bot)}**`,
     '',
     `Connected to **${bot.guilds.size}** ${bot.guilds.size == 1 ? 'server' : 'servers'}`,
     `Seen **${bot.users.size}** ${bot.users.size == 1 ? 'user' : 'users'}`,

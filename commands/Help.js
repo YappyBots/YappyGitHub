@@ -25,7 +25,7 @@ const Help = msg => {
     msg.channel.sendMessage(`<@!${msg.author.id}>, help has been sent to your DM!`).then(message => {
       setTimeout(() => {
         message.delete();
-      }, 5000);
+      }, 8000);
     })
   }
 

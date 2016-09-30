@@ -16,7 +16,7 @@ module.exports = (bot) => (msg, command, args) => {
     msg.author.sendMessage(HelpMessage).then(() => {
       return msg.reply('help has been sent to your PM');
     }).then((message) => {
-      setTimeout(() => message.delete(), 5000);
+      setTimeout(() => message.delete(), 8000);
     });
   } else {
     msg.channel.sendMessage(HelpMessage);

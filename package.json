@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose"
   },
   "repository": {
     "type": "git",
@@ -32,5 +33,9 @@
     "performance-now": "^0.2.0",
     "socket.io": "^1.4.8",
     "sqlite": "^2.2.0"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.4.1",
+    "minami": "^1.1.1"
   }
 }

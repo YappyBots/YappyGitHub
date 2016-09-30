@@ -274,7 +274,7 @@ bot.on('message', msg => {
 
   // Other Commands
   if (command === 'clean') return Commands.Clean(msg, command, args);
-  if (command === 'help') return Commands.Help(msg, command, args);
+  // if (command === 'help') return Commands.Help(msg, command, args);
   if (command === 'stats') return Commands.Stats(msg, command, args);
   if (command === 'ping') return Commands.Ping(msg, command, args);
   if (command.startsWith('say')) return Commands.Say(msg, command, args);

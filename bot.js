@@ -250,18 +250,6 @@ bot.on('message', msg => {
   if (command === 'members') return Commands.Trello.Members(msg, command, args);
   if (command.startsWith('members search ')) return Commands.Trello.MembersSearch(msg, command, args);
 
-  // Other Commands
-  if (command === 'clean') return Commands.Clean(msg, command, args);
-  if (command === 'help') return Commands.Help(msg, command, args);
-  if (command === 'stats') return Commands.Stats(msg, command, args);
-  if (command === 'ping') return Commands.Ping(msg, command, args);
-  if (command.startsWith('say')) return Commands.Say(msg, command, args);
-
-  if (command.startsWith('eval')) {
-    Commands.Eval(msg, args.join(' '));
-  } else if (command.startsWith('exec')) {
-    Commands.Exec(msg, args.join(' '));
-  }
 });
 
 bot.on('message', msg => {
@@ -283,6 +271,19 @@ bot.on('message', msg => {
   if (command.startsWith('remove')) return Commands.Github.Remove(msg, command, args);
   if (command.startsWith('announce ')) return Commands.Github.Announce(msg, command, args);
   if (command.startsWith('help')) return Commands.Github.Help(msg, command, args);
+
+  // Other Commands
+  if (command === 'clean') return Commands.Clean(msg, command, args);
+  if (command === 'help') return Commands.Help(msg, command, args);
+  if (command === 'stats') return Commands.Stats(msg, command, args);
+  if (command === 'ping') return Commands.Ping(msg, command, args);
+  if (command.startsWith('say')) return Commands.Say(msg, command, args);
+
+  if (command.startsWith('eval')) {
+    Commands.Eval(msg, args.join(' '));
+  } else if (command.startsWith('exec')) {
+    Commands.Exec(msg, args.join(' '));
+  }
 })
 
 bot.on('ready', () => {

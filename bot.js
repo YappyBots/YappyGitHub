@@ -264,6 +264,13 @@ bot.on('guildCreate', (guild) => {
     '```'
   ];
   bot.channels.get('231911521557544960').sendMessage(message);
+  guild.owner.user.sendMessage([
+    `Hi! I'm Yappy, a bot that outputs github events from repos into the desired channel.`,
+    `To set up a custom prefix and a global repo for commands such as \`G! issue 5\`, say \`G! conf view\` to see the current configuration, and use \`G! conf set <key> <value\` to set config keys.`,
+    `If you need to know where to point the webhook, say \`G! invite\` to see the webhook endpoint, and the events you should use.`,
+    `This bot was made by @datitisev#4934. If you need any help, join our official server at **https://discord.gg/HHqndMG** for support.`,
+    `Thank you for choosing Yappy!`
+  ]);
 });
 bot.on('guildDelete', (guild) => {
   let message = [

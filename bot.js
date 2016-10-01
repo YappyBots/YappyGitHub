@@ -256,6 +256,24 @@ require('./lib/Github')(bot);
 //
 // });
 
+bot.on('guildCreate', (guild) => {
+  let message = [
+    '```diff',
+    `+ Guild: ${guild.name}`,
+    `+ Owner: @${guild.owner.user.username}#${guild.owner.user.discriminator}`,
+    '```'
+  ];
+  bot.channels.get('231911521557544960').sendMessage(message);
+});
+bot.on('guildDelete', (guild) => {
+  let message = [
+    '```diff',
+    `- Guild: ${guild.name}`,
+    `- Owner: @${guild.owner.user.username}#${guild.owner.user.discriminator}`,
+    '```'
+  ];
+  bot.channels.get('231911521557544960').sendMessage(message);
+});
 bot.on('message', msg => {
   if (!msg.content.startsWith(GithubPrefix) && !msg.content.startsWith(ServerConf.grab(msg.guild).prefix) && !msg.content.startsWith(`<@!${bot.user.id}> `) && !msg.content.startsWith(`<@${bot.user.id}> `)) return false;
 

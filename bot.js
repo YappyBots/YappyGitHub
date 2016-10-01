@@ -36,12 +36,12 @@ const Commands = {
 
   Conf: require('./commands/Conf')(bot),
 
-  Trello: {
-    Cards: require('./commands/trello/Cards')(bot),
-    CardsSearch: require('./commands/trello/CardsSearch')(bot),
-    Members: require('./commands/trello/Members')(bot),
-    MembersSearch: require('./commands/trello/MembersSearch')(bot)
-  },
+  // Trello: {
+  //   Cards: require('./commands/trello/Cards')(bot),
+  //   CardsSearch: require('./commands/trello/CardsSearch')(bot),
+  //   Members: require('./commands/trello/Members')(bot),
+  //   MembersSearch: require('./commands/trello/MembersSearch')(bot)
+  // },
 
   Github: {
     LatestEvents: require('./commands/github/Events')(bot),
@@ -240,20 +240,20 @@ const Commands = {
 require('./lib/CommandLogger')(bot);
 require('./lib/Github')(bot);
 
-bot.on('message', msg => {
-  if (!msg.content.startsWith(Prefix) && !msg.content.startsWith(`<@!${bot.user.id}> `) && !msg.content.startsWith(`<@${bot.user.id}> `)) return false;
-
-  let content = msg.content.replace(Prefix, '').replace(`<@${bot.user.id}> ` , '').replace(`<@!${bot.user.id}> `, '');
-  let command = content.toLowerCase();
-  let args = content.split(' ').slice(1);
-
-  // Trello Commands
-  if (command === 'cards') return Commands.Trello.Cards(msg, command, args);
-  if (command.startsWith('cards search ')) return Commands.Trello.CardsSearch(msg, command, args);
-  if (command === 'members') return Commands.Trello.Members(msg, command, args);
-  if (command.startsWith('members search ')) return Commands.Trello.MembersSearch(msg, command, args);
-
-});
+// bot.on('message', msg => {
+//   if (!msg.content.startsWith(Prefix) && !msg.content.startsWith(`<@!${bot.user.id}> `) && !msg.content.startsWith(`<@${bot.user.id}> `)) return false;
+//
+//   let content = msg.content.replace(Prefix, '').replace(`<@${bot.user.id}> ` , '').replace(`<@!${bot.user.id}> `, '');
+//   let command = content.toLowerCase();
+//   let args = content.split(' ').slice(1);
+//
+//   // Trello Commands
+//   if (command === 'cards') return Commands.Trello.Cards(msg, command, args);
+//   if (command.startsWith('cards search ')) return Commands.Trello.CardsSearch(msg, command, args);
+//   if (command === 'members') return Commands.Trello.Members(msg, command, args);
+//   if (command.startsWith('members search ')) return Commands.Trello.MembersSearch(msg, command, args);
+//
+// });
 
 bot.on('message', msg => {
   if (!msg.content.startsWith(GithubPrefix) && !msg.content.startsWith(ServerConf.grab(msg.guild).prefix) && !msg.content.startsWith(`<@!${bot.user.id}> `) && !msg.content.startsWith(`<@${bot.user.id}> `)) return false;

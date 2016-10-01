@@ -27,6 +27,7 @@ let ClientReady = false;
 
 const Commands = {
   Help: require('./commands/Help')(bot),
+  Invite: require('./commands/Invite')(bot),
   Ping: require('./commands/Ping')(bot),
   Stats: require('./commands/Stats')(bot),
   Say: require('./commands/Say')(bot),
@@ -289,6 +290,7 @@ bot.on('message', msg => {
   if (command === 'clean') return Commands.Clean(msg, command, args);
   if (command === 'stats') return Commands.Stats(msg, command, args);
   if (command === 'ping') return Commands.Ping(msg, command, args);
+  if (command === 'invite') return Commands.Invite(msg, command, args);
 
   if (command.startsWith('eval')) {
     Commands.Eval(msg, args.join(' '));

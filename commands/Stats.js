@@ -12,7 +12,6 @@ module.exports = bot => (msg, command, args) => {
   let SeenMessages = BotCache.SeenMessages.length;
   let SentMessages = BotCache.SentMessages.length + 1;
   let CommandsRun = BotCache.CommandsRun.length;
-  let TrelloEvents = BotCache.TrelloEvents.length;
 
   let message = [
     `**Yappy, the Github Monitor** has been up for **${GetUptime(bot)}**`,
@@ -24,7 +23,6 @@ module.exports = bot => (msg, command, args) => {
     `**${SeenMessages}** seen messages in the last hour (**~${(SeenMessages / 60).toFixed(2)}** per minute)`,
     `**${SentMessages}** sent messages in the last hour (**~${(SentMessages / 60).toFixed(2)}** per minute)`,
     `**${CommandsRun}** commands run in the last hour (**~${(CommandsRun / 60).toFixed(2)}** per minute)`,
-    `**${TrelloEvents}** trello events in the last hour (**~${(TrelloEvents / 60).toFixed(2)}** per minute)`,
   ].join('\n');
 
   msg.channel.sendMessage(message).catch(err => Log.error(err));

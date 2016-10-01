@@ -11,7 +11,7 @@ module.exports = (bot) => (msg, command, args) => {
 
   if (conf) {
     return msg.channel.sendMessage('❌ This channel already has events for a github repo!');
-  } else if (!msg.member.permissions.hasPermission('ADMINISTRATOR')) {
+  } else if (msg.member && !msg.member.permissions.hasPermission('ADMINISTRATOR')) {
     return msg.channel.sendMessage('❌ Insuficient permissions! You must have administrator permissions to initialize repository events!');
   }
 

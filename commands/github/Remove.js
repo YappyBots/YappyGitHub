@@ -10,7 +10,7 @@ module.exports = (bot) => (msg, command, args) => {
 
   if (!conf) {
     return msg.channel.sendMessage('❌ This channel doesn\'t have any github events!');
-  } else if (!msg.member.permissions.hasPermission('ADMINISTRATOR')) {
+  } else if (msg.member && !msg.member.permissions.hasPermission('ADMINISTRATOR')) {
     return msg.channel.sendMessage('❌ Insuficient permissions! You must have administrator permissions to delete repository events!');
   }
 

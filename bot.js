@@ -15,6 +15,7 @@ const TrelloEvents = new trello_events({
 });
 const Trello = require('./lib/Cache');
 const Log = require('./lib/Logger').Logger;
+const ServerConf = require('./lib/ServerConf');
 
 const token = process.env.DISCORD_TESTING_BOT_TOKEN || process.env.BOT_TOKEN;
 const channel = '219479229979426816'; // los discordos channel
@@ -32,6 +33,8 @@ const Commands = {
   Clean: require('./commands/Clean')(bot),
   Eval: require('./commands/Eval')(bot),
   Exec: require('./commands/Exec')(bot),
+
+  Conf: require('./commands/Conf')(bot),
 
   Trello: {
     Cards: require('./commands/trello/Cards')(bot),
@@ -253,9 +256,9 @@ bot.on('message', msg => {
 });
 
 bot.on('message', msg => {
-  if (!msg.content.startsWith(GithubPrefix) && !msg.content.startsWith(`<@!${bot.user.id}> `) && !msg.content.startsWith(`<@${bot.user.id}> `)) return false;
+  if (!msg.content.startsWith(GithubPrefix) && !msg.content.startsWith(ServerConf.grab(msg.guild).prefix) && !msg.content.startsWith(`<@!${bot.user.id}> `) && !msg.content.startsWith(`<@${bot.user.id}> `)) return false;
 
-  let content = msg.content.replace(GithubPrefix, '').replace(`<@${bot.user.id}> ` , '').replace(`<@!${bot.user.id}> `, '');
+  let content = msg.content.replace(ServerConf.grab(msg.guild).prefix, '').replace(GithubPrefix, '').replace(`<@${bot.user.id}> ` , '').replace(`<@!${bot.user.id}> `, '');
   let command = content.toLowerCase();
   let args = content.split(' ').slice(1);
 
@@ -273,17 +276,18 @@ bot.on('message', msg => {
   if (command.startsWith('help')) return Commands.Github.Help(msg, command, args);
 
   // Other Commands
+  if (command.startsWith('conf')) return Commands.Conf(msg, command, args);
+  if (command.startsWith('say')) return Commands.Say(msg, command, args);
   if (command === 'clean') return Commands.Clean(msg, command, args);
-  // if (command === 'help') return Commands.Help(msg, command, args);
   if (command === 'stats') return Commands.Stats(msg, command, args);
   if (command === 'ping') return Commands.Ping(msg, command, args);
-  if (command.startsWith('say')) return Commands.Say(msg, command, args);
 
   if (command.startsWith('eval')) {
     Commands.Eval(msg, args.join(' '));
   } else if (command.startsWith('exec')) {
     Commands.Exec(msg, args.join(' '));
   }
+
 })
 
 bot.on('ready', () => {

@@ -1,4 +1,5 @@
 const github = require('../../Github/GithubEvents').github;
+const ServerConf = require('../../lib/ServerConf');
 const Util = require('../../lib/Util');
 const Log = require('../../lib/Logger').Logger;
 const moment = require('moment');
@@ -6,19 +7,24 @@ const moment = require('moment');
 module.exports = bot => (msg, command, args) => {
 
   let release = args[0];
+  let repository = ServerConf.grab(msg.guild).repo;
+  if (!repository) return msg.channel.sendMessage(`Global repository hasn't been configured. Please tell the server owner that they need to do \`G! conf set repo <user/repo>\`.`);
+
+  repository = repository.split('/');
+  let user = repository[0];
+  let repo = repository[1];
 
   github.repos.getReleases({
-    user: 'hydrabolt',
-    repo: 'discord.js',
+    user, repo,
     perPage: 99
   }, (err, res) => {
     if (err) err = JSON.parse(err);
-    if (err && err.message !== "Not Found") throw new Error(`Unable to get release ${release} from Github\n ${err}`, `github`, err);
+    if (err && err.message !== "Not Found") throw new Error(`Unable to get release ${release} from ${repository.join('/')}\n ${err}`, `github`, err);
 
     let releaseObj = Util.Search(res, release)[0];
 
     if (!releaseObj) {
-      return msg.channel.sendMessage(`Couldn't find release \`${release}\``);
+      return msg.channel.sendMessage(`Couldn't find release \`${release}\` in ${repository.join('/')}`);
     }
 
     github.repos.getRelease({
@@ -26,13 +32,13 @@ module.exports = bot => (msg, command, args) => {
       repo: 'discord.js',
       id: releaseObj.id
     }, (err, release) => {
-      if (err && err.message !== "Not Found") throw new Error(`Unable to get release ${release} from Github\n ${err}`, `github`, err);
+      if (err && err.message !== "Not Found") throw new Error(`Unable to get release ${release} from ${repository.join('/')}\n ${err}`, `github`, err);
       if (err && err.message == "Not Found") {
-        return msg.channel.sendMessage(`Unable to get release ${releaseObj.tag}: Release doesn't exist`);
+        return msg.channel.sendMessage(`Unable to get release ${releaseObj.tag} from ${repository.join('/')}: Release doesn't exist`);
       }
 
       let message = [
-        `**RELEASE ${release.name}**`,
+        `**RELEASE ${release.name} IN ${repository.join('/')}**`,
         `<${release.html_url}>`,
         ``,
         '```xl',

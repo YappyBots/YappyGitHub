@@ -1,20 +1,26 @@
 const github = require('../../Github/GithubEvents').github;
+const ServerConf = require('../../lib/ServerConf');
 const Util = require('../../lib/Util');
 const Log = require('../../lib/Logger').Logger;
 
 module.exports = bot => (msg, command, args) => {
 
   let prNumber = parseInt(args[0]);
+  let repository = ServerConf.grab(msg.guild).repo;
+  if (!repository) return msg.channel.sendMessage(`Global repository hasn't been configured. Please tell the server owner that they need to do \`G! conf set repo <user/repo>\`.`);
+
+  repository = repository.split('/');
+  let user = repository[0];
+  let repo = repository[1];
 
   github.pullRequests.get({
-    user: 'hydrabolt',
-    repo: 'discord.js',
+    user, repo,
     number: prNumber
   }, (err, res) => {
     if (err || !res.commits_url) return msg.channel.sendMessage(`G! issue ${prNumber}`);
 
     let message = [
-      `**PULL REQUEST #${prNumber}**`,
+      `**PULL REQUEST #${prNumber} IN ${repository.join('/')}**`,
       `<${res.html_url}>`,
       ``,
       '```xl',

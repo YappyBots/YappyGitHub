@@ -1,19 +1,19 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const trello_events = require('./lib/TrelloEvents');
+// const trello_events = require('./lib/TrelloEvents');
 const BotCache = new require('./lib/BotCache')(bot);
-const TrelloEvents = new trello_events({
-  pollFrequency: 1000 * 60,
-  minId: 0,
-  start: true,
-  trello: {
-    boards: ['YC5ZhyHZ'],
-    // boards: ['3AwqHhQy'],
-    key: '757b8b7388014629fc1e624bde8cc600',
-    token: process.env.TRELLO_TOKEN
-  }
-});
-const Trello = require('./lib/Cache');
+// const TrelloEvents = new trello_events({
+//   pollFrequency: 1000 * 60,
+//   minId: 0,
+//   start: true,
+//   trello: {
+//     boards: ['YC5ZhyHZ'],
+//     // boards: ['3AwqHhQy'],
+//     key: '757b8b7388014629fc1e624bde8cc600',
+//     token: process.env.TRELLO_TOKEN
+//   }
+// });
+// const Trello = require('./lib/Cache');
 const Log = require('./lib/Logger').Logger;
 const ServerConf = require('./lib/ServerConf');
 
@@ -59,181 +59,181 @@ const Commands = {
 };
 
 // ===== TRELLO =====
-
-TrelloEvents.on('trelloError', Log.error);
-
-// Card events
-
-TrelloEvents.on('createCard', e => {
-  if (!ClientReady) return false;
-
-  let card = {
-    name: e.data.card.name,
-    id: e.data.card.id,
-    list: e.data.list,
-    author: e.memberCreator,
-    date: e.date
-  };
-
-  Trello.GetCard(card.id).then(el => {
-    if (el) {
-      card = null;
-      return;
-    }
-    return Trello.AddCard(card.id, {
-      name: card.name,
-      desc: card.desc,
-      idList: card.list.id
-    });
-  }).then(() => {
-    if (!card) return false;
-    return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** created card __${card.name}__ in _${card.list.name}_`);
-  }).catch(Log.error);
-
-});
-
-TrelloEvents.on('deleteCard', e => {
-  if (!ClientReady) return false;
-
-  let card = {
-    name: e.data.card.name,
-    id: e.data.card.id,
-    list: e.data.list,
-    author: e.memberCreator,
-    date: e.date
-  };
-
-  Trello.GetCard(card.id).then(card => {
-    if (!card) return false;
-
-    bot.channels.get(channel).sendMessage(`**${e.memberCreator.fullName}** deleted card __${card.name}__`);
-    return Trello.DeleteCard(card.id);
-  }).catch(Log.error);
-
-});
-
-TrelloEvents.on('commentCard', e => {
-  if (!ClientReady) return false;
-
-  let card = {
-    name: e.data.card.name,
-    id: e.data.card.id,
-    board: e.data.board,
-    comment: e.data.text,
-    author: e.memberCreator,
-    date: e.date
-  };
-
-  return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** commented on __${card.name}__: \n\n \`\`\`xl\n${card.comment}\n\`\`\``);
-
-});
-
-TrelloEvents.on('updateCard', e => {
-  if (!ClientReady) return false;
-
-  if (!e.data.card || !e.data.old) return false;
-
-  let card = {
-    name: e.data.card.name,
-    id: e.data.card.id,
-    board: e.data.board,
-    list: e.data.list,
-    new: e.data.card,
-    old: e.data.old,
-    author: e.memberCreator,
-    date: e.date,
-    data: e.data
-  };
-
-  Trello.UpdateCard(card.id, card.new).then(() => {
-    if (e.data.old.desc && e.data.old.desc !== e.data.new.desc) {
-      bot.channels.get(channel).sendMessage(`**${card.author.fullName}** changed the description of __${card.name}__ to \n\n \`\`\`xl\n${card.new.desc}\n\`\`\``);
-    } else if (e.data.old && e.data.new && e.data.old.name !== e.data.new.name) {
-      bot.channels.get(channel).sendMessage(`**${card.author.fullName}** renamed card _${card.old.name}_ to __${card.new.name}__`);
-    } else if (e.data.listBefore && e.data.listAfter) {
-      return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** moved card __${card.name}__ to \`${card.data.listAfter.name}\` (from _${card.data.listBefore.name}_)`);
-    }
-  }).catch(Log.error);
-
-});
-
-// List events
-
-TrelloEvents.on('createList', e => {
-  if (!ClientReady) return false;
-
-  let list = {
-    name: e.data.list.name,
-    board: e.data.board,
-    id: e.data.list.id,
-    author: e.memberCreator,
-    date: e.date
-  };
-
-  bot.channels.get(channel).sendMessage(`**${list.author.fullName}** created list __${list.name}__ in _${list.board.name}_`).catch(Log.error);
-});
-
-TrelloEvents.on('updateList', e => {
-  if (!ClientReady) return false;
-  if (!e.data.list || !e.data.old) return false;
-
-  let list = {
-    name: e.data.list.name,
-    id: e.data.list.id,
-    board: e.data.board,
-    new: e.data.list,
-    old: e.data.old,
-    author: e.memberCreator,
-    date: e.date
-  };
-
-  if (e.data.old.name && e.data.old.name !== e.data.list.name) {
-    bot.channels.get(channel).sendMessage(`**${list.author.fullName}** renamed list _${list.old.name}_ to __${list.new.name}__`).catch(Log.error);
-  }
-});
-
-// Board  events
-TrelloEvents.on('addMemberToBoard', e => {
-  if (!ClientReady) return false;
-
-  let member = {
-    name: e.member.fullName,
-    username: e.member.username,
-    id: e.member.id,
-    board: e.data.board,
-    invitedByLink: e.data.method == 'invitationSecret',
-    date: e.date
-  };
-
-  let message;
-
-  if (member.invitedByLink) {
-    message = `**${member.name}** joined _${member.board.name}_ with an invitation link.`;
-  } else {
-    message = `**${member.name}** was invited to _${member.board.name}_`;
-  }
-
-  bot.channels.get(channel).sendMessage(message).catch(Log.error);
-});
-
-TrelloEvents.on('updateBoard', e => {
-  if (!ClientReady) return false;
-
-  if (e.data.board && e.data.board.prefs && e.data.board.prefs.background) {
-
-    let board = {
-      id: e.data.board.id,
-      name: e.data.board.name,
-      newBackground: e.data.board.prefs.background,
-      oldBackground: e.data.old.prefs.background,
-      date: e.date,
-      author: e.memberCreator
-    };
-
-    bot.channels.get(channel).sendMessage(`**${board.author.fullName}** changed the background to \`${board.newBackground}\` (from _${board.oldBackground}_)`).catch(Log.error);
-  }
-
-});
+//
+// TrelloEvents.on('trelloError', Log.error);
+//
+// // Card events
+//
+// TrelloEvents.on('createCard', e => {
+//   if (!ClientReady) return false;
+//
+//   let card = {
+//     name: e.data.card.name,
+//     id: e.data.card.id,
+//     list: e.data.list,
+//     author: e.memberCreator,
+//     date: e.date
+//   };
+//
+//   Trello.GetCard(card.id).then(el => {
+//     if (el) {
+//       card = null;
+//       return;
+//     }
+//     return Trello.AddCard(card.id, {
+//       name: card.name,
+//       desc: card.desc,
+//       idList: card.list.id
+//     });
+//   }).then(() => {
+//     if (!card) return false;
+//     return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** created card __${card.name}__ in _${card.list.name}_`);
+//   }).catch(Log.error);
+//
+// });
+//
+// TrelloEvents.on('deleteCard', e => {
+//   if (!ClientReady) return false;
+//
+//   let card = {
+//     name: e.data.card.name,
+//     id: e.data.card.id,
+//     list: e.data.list,
+//     author: e.memberCreator,
+//     date: e.date
+//   };
+//
+//   Trello.GetCard(card.id).then(card => {
+//     if (!card) return false;
+//
+//     bot.channels.get(channel).sendMessage(`**${e.memberCreator.fullName}** deleted card __${card.name}__`);
+//     return Trello.DeleteCard(card.id);
+//   }).catch(Log.error);
+//
+// });
+//
+// TrelloEvents.on('commentCard', e => {
+//   if (!ClientReady) return false;
+//
+//   let card = {
+//     name: e.data.card.name,
+//     id: e.data.card.id,
+//     board: e.data.board,
+//     comment: e.data.text,
+//     author: e.memberCreator,
+//     date: e.date
+//   };
+//
+//   return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** commented on __${card.name}__: \n\n \`\`\`xl\n${card.comment}\n\`\`\``);
+//
+// });
+//
+// TrelloEvents.on('updateCard', e => {
+//   if (!ClientReady) return false;
+//
+//   if (!e.data.card || !e.data.old) return false;
+//
+//   let card = {
+//     name: e.data.card.name,
+//     id: e.data.card.id,
+//     board: e.data.board,
+//     list: e.data.list,
+//     new: e.data.card,
+//     old: e.data.old,
+//     author: e.memberCreator,
+//     date: e.date,
+//     data: e.data
+//   };
+//
+//   Trello.UpdateCard(card.id, card.new).then(() => {
+//     if (e.data.old.desc && e.data.old.desc !== e.data.new.desc) {
+//       bot.channels.get(channel).sendMessage(`**${card.author.fullName}** changed the description of __${card.name}__ to \n\n \`\`\`xl\n${card.new.desc}\n\`\`\``);
+//     } else if (e.data.old && e.data.new && e.data.old.name !== e.data.new.name) {
+//       bot.channels.get(channel).sendMessage(`**${card.author.fullName}** renamed card _${card.old.name}_ to __${card.new.name}__`);
+//     } else if (e.data.listBefore && e.data.listAfter) {
+//       return bot.channels.get(channel).sendMessage(`**${card.author.fullName}** moved card __${card.name}__ to \`${card.data.listAfter.name}\` (from _${card.data.listBefore.name}_)`);
+//     }
+//   }).catch(Log.error);
+//
+// });
+//
+// // List events
+//
+// TrelloEvents.on('createList', e => {
+//   if (!ClientReady) return false;
+//
+//   let list = {
+//     name: e.data.list.name,
+//     board: e.data.board,
+//     id: e.data.list.id,
+//     author: e.memberCreator,
+//     date: e.date
+//   };
+//
+//   bot.channels.get(channel).sendMessage(`**${list.author.fullName}** created list __${list.name}__ in _${list.board.name}_`).catch(Log.error);
+// });
+//
+// TrelloEvents.on('updateList', e => {
+//   if (!ClientReady) return false;
+//   if (!e.data.list || !e.data.old) return false;
+//
+//   let list = {
+//     name: e.data.list.name,
+//     id: e.data.list.id,
+//     board: e.data.board,
+//     new: e.data.list,
+//     old: e.data.old,
+//     author: e.memberCreator,
+//     date: e.date
+//   };
+//
+//   if (e.data.old.name && e.data.old.name !== e.data.list.name) {
+//     bot.channels.get(channel).sendMessage(`**${list.author.fullName}** renamed list _${list.old.name}_ to __${list.new.name}__`).catch(Log.error);
+//   }
+// });
+//
+// // Board  events
+// TrelloEvents.on('addMemberToBoard', e => {
+//   if (!ClientReady) return false;
+//
+//   let member = {
+//     name: e.member.fullName,
+//     username: e.member.username,
+//     id: e.member.id,
+//     board: e.data.board,
+//     invitedByLink: e.data.method == 'invitationSecret',
+//     date: e.date
+//   };
+//
+//   let message;
+//
+//   if (member.invitedByLink) {
+//     message = `**${member.name}** joined _${member.board.name}_ with an invitation link.`;
+//   } else {
+//     message = `**${member.name}** was invited to _${member.board.name}_`;
+//   }
+//
+//   bot.channels.get(channel).sendMessage(message).catch(Log.error);
+// });
+//
+// TrelloEvents.on('updateBoard', e => {
+//   if (!ClientReady) return false;
+//
+//   if (e.data.board && e.data.board.prefs && e.data.board.prefs.background) {
+//
+//     let board = {
+//       id: e.data.board.id,
+//       name: e.data.board.name,
+//       newBackground: e.data.board.prefs.background,
+//       oldBackground: e.data.old.prefs.background,
+//       date: e.date,
+//       author: e.memberCreator
+//     };
+//
+//     bot.channels.get(channel).sendMessage(`**${board.author.fullName}** changed the background to \`${board.newBackground}\` (from _${board.oldBackground}_)`).catch(Log.error);
+//   }
+//
+// });
 
 // ===== DISCORD =====
 
@@ -258,7 +258,15 @@ bot.on('message', msg => {
 bot.on('message', msg => {
   if (!msg.content.startsWith(GithubPrefix) && !msg.content.startsWith(ServerConf.grab(msg.guild).prefix) && !msg.content.startsWith(`<@!${bot.user.id}> `) && !msg.content.startsWith(`<@${bot.user.id}> `)) return false;
 
-  let content = msg.content.replace(ServerConf.grab(msg.guild).prefix, '').replace(GithubPrefix, '').replace(`<@${bot.user.id}> ` , '').replace(`<@!${bot.user.id}> `, '');
+  let content = msg.content.replace(`<@${bot.user.id}> ` , '').replace(`<@!${bot.user.id}> `, '');
+  let CustomPrefix = ServerConf.grab(msg.guild).prefix;
+
+  if (content.startsWith(GithubPrefix)) {
+    content = content.replace(GithubPrefix, '')
+  } else if (content.startsWith(CustomPrefix)) {
+    content = content.replace(CustomPrefix, '');
+  }
+
   let command = content.toLowerCase();
   let args = content.split(' ').slice(1);
 

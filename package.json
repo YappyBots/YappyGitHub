@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/datitisev/DiscordBot-TrelloDiscordJSRewrite.git"
+    "url": "git+https://github.com/datitisev/DiscordBot-Yappy.git"
   },
   "author": "David Sevilla Martín <dsevilla192@icloud.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/datitisev/DiscordBot-TrelloDiscordJSRewrite/issues"
+    "url": "https://github.com/datitisev/DiscordBot-Yappy/issues"
   },
-  "homepage": "https://github.com/datitisev/DiscordBot-TrelloDiscordJSRewrite#readme",
+  "homepage": "https://github.com/datitisev/DiscordBot-Yappy#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
     "chalk": "^1.1.3",

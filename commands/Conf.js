@@ -1,6 +1,7 @@
 const ServerConf = require('../lib/ServerConf');
 const Log = require('../lib/Logger').Logger;
 const Util = require('../lib/Util');
+const Owner = '175008284263186437';
 
 module.exports = (bot) => (msg, command, args) => {
   if (!msg.guild || !msg.member) {
@@ -8,6 +9,9 @@ module.exports = (bot) => (msg, command, args) => {
       'Configuration commands must be used inside a server you share with the bot by a member.',
       'No webhooks allowed.'
     ]);
+  }
+  if (msg.author.id !== Owner && !msg.member.permissions.hasPermission('ADMINISTRATOR')) {
+    return msg.channel.sendMessage('❌ You must have the perm \`ADMINISTRATOR\` to change the bot\'s config');
   }
 
   let action = args[0] || 'view';

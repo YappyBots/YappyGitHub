@@ -355,10 +355,9 @@ process.on('uncaughtException', err => {
   if (ClientReady) bot.users.get('175008284263186437').sendMessage(message);
 });
 
-bot.login(token).then(token => {
-  bot.token = token.replace('Bot ', '');
-  Log.info('=> Logging in...');
+Log.info('=> Logging in...');
 
+bot.login(token).then(token => {
   // Detect if login failed or didn't occur after 7.5s
   setTimeout(() => {
     if (ClientReady) return false;

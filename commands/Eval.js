@@ -1,5 +1,6 @@
 const EvalCode = require('../lib/EvalCode');
 const Log = require('../lib/Logger').Logger;
+const Owner = '175008284263186437';
 
 const clean = text => {
   if (typeof(text) === "string") {
@@ -12,6 +13,8 @@ const clean = text => {
 
 module.exports = bot => {
   return (msg, command) => {
+    if (msg.author.id !== Owner) return false;
+
     EvalCode(bot, msg, command).then(data => {
       var {
         evaled,

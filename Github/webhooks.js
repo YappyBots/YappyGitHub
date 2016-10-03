@@ -55,6 +55,9 @@ module.exports = (req, res, next) => {
     case 'delete': {
       GithubEvents.Branch(event, data);
     }
+    case 'ping': {
+      GithubEvents.Ping(data);
+    }
   }
 
   res.json({ success: true });

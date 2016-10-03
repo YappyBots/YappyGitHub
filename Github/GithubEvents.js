@@ -34,6 +34,7 @@ class GithubEvents {
     this.Watch = this.Watch.bind(this);
     this.Release = this.Release.bind(this);
     this.Branch = this.Branch.bind(this);
+    this.Ping = this.Ping.bind(this);
   }
 
   on(e, cb) {
@@ -110,6 +111,16 @@ class GithubEvents {
       repo: payload.repository.full_name,
       str: Branch(action, payload)
     })
+  }
+  Ping(data) {
+    const events = this._events;
+    const repo = data.repository.full_name;
+    const hooks = data.hook.events;
+    const str = `🏓 Ping, pong! Webhook is set up! Listening to the following events: ${hooks.map(e => `\`${e}\``).join(', ')}`;
+
+    events.emit('ping', {
+      str, repo
+    });
   }
 
   events() {

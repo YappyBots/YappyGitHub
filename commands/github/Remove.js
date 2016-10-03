@@ -8,8 +8,6 @@ module.exports = (bot) => (msg, command, args) => {
 
   msg.channel.sendMessage('⚙ Working...');
 
-  Log.debug(conf);
-
   if (!conf) {
     return msg.channel.sendMessage('❌ This channel doesn\'t have any github events!');
   } else if (msg.member && !msg.member.permissions.hasPermission('ADMINISTRATOR')) {

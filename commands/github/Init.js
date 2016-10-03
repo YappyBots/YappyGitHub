@@ -5,7 +5,7 @@ module.exports = (bot) => (msg, command, args) => {
 
   let channelid = msg.channel.id;
   let repo = args[0];
-  let conf = ChannelConf.find('channel_id', channelid)
+  let conf = ChannelConf.find('channel_id', channelid);
 
   msg.channel.sendMessage('⚙ Working...');
 

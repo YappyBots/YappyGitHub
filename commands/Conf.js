@@ -34,7 +34,7 @@ module.exports = (bot) => (msg, command, args) => {
     let key = args[1];
     let value = args.slice(2, 3).join(' ');
 
-    ServerConf.change(msg.guild, key, value).then(success => {
+    conf.set(key, value).then(success => {
       msg.channel.sendMessage(success);
     }).catch(error => {
       msg.channel.sendMessage(error);

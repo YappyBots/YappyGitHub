@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Util.js - Documentation</title>
+    <title>Logger.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,7 +28,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Util.js</h1>
+    <h1 class="page-title">Logger.js</h1>
     
 
     
@@ -38,99 +38,143 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** Contains general utility methods */
-class Util {
+            <pre class="prettyprint source linenums"><code>'use strict';
 
-  /**
-  * Paginate an array of items
-  * @param {Object[]} items - An array of items to paginate
-  * @param {number} [page=1] - The page to select
-  * @param {number} [pageLength=10] - The number of items per page
-  * @return {Object} The resulting paginated object
-  * @property {Object[]} items - The chunk of items for the current page
-  * @property {number} page - The current page
-  * @property {number} maxPage - The maximum page
-  * @property {number} pageLength - The numer of items per page
-  * @property {string} pageText - The current page string ("page x of y")
-  * @see {@link BotUtil#paginate}
-  */
-  Paginate(items, page = 1, pageLength = 10) {
-    const maxPage = Math.ceil(items.length / pageLength);
-    if(page &lt; 1) page = 1;
-    if(page > maxPage) page = maxPage;
-    let startIndex = (page - 1) * pageLength;
-    return {
-      items: items.length > pageLength ? items.slice(startIndex, startIndex + pageLength) : items,
-      page: page,
-      maxPage: maxPage,
-      pageLength: pageLength,
-      pageText: `page ${page} of ${maxPage}`
-    };
+const chalk = require('chalk');
+const EventEmitter = require("events").EventEmitter;
+const moment = require('moment');
+const util = require('util');
+const LogDNA = require('logdna');
+const options = {
+  app: 'DiscordJS Rewrite Trello'
+}
+const logger = process.env.LOGDNA_KEY ? LogDNA.createLogger(process.env.LOGDNA_KEY, options) : null;
+const icons = {
+  error: '🔥  ',
+  debug: '⚙  ',
+  info: '🆗   ',
+  message: '💁'
+};
+let socket;
+let logs = [];
+
+/**
+ * A Logger to replace `console.log`.
+ * It logs to the console, web, AND LogDNA
+ */
+class Logger {
+
+  constructor() {
+    this.emitter = new EventEmitter();
+
+    this.debug = this.debug.bind(this);
+    this.info = this.info.bind(this);
+    this.error = this.error.bind(this);
+    this.message = this.message.bind(this);
+    this.github = this.github.bind(this);
   }
 
   /**
-  * Search for matches in a list of items
-  * @param {Object[]} items - An array of items to search in
-  * @param {string} searchString - The string to search for
-  * @param {SearchOptions} options - An options object
-  * @return {Object[]} The matched items
-  * @see {@link BotUtil#search}
-  */
-  Search(items, searchString, { property = 'name', searchInexact = true, searchExact = true, useStartsWith = false } = {}) {
-    if(!items || items.length === 0) return [];
-    if(!searchString) return items;
-
-    const lowercaseSearch = searchString.toLowerCase();
-    let matchedItems;
-
-    // Find all items that start with or include the search string
-    if(searchInexact) {
-      if (useStartsWith &amp;&amp; searchString.length === 1) {
-        matchedItems = items.filter(element => String(property ? element[property] : element)
-        .normalize('NFKD')
-        .toLowerCase()
-        .startsWith(lowercaseSearch));
-      } else {
-        matchedItems = items.filter(element => String(property ? element[property] : element)
-        .normalize('NFKD')
-        .toLowerCase()
-        .includes(lowercaseSearch));
-      }
-    } else {
-      matchedItems = items;
-    }
-
-    // See if any are an exact match
-    if(searchExact &amp;&amp; matchedItems.length > 1) {
-      const exactItems = matchedItems.filter(element => String(property ? element[property] : element).normalize('NFKD').toLowerCase() === lowercaseSearch);
-      if(exactItems.length > 0) return exactItems;
-    }
-
-    return matchedItems;
-  }
-
-  /**
-   * Add padding to the right of a string
-   * @param {String} string - The string to pad
-   * @param {Integer} length - Length of final string
-   * @return {String} The string with padding on the right
+   * Debug it like you would `console.log` it ;)
+   * @param {Mixed} ...args - all the arguments
    */
-  Pad(string, length) {
-    return string + ' '.repeat(length - string.length);
+  debug(...args) {
+    this.log('debug', ...args);
   }
 
   /**
-	 * Escapes Markdown in the string
-	 * @param {string} text - The text to escape
-	 * @returns {string} The escaped text
-	 */
-	EscapeMarkdown(text) {
-		return text.replace(/\\(\*|_|`|~|\\)/g, '$1').replace(/(\*|_|`|~|\\)/g, '\\$1');
-	}
+   * Log something about github, self-explanatory (right?)
+   * @param {Mixed} ...args - all the arguments
+   */
+  github(...args) {
+    this.log('github', ...args);
+  }
 
+  /**
+   * Give me some info, pls
+   * @param {Mixed} ...args - all the arguments
+   */
+  info(...args) {
+    this.log('info', ...args);
+  }
+
+  /**
+   * You gotta error it to me ;((
+   * @param {Mixed} ...args - all the arguments
+   */
+  error(msg) {
+    if (typeof msg == 'object' &amp;&amp; msg.stack) {
+      msg.stack = msg.stack.replace(__dirname, './').replace(new RegExp(TOKEN, 'g'), 'TOKEN_WAS_HERE');
+    }
+    this.log('error', msg);
+  }
+
+  /**
+   * Log a message!
+   * @param {Mixed} ...args - all the arguments
+   */
+  message(msg) {
+    this.log('message', msg);
+  }
+
+  /**
+   *
+   * @param {String} event - what kind of log
+   * @param {cb} cb - callback
+   * @private
+   */
+  on(event, cb) {
+    this.emitter.on(event, cb);
+  }
+
+  // inside
+
+  /**
+   * Log, with the level and the message
+   * @param {String} level - log level, i.e: error
+   * @param {Mixed} message - actual message, ya know?
+   * @private
+   */
+  log(level, msg) {
+    const TOKEN = process.env.DISCORD_TESTING_BOT_TOKEN || process.env.TOKEN;
+    let args = [...arguments].slice(1);
+    let message = util.format(...args).replace(new RegExp(TOKEN, 'g'), 'TOKEN_WAS_HERE');
+
+    let log = `[${moment().format("MM/D/YY HH:mm:ss")}] ${icons[level]} ${level}: ${util.format(...args)}`;
+
+    if (logger) logger.log(util.format(...args), level);
+
+    console.log(log);
+
+    this.emit(log);
+  }
+
+  /**
+   * Get all the logs from the latest run
+   * @return {Array} logs - Logs, hhm..
+   */
+  get logs() {
+    return logs;
+  }
+
+  /**
+   * Emit to socket.io and push to the logs
+   * @private
+   */
+  emit(log) {
+    logs.push(log.replace(/(\[)\w+(m)/g, ''));
+    if (!socket) return false;
+    socket.emit('log', log.replace(/(\[)\w+(m)/g, ''));
+  }
 }
 
-module.exports = new Util();
+module.exports = {
+  Logger: new Logger(),
+  Socket: io => {
+    socket = exports.Socket = module.exports.Socket = io;
+    return socket;
+  }
+};
 </code></pre>
         </article>
     </section>

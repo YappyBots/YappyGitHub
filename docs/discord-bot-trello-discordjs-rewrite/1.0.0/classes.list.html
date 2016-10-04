@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Yappy, the Github Monitor Source: ServerConf.js</title>
+	<title>Yappy, the Github Monitor Classes</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -60,217 +60,112 @@
 <div class="row">
 
 	
-	<div class="col-md-12">
+	<div class="col-md-8">
 	
 		<div id="main">
 			
 
-		<h1 class="page-title">Source: ServerConf.js</h1>
-    
+	<h1 class="page-title">Classes</h1>
 <section>
-    <article>
-        <pre
-            class="sunlight-highlight-javascript linenums">const db = require('sqlite');
-const path = require('path');
-const dbPath = path.resolve(__dirname, '../db/serverconf.sqlite');
-const Collection = require('./Collection');
-const Log = require('./Logger').Logger;
 
-const default_conf = {
-  server_id: null,
-  server_name: null,
-  prefix: 'G! ',
-  repo: null,
-  "default": true
-}
-const conf_keys = ['prefix', 'repo'];;
+<header>
+    
+        <h2>
+        
+        </h2>
+        
+    
+</header>
 
-class ServerConfItem {
 
-  constructor(client, config) {
-    this._client = client;
+<article>
+    <div class="container-overview">
+    
+        
 
-    for (let key in config) {
-      if (config.hasOwnProperty(key)) {
-        this[key] = config[key];
-      }
-    }
-  }
+        
+<dl class="details">
+    
 
-  delete() {
-    return this._client.destroy(this.server_id);
-  }
+	
 
-  set(key, value) {
-    return this._client.change(this.server_id, key, value);
-  }
+	
 
-}
+	
 
-/**
-* A channel configuration class to add, set, delete repo events config from channels
-* @extends Collection
-*/
-class ServerConf extends Collection {
+    
 
-  /**
-  * Inits the guilds configuration by getting database rows, and initializes guilds that don't have config yet
-  * @return void
-  */
-  init(bot) {
-    let conf = this;
+    
 
-    db.open(dbPath).then(() => {
-      return db.all(`SELECT * FROM server_configs`);
-    }).then(rows => {
-      for (const row of rows) conf.set(row.server_id, new ServerConfItem(conf, row));
-      for (const guild of bot.guilds) {
-        if (!conf.has(guild[1].id)) {
-          conf.add(guild[1]).then(config => {
-            conf.set(guild[1].id, new ServerConfItem(conf, config));
-          }).catch(Log.error);
-        }
-      }
-    }).catch(err => Log.error(err));
+    
 
-    this._bot = bot;
+    
 
-    bot.on('guildDelete', (guild) => {
-      if (!conf.has(guild.id)) return false;
-      conf.destroy(guild.id);
-    });
+	
 
-    bot.on('guildCreate', (guild) => {
-      if (conf.has(guild.id)) return false;
-      conf.add(guild);
-    });
-  }
+	
 
-  /**
-  * Create guild config
-  * @param {String} guild The guild's object
-  * @return {Promise&lt;Object>}
-  */
-  add(guild) {
-    let conf = this;
+	
 
-    Log.debug(`Adding ${guild.name} to server conf..`);
+	
 
-    return new Promise((resolve, reject) => {
-      if (conf.has(guild.id)) return reject('Server is already in the configuration');
-      db.open(dbPath).then(() => {
-        db.run(`INSERT INTO "server_configs" (server_id, server_name, prefix, repo) VALUES (?, ?, ?, ?)`, [guild.id, guild.name, default_conf.prefix, default_conf.repo]).then(() => {
-          resolve({
-            server_id: guild.id,
-            server_name: guild.name,
-            prefix: default_conf.prefix,
-            repo: default_conf.repo
-          });
-        }).catch(reject);
-      }).catch(reject);
-    });
-  }
+	
 
-  /**
-  * Get the server config for a spefic server
-  * @param  {String} server_id The channel's id
-  * @return {ServerConfig}     The server's config
-  */
-  grab(guild) {
-    if (!guild) return false;
-    let config = this;
 
-    if(config.has(guild.id)) {
-      let server_conf = config.get(guild.id);
-      const conf = {};
-      if (server_conf) {
-        for (let key in server_conf) {
-          if (key !== '_client') {
-            if (server_conf[key]) {
-              conf[key] = server_conf[key];
-            } else {
-              conf[key] = default_conf[key];
-            }
-          }
-        }
-        conf["default"] = false;
-      }
-      return new ServerConfItem(config, conf);
-    } else return new ServerConfItem(config, default_conf);
-  }
 
-  change(guild, key, value) {
-    let conf = this;
+	
 
-    let args = arguments;
+	
 
-    return new Promise((resolve, reject) => {
+	
 
-      // fml
-      key = key &amp;&amp; key.replace ? key.replace(/[';]/g, '') : key;
-      value = value &amp;&amp; value.replace ? value.replace(/[';]/g, '') : value;
+	
+</dl>
 
-      if (!key || (!value &amp;&amp; key !== 'repo')) return reject(`❌ Value or key hasn't been provided. Key: \`${key}\`. Value: \`${value}\``);
-      if (!value) value = null;
 
-      guild = typeof guild == 'object' ? guild : conf._bot.guilds.get(guild);
-      let server_id = guild.id;
+        
+    
+    </div>
 
-      Log.debug(server_id);
+    
 
-      if (!conf.has(server_id)) {
-        return reject(`❌ The server **${guild.name}** was not found while trying to set config \`${key}\` to \`${value}\``);
-      }
+    
 
-      let thisconf = conf.get(guild.id);
+    
+        <h3 class="subsection-title">Classes</h3>
 
-      if (['server_id', 'server_name'].includes(key)) return reject(`❌ The key \`${key}\` is read-only.`);
-      if (!conf_keys.includes(key)) return reject(`❌ The key \`${key}\` doesn't exist.`);
+        <dl>
+            <dt><a href="ChannelConf.html">ChannelConf</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Collection.html">Collection</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Logger.html">Logger</a></dt>
+            <dd></dd>
+        
+            <dt><a href="ServerConf.html">ServerConf</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Util.html">Util</a></dt>
+            <dd></dd>
+        </dl>
+    
 
-      thisconf[key] = value;
-      conf.set(server_id, thisconf);
+    
 
-      if (isNaN(value)) value = `'${value}'`;
-      let query = `UPDATE "server_configs" SET ${key} = ${value} WHERE server_id = '${server_id}'`;
+    
 
-      db.open(dbPath).then(() => {
-        return db.run(query);
-      }).then(() => {
-        resolve(`✅ Successfully set config key \`${key}\` to \`${value}\``)
-      }).catch((e) => {
-        Log.error(e);
-        reject(`❌ Unable to update database key.`);
-      });
+    
 
-    });
-  }
+    
 
-  /**
-  * Delete a spefic server's repo configuration
-  * @param  {String} server_id      The channel id for which to delete the info
-  * @return {Promise&lt;Collection>}    Returns a promise resolving all the channel conf
-  */
-  destroy(server_id) {
-    let conf = this;
+    
 
-    return new Promise((resolve, reject) => {
-      if (!conf.has(server_id)) return reject('Server doesn\'t have any config to delete');
-      db.open(dbPath).then(() => {
-        db.run(`DELETE FROM server_configs WHERE server_id = ${server_id}`).then(() => {
-          conf.delete(server_id);
-          resolve(conf);
-        }).catch(reject);
-      }).catch(reject);
-    });
-  }
+    
+</article>
 
-}
-
-module.exports = new ServerConf();
-</pre>
-    </article>
 </section>
-
 
 
 
@@ -280,6 +175,10 @@ module.exports = new ServerConf();
 
 	<div class="clearfix"></div>
 
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
 	
 
 </div>

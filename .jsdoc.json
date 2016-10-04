@@ -21,6 +21,21 @@
     "encoding": "utf8",
     "private": true,
     "recurse": true,
-    "template": "./node_modules/minami"
-  }
+    "template": "./node_modules/ink-docstrap/template"
+  },
+  "templates": {
+    "systemName"            : "Yappy, the Github Monitor",
+    "copyright"             :  "© 2016 All Rights Reserved",
+    "includeDate"           : "true",
+    "navType"               : "inline",
+    "theme"                 : "lumen",
+    "linenums"              : true,
+    "collapseSymbols"       : true,
+    "inverseNav"            : false,
+    "outputSourceFiles"     : true,
+    "outputSourcePath"      : true,
+    "syntaxTheme"           : "default",
+    "sort"                  : "longname, version, string",
+    "search"                : true
+}
 }

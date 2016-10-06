@@ -2,11 +2,13 @@ const ChannelConf = require('../../lib/ChannelConf');
 const Log = require('../../lib/Logger').Logger;
 const Github = require('../../Github/GithubEvents').github;
 const GithubUrlParser = require('../../lib/Util/GithubUrlParser');
+const GithubCache = require('../../lib/Util/GithubCache');
 
 module.exports = (bot) => (msg, command, args) => {
 
   let channelid = msg.channel.id;
   let repo = args[0];
+  let isPrivate = args[1] && (args[1].toLowerCase() == 'private');
   let conf = ChannelConf.find('channel_id', channelid);
 
   msg.channel.sendMessage('⚙ Working...');
@@ -24,6 +26,21 @@ module.exports = (bot) => (msg, command, args) => {
   let repoName = repository.name;
   let repoUser = repository.owner;
 
+  if (isPrivate || GithubCache.exists(repository.repo)) {
+    GithubCache.add(repository.repo);
+
+    ChannelConf.add(channelid, repo).then(() => {
+      msg.channel.sendMessage([
+        `✅ Successfully initialized repository events in this channel for the private repo **${repository.repo}**.`,
+        `The repo must a webhook pointing to <http://discordjsrewritetrello-datitisev.rhcloud.com/> with every event except for \`watch\` and \`fork\`, they are buggy for some reason :/`
+      ]);
+    }).catch(err => {
+      Log.error(err);
+      msg.channel.sendMessage(`❌ An error occurred while trying to initialize repository events for private repo **${repo}** in this channel.\n\`${err}\``);
+    });
+    return false;
+  }
+
   Github.repos.get({
     user: repoUser,
     repo: repoName
@@ -35,6 +52,8 @@ module.exports = (bot) => (msg, command, args) => {
     if (errorMessage && errorMessage == "Not Found") {
       return msg.channel.sendMessage(`❌ Unable to initialize! The repository \`${repository.repo}\` doesn't exist!`);
     }
+
+    GithubCache.add(repository.repo);
 
     ChannelConf.add(channelid, repo).then(() => {
       msg.channel.sendMessage([

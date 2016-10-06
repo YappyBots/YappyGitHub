@@ -20,7 +20,7 @@ const HelpMessage = [
   '  • `conf [view]` - views the server\'s config',
   '  • `conf get [key]` - gets a specific config key in the server\'s config',
   '  • `conf set <key> [value]` - sets the key to the value, `repo`\'s value may be none to disable',
-  '  • `init <repo>` - initialize repo events on channel',
+  '  • `init <repo> [private]` - initialize repo events on channel, insert "private" as 2nd parameter if repo is private',
   '  • `remove` - remove repo events on channel',
   '',
   'Repo must have a webhook pointing to <http://discordjsrewritetrello-datitisev.rhcloud.com/> with all events desired but `watch` and `fork`, they are buggy for some reason.'

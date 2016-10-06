@@ -1,6 +1,7 @@
 const { EventEmitter } = require('events');
 const Log = require('../lib/Logger').Logger;
 const GithubApi = require('github');
+const GithubCache = require('../lib/Util/GithubCache');
 
 const Issues = require('./Issues');
 const IssueComment = require('./IssueComment');
@@ -117,6 +118,8 @@ class GithubEvents {
     const repo = data.repository.full_name;
     const hooks = data.hook.events;
     const str = `🏓 Ping, pong! Webhook is set up! Listening to the following events: ${hooks.map(e => `\`${e}\``).join(', ')}`;
+
+    GithubCache.add(repo);
 
     events.emit('ping', {
       str, repo

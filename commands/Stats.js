@@ -9,9 +9,9 @@ const GetUptime = bot => {
 };
 
 module.exports = bot => (msg, command, args) => {
-  let SeenMessages = BotCache.SeenMessages.length;
-  let SentMessages = BotCache.SentMessages.length + 1;
-  let CommandsRun = BotCache.CommandsRun.length;
+  let SeenMessages = BotCache.SeenMessages.size;
+  let SentMessages = BotCache.SentMessages.size + 1;
+  let CommandsRun = BotCache.CommandsRun.size;
 
   let message = [
     `**Yappy, the Github Monitor** has been up for **${GetUptime(bot)}**`,

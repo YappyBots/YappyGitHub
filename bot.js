@@ -24,40 +24,42 @@ let Prefix = 'T! ';
 let GithubPrefix = 'G! ';
 let ClientReady = false;
 
+const PingCommand = require('./commands/Ping');
 
-const Commands = {
-  Help: require('./commands/Help')(bot),
-  Invite: require('./commands/Invite')(bot),
-  Ping: require('./commands/Ping')(bot),
-  Stats: require('./commands/Stats')(bot),
-  Say: require('./commands/Say')(bot),
-  Clean: require('./commands/Clean')(bot),
-  Eval: require('./commands/Eval')(bot),
-  Exec: require('./commands/Exec')(bot),
 
-  Conf: require('./commands/Conf')(bot),
-
-  // Trello: {
-  //   Cards: require('./commands/trello/Cards')(bot),
-  //   CardsSearch: require('./commands/trello/CardsSearch')(bot),
-  //   Members: require('./commands/trello/Members')(bot),
-  //   MembersSearch: require('./commands/trello/MembersSearch')(bot)
-  // },
-
-  Github: {
-    LatestEvents: require('./commands/github/Events')(bot),
-    IssuesSearch: require('./commands/github/IssuesSearch')(bot),
-    IssueNumber: require('./commands/github/IssueNumber')(bot),
-    PullRequestsSearch: require('./commands/github/PullRequestsSearch')(bot),
-    PullRequestNumber: require('./commands/github/PullRequestNumber')(bot),
-    ReleaseNumber: require('./commands/github/ReleaseNumber')(bot),
-    Init: require('./commands/github/Init')(bot),
-    Remove: require('./commands/github/Remove')(bot),
-
-    Help: require('./commands/github/Help')(bot),
-    Announce: require('./commands/github/Announce')(bot),
-  }
-};
+// const Commands = {
+//   Help: require('./commands/Help')(bot),
+//   Invite: require('./commands/Invite')(bot),
+//   Ping: new PingCommand(bot),
+//   Stats: require('./commands/Stats')(bot),
+//   Say: require('./commands/Say')(bot),
+//   Clean: require('./commands/Clean')(bot),
+//   Eval: require('./commands/Eval')(bot),
+//   Exec: require('./commands/Exec')(bot),
+//
+//   Conf: require('./commands/Conf')(bot),
+//
+//   // Trello: {
+//   //   Cards: require('./commands/trello/Cards')(bot),
+//   //   CardsSearch: require('./commands/trello/CardsSearch')(bot),
+//   //   Members: require('./commands/trello/Members')(bot),
+//   //   MembersSearch: require('./commands/trello/MembersSearch')(bot)
+//   // },
+//
+//   Github: {
+//     LatestEvents: require('./commands/github/Events')(bot),
+//     IssuesSearch: require('./commands/github/IssuesSearch')(bot),
+//     IssueNumber: require('./commands/github/IssueNumber')(bot),
+//     PullRequestsSearch: require('./commands/github/PullRequestsSearch')(bot),
+//     PullRequestNumber: require('./commands/github/PullRequestNumber')(bot),
+//     ReleaseNumber: require('./commands/github/ReleaseNumber')(bot),
+//     Init: require('./commands/github/Init')(bot),
+//     Remove: require('./commands/github/Remove')(bot),
+//
+//     Help: require('./commands/github/Help')(bot),
+//     Announce: require('./commands/github/Announce')(bot),
+//   }
+// };
 
 // ===== TRELLO =====
 //
@@ -281,49 +283,50 @@ bot.on('guildDelete', (guild) => {
   ];
   bot.channels.get('231911521557544960').sendMessage(message);
 });
-bot.on('message', msg => {
-  if (!msg.content.startsWith(GithubPrefix) && !msg.content.startsWith(ServerConf.grab(msg.guild).prefix) && !msg.content.startsWith(`<@!${bot.user.id}> `) && !msg.content.startsWith(`<@${bot.user.id}> `)) return false;
-
-  let content = msg.content.replace(`<@${bot.user.id}> ` , '').replace(`<@!${bot.user.id}> `, '');
-  let CustomPrefix = ServerConf.grab(msg.guild).prefix;
-
-  if (content.startsWith(GithubPrefix)) {
-    content = content.replace(GithubPrefix, '')
-  } else if (content.startsWith(CustomPrefix)) {
-    content = content.replace(CustomPrefix, '');
-  }
-
-  let command = content.toLowerCase();
-  let args = content.split(' ').slice(1);
-
-  // Github Commands
-  if (command.startsWith('events')) return Commands.Github.LatestEvents(msg, command, args);
-  if (command.startsWith('issues search ')) return Commands.Github.IssuesSearch(msg, command, args);
-  if (command.startsWith('issue ')) return Commands.Github.IssueNumber(msg, command, args);
-  if (command.startsWith('pr search ')) return Commands.Github.PullRequestsSearch(msg, command, args);
-  if (command.startsWith('pr ')) return Commands.Github.PullRequestNumber(msg, command, args);
-  if (command.startsWith('release ')) return Commands.Github.ReleaseNumber(msg, command, args);
-
-  if (command.startsWith('init ')) return Commands.Github.Init(msg, command, args);
-  if (command.startsWith('remove')) return Commands.Github.Remove(msg, command, args);
-  if (command.startsWith('announce ')) return Commands.Github.Announce(msg, command, args);
-  if (command.startsWith('help')) return Commands.Github.Help(msg, command, args);
-
-  // Other Commands
-  if (command.startsWith('conf')) return Commands.Conf(msg, command, args);
-  if (command.startsWith('say')) return Commands.Say(msg, command, args);
-  if (command === 'clean') return Commands.Clean(msg, command, args);
-  if (command === 'stats') return Commands.Stats(msg, command, args);
-  if (command === 'ping') return Commands.Ping(msg, command, args);
-  if (command === 'invite') return Commands.Invite(msg, command, args);
-
-  if (command.startsWith('eval')) {
-    Commands.Eval(msg, args.join(' '));
-  } else if (command.startsWith('exec')) {
-    Commands.Exec(msg, args.join(' '));
-  }
-
-})
+// bot.on('message', msg => {
+//   if (!msg.content.startsWith(GithubPrefix) && !msg.content.startsWith(ServerConf.grab(msg.guild).prefix) && !msg.content.startsWith(`<@!${bot.user.id}> `) && !msg.content.startsWith(`<@${bot.user.id}> `)) return false;
+//
+//   let content = msg.content.replace(`<@${bot.user.id}> ` , '').replace(`<@!${bot.user.id}> `, '');
+//   let CustomPrefix = ServerConf.grab(msg.guild).prefix;
+//
+//   if (content.startsWith(GithubPrefix)) {
+//     content = content.replace(GithubPrefix, '')
+//   } else if (content.startsWith(CustomPrefix)) {
+//     content = content.replace(CustomPrefix, '');
+//   }
+//
+//   let command = content.toLowerCase();
+//   let args = content.split(' ').slice(1);
+//
+//   // Github Commands
+//   if (command.startsWith('events')) return Commands.Github.LatestEvents(msg, command, args);
+//   if (command.startsWith('issues search ')) return Commands.Github.IssuesSearch(msg, command, args);
+//   if (command.startsWith('issue ')) return Commands.Github.IssueNumber(msg, command, args);
+//   if (command.startsWith('pr search ')) return Commands.Github.PullRequestsSearch(msg, command, args);
+//   if (command.startsWith('pr ')) return Commands.Github.PullRequestNumber(msg, command, args);
+//   if (command.startsWith('release ')) return Commands.Github.ReleaseNumber(msg, command, args);
+//
+//   if (command.startsWith('init ')) return Commands.Github.Init(msg, command, args);
+//   if (command.startsWith('remove')) return Commands.Github.Remove(msg, command, args);
+//   if (command.startsWith('announce ')) return Commands.Github.Announce(msg, command, args);
+//   if (command.startsWith('help')) return Commands.Github.Help(msg, command, args);
+//
+//   // Other Commands
+//   if (command.startsWith('conf')) return Commands.Conf(msg, command, args);
+//   if (command.startsWith('say')) return Commands.Say(msg, command, args);
+//   if (command === 'clean') return Commands.Clean(msg, command, args);
+//   if (command === 'stats') return Commands.Stats(msg, command, args);
+//   if (command === 'ping') return Commands.Ping.run(msg, args);
+//   if (command === 'invite') return Commands.Invite(msg, command, args);
+//
+//   if (command.startsWith('eval')) {
+//     Commands.Eval(msg, args.join(' '));
+//   } else if (command.startsWith('exec')) {
+//     Commands.Exec(msg, args.join(' '));
+//   }
+//
+// })
+require('./commands')(bot);
 
 bot.on('ready', () => {
   Log.info('=> Logged in!');

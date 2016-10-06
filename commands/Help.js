@@ -1,34 +1,66 @@
 const Log = require('../lib/Logger').Logger;
+const Command = require('../lib/Structures/Command');
+const Pad = require('../lib/Util').Pad;
 
-const Prefix = 'T!';
+class HelpCommand extends Command {
+  constructor(bot) {
+    super(bot);
 
-const Help = msg => {
+    this.props.help = {
+      name: 'help',
+      description: 'you all need some help',
+      usage: 'help [command]'
+    }
 
-  let message = [
-    '**DiscordJS Rewrite Trello**',
-    'A bot that sends new activity on board to <#219479229979426816>',
-    '',
-    `Prefix: \`${Prefix}\` or <@!219218963647823872>`,
-    '',
-    'Commands:',
-    '  • \`cards\` : shows a list of all cards',
-    '  • \`cards search <query>\` : returns cards matching the query provided and their short link',
-    '  • \`members\` : shows a list of all members in the board',
-    '  • \`members search <query>\` : returns members matching the query provided and their profile link',
-    '  • \`clean\` : cleans the bot\'s messages',
-    '  • \`help\` : sends you this help :)',
-  ];
-
-  msg.author.sendMessage(message.join('\n')).catch(Log.error);
-
-  if (msg.guild) {
-    msg.channel.sendMessage(`<@!${msg.author.id}>, help has been sent to your DM!`).then(message => {
-      setTimeout(() => {
-        message.delete();
-      }, 8000);
-    })
+    this.props.conf.aliases = ['support'];
   }
 
+  run(msg, args) {
+
+    if (!args[0]) {
+
+      msg.channel.sendMessage([
+        '**```ini',
+        `[ Commands List ]`,
+        ``,
+        `Use ?help <command> for details`,
+        ``,
+        ...this.bot.commands.map(command => {
+          return `${Pad(command.help.name, 8)} = ${command.help.description}`;
+        }),
+        '```**'
+      ]);
+
+    } else {
+
+      let command = args[0];
+      if (!this.bot.commands.has(command)) return false;
+      command = this.bot.commands.get(command);
+      msg.channel.sendMessage([
+        '**```ini',
+        `[ Command: ${command.help.name} ]`,
+        ``,
+        `Description`,
+        `= ${command.help.description}`,
+        ``,
+        `Usage`,
+        `= G! ${command.help.usage}`,
+        ``,
+        `Aliases`,
+        command.conf.aliases && command.conf.aliases.length ? command.conf.aliases.map(e => {
+          return `= ${e}`
+        }).join('\n') : `= N/A`,
+        ``,
+        `Examples`,
+        command.help.examples && command.help.examples.length ? command.help.examples.map(e => {
+          return `= G! ${e}`;
+        }).join('\n') : `= N/A`,
+        '```**'
+      ]);
+
+    }
+
+  }
 }
 
-module.exports = bot => Help;
+module.exports = HelpCommand;

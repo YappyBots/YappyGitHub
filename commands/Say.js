@@ -1,11 +1,26 @@
 const Log = require('../lib/Logger').Logger;
+const Command = require('../lib/Structures/Command');
 
-const Say = (msg, command, args) => {
+class SayCommand extends Command {
+  constructor(bot) {
+    super(bot);
 
-  if (msg.author.id !== '175008284263186437') return false;
+    this.props.help = {
+      name: 'say',
+      description: 'the bot says the text you want it to say',
+      usage: 'say <text>',
+      examples: [
+        'say Mermelada',
+        'say I am Yappy! Nice to meet you!'
+      ]
+    };
+  }
 
-  msg.channel.sendMessage(args.join(' ')).then(() => msg.delete()).catch(err => Log.error(err));
-
+  run(msg, args) {
+    msg.channel.sendMessage(args.join(' '))
+    .then(msg.delete.bind(msg));
+  }
 }
 
-module.exports = bot => Say;
+
+module.exports = SayCommand;

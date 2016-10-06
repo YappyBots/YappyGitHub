@@ -1,3 +1,4 @@
+const Command = require('../lib/Structures/Command');
 const EvalCode = require('../lib/EvalCode');
 const Log = require('../lib/Logger').Logger;
 const Owner = '175008284263186437';
@@ -11,18 +12,38 @@ const clean = text => {
   }
 }
 
-module.exports = bot => {
-  return (msg, command) => {
-    if (msg.author.id !== Owner) return false;
+class EvalCommand extends Command {
 
-    EvalCode(bot, msg, command).then(data => {
+  constructor(bot) {
+    super(bot);
+
+    this.props.help = {
+      name: 'eval',
+      description: 'Eval code, admin only',
+      usage: 'eval <code>'
+    }
+
+    this.setConf({
+      permLevel: 2
+    });
+
+  }
+
+  hasPermission(msg) {
+    return msg.author.id == msg.client.admin.id;
+  }
+
+  run(msg, args, command) {
+    command = args.join(' ');
+
+    EvalCode(this.bot, msg, command).then(data => {
       var {
         evaled,
         startTime,
         endTime
       } = data;
 
-      if (evaled && evaled.indexOf(bot.token) >= 0) {
+      if (evaled && evaled.indexOf(this.bot.token) >= 0) {
         return msg.channel.sendMessage('Cannot complete eval due to token made visible by command.');
       }
 
@@ -64,4 +85,7 @@ module.exports = bot => {
       msg.channel.sendMessage(message);
     });
   }
+
 }
+
+module.exports = EvalCommand;

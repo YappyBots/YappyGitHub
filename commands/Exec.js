@@ -1,5 +1,6 @@
 const { spawn, exec } = require('child_process');
 const now = require('performance-now');
+const Command = require('../lib/Structures/Command');
 const Log = require('../lib/Logger').Logger;
 const Owner = '175008284263186437';
 
@@ -14,7 +15,6 @@ const Exec = (cmd, opts = {}) => {
     });
   })
 }
-
 const clean = text => {
   if (typeof text === 'string') {
     return text.replace('``', '`' + String.fromCharCode(8203) + '`');
@@ -24,59 +24,83 @@ const clean = text => {
   }
 }
 
-module.exports = bot => (msg, command) => {
-  if (msg.author.id !== Owner) return false;
+class ExecCommand extends Command {
 
-  let runningMessage = [
-    '`RUNNING`',
-    '```xl',
-    clean(command),
-    '```'
-  ].join('\n')
+  constructor(bot) {
+    super(bot);
 
-  let messageToEdit;
-
-  msg.channel.sendMessage(runningMessage).then(message => {
-    messageToEdit = message;
-  }).then(() => Exec(command))
-  .then(data => {
-    let { stdout, startTime, endTime } = data;
-
-    stdout = stdout.substring(0, stdout.length - 1);
-
-    let message = [
-      '`EXEC`',
-      '```xl',
-      clean(command),
-      '```',
-      '`STDOUT`',
-      '```xl',
-      clean(stdout),
-      '```'
-    ].join('\n');
-
-    messageToEdit.edit(message);
-  }).catch(data => {
-    if (data && data.stack) {
-      Log.error(data);
-      throw data;
+    this.props.help = {
+      name: 'exec',
+      description: 'Exec command, admin only',
+      usage: 'exec <command>'
     }
-    let { stderr, startTime, endTime } = data;
 
-    stderr = stderr.substring(0, stderr.length - 1);
+    this.setConf({
+      permLevel: 2
+    });
 
-    let message = [
-      '`EXEC`',
+  }
+
+  hasPermission(msg) {
+    return msg.author.id == msg.client.admin.id;
+  }
+
+  run(msg, args) {
+    let command = args.join(' ');
+
+    let runningMessage = [
+      '`RUNNING`',
       '```xl',
       clean(command),
-      '```',
-      '`STDERR`',
-      '```xl',
-      clean(stderr),
       '```'
-    ].join('\n');
+    ].join('\n')
 
-    messageToEdit.edit(message);
-  });
+    let messageToEdit;
 
+    msg.channel.sendMessage(runningMessage).then(message => {
+      messageToEdit = message;
+    }).then(() => Exec(command))
+    .then(data => {
+      let { stdout, startTime, endTime } = data;
+
+      stdout = stdout.substring(0, stdout.length - 1);
+
+      let message = [
+        '`EXEC`',
+        '```xl',
+        clean(command),
+        '```',
+        '`STDOUT`',
+        '```xl',
+        clean(stdout),
+        '```'
+      ].join('\n');
+
+      messageToEdit.edit(message);
+    }).catch(data => {
+      if (data && data.stack) {
+        Log.error(data);
+        throw data;
+      }
+      let { stderr, startTime, endTime } = data;
+
+      stderr = stderr.substring(0, stderr.length - 1);
+
+      let message = [
+        '`EXEC`',
+        '```xl',
+        clean(command),
+        '```',
+        '`STDERR`',
+        '```xl',
+        clean(stderr),
+        '```'
+      ].join('\n');
+
+      messageToEdit.edit(message);
+    });
+
+  }
 }
+
+module.exports = ExecCommand;

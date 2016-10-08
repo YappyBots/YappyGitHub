@@ -7,6 +7,8 @@ module.exports = (data) => {
   let state = data.state;
   let event = 'succeeded';
 
+  if (data.context == 'github/pages') return false;
+
   if (state == 'failure') event = 'failed';
   if (state == 'error') event = 'errored';
 

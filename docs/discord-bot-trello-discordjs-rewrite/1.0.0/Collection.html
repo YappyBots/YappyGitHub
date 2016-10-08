@@ -191,91 +191,6 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
-
-        <dl>
-            
-<hr>
-<dt class="name" id="length">
-    <h4 id="length"><span class="type-signature">&lt;readonly> </span>length<span class="type-signature"> :Number</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>The length (size) of this collection.</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">Number</span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="Collection.js.html">Collection.js</a>,
-				 <a href="Collection.js.html#sunlight-1-line-67">line 67</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        </dl>
-    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -292,7 +207,8 @@
 
     
     <div class="description">
-        <p>Returns an ordered array of the values of this collection.</p>
+        <p>Creates an ordered array of the values of this collection, and caches it internally. The array will only be
+reconstructed if an item is added to or removed from the collection, or if you add/remove elements on the array.</p>
     </div>
     
 
@@ -339,7 +255,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="Collection.js.html">Collection.js</a>,
-				 <a href="Collection.js.html#sunlight-1-line-14">line 14</a>
+				 <a href="Collection.js.html#sunlight-1-line-32">line 32</a>
 			</li>
 		</ul>
 	</dd>
@@ -390,6 +306,182 @@
         
     <pre class="sunlight-highlight-javascript">// identical to:
 Array.from(collection.values());</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="concat"><span class="type-signature"></span>concat(collections)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Combines this collection with others into a new collection. None of the source collections are modified.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>collections</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Collection.html">Collection</a></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Collections to merge</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Collection.js.html">Collection.js</a>,
+				 <a href="Collection.js.html#sunlight-1-line-279">line 279</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Collection.html">Collection</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">const newColl = someColl.concat(someOtherColl, anotherColl, ohBoyAColl);</pre>
 
 
     
@@ -455,7 +547,7 @@ the delete method. Returns an array of promises</p>
 		<ul class="dummy">
 			<li>
 				<a href="Collection.js.html">Collection.js</a>,
-				 <a href="Collection.js.html#sunlight-1-line-52">line 52</a>
+				 <a href="Collection.js.html#sunlight-1-line-293">line 293</a>
 			</li>
 		</ul>
 	</dd>
@@ -508,7 +600,7 @@ the delete method. Returns an array of promises</p>
             
 <hr>
 <dt>
-    <h4 class="name" id="exists"><span class="type-signature"></span>exists(key, value)</h4>
+    <h4 class="name" id="every"><span class="type-signature"></span>every(fn [, thisArg])</h4>
     
     
 </dt>
@@ -516,7 +608,8 @@ the delete method. Returns an array of promises</p>
 
     
     <div class="description">
-        <p>Returns true if the collection has an item where <code>item[key] === value</code></p>
+        <p>Identical to
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every">Array.every()</a>.</p>
     </div>
     
 
@@ -539,6 +632,8 @@ the delete method. Returns an array of promises</p>
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -551,13 +646,13 @@ the delete method. Returns an array of promises</p>
 
         <tr>
             
-                <td class="name"><code>key</code></td>
+                <td class="name"><code>fn</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">function</span>
 
 
 
@@ -565,23 +660,31 @@ the delete method. Returns an array of promises</p>
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>the key to filter by</p></td>
+            <td class="description last"><p>Function used to test (should return a boolean)</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>value</code></td>
+                <td class="name"><code>thisArg</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">any</span>
+<span class="param-type">Object</span>
 
 
 
@@ -589,10 +692,20 @@ the delete method. Returns an array of promises</p>
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>the expected value</p></td>
+            <td class="description last"><p>Value to use as <code>this</code> when executing function</p></td>
         </tr>
 
     
@@ -637,7 +750,7 @@ the delete method. Returns an array of promises</p>
 		<ul class="dummy">
 			<li>
 				<a href="Collection.js.html">Collection.js</a>,
-				 <a href="Collection.js.html#sunlight-1-line-116">line 116</a>
+				 <a href="Collection.js.html#sunlight-1-line-252">line 252</a>
 			</li>
 		</ul>
 	</dd>
@@ -673,7 +786,189 @@ the delete method. Returns an array of promises</p>
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="exists"><span class="type-signature"></span>exists(prop, value)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Returns true if the collection has an item where <code>item[prop] === value</code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>prop</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The property to test against</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The expected value</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Collection.js.html">Collection.js</a>,
+				 <a href="Collection.js.html#sunlight-1-line-194">line 194</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
 
 
 
@@ -686,7 +981,7 @@ the delete method. Returns an array of promises</p>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">if (collection.exists(&#x27;id&#x27;, &#x27;123123...&#x27;)) {
+    <pre class="sunlight-highlight-javascript">if (collection.exists(&#x27;username&#x27;, &#x27;Bob&#x27;)) {
  console.log(&#x27;user here!&#x27;);
 }</pre>
 
@@ -698,7 +993,7 @@ the delete method. Returns an array of promises</p>
             
 <hr>
 <dt>
-    <h4 class="name" id="filter"><span class="type-signature"></span>filter(callback [, thisArg])</h4>
+    <h4 class="name" id="filter"><span class="type-signature"></span>filter(fn [, thisArg])</h4>
     
     
 </dt>
@@ -745,7 +1040,7 @@ but returns a Collection instead of an Array.</p>
 
         <tr>
             
-                <td class="name"><code>callback</code></td>
+                <td class="name"><code>fn</code></td>
             
 
             <td class="type">
@@ -770,7 +1065,7 @@ but returns a Collection instead of an Array.</p>
 
             
 
-            <td class="description last"><p>the callback used to filter</p></td>
+            <td class="description last"><p>Function used to test (should return a boolean)</p></td>
         </tr>
 
     
@@ -804,7 +1099,7 @@ but returns a Collection instead of an Array.</p>
 
             
 
-            <td class="description last"><p>value to set as this when filtering</p></td>
+            <td class="description last"><p>Value to use as <code>this</code> when executing function</p></td>
         </tr>
 
     
@@ -849,7 +1144,7 @@ but returns a Collection instead of an Array.</p>
 		<ul class="dummy">
 			<li>
 				<a href="Collection.js.html">Collection.js</a>,
-				 <a href="Collection.js.html#sunlight-1-line-132">line 132</a>
+				 <a href="Collection.js.html#sunlight-1-line-206">line 206</a>
 			</li>
 		</ul>
 	</dd>
@@ -902,7 +1197,7 @@ but returns a Collection instead of an Array.</p>
             
 <hr>
 <dt>
-    <h4 class="name" id="find"><span class="type-signature"></span>find(key, value)</h4>
+    <h4 class="name" id="find"><span class="type-signature"></span>find(propOrFn [, value])</h4>
     
     
 </dt>
@@ -910,7 +1205,9 @@ but returns a Collection instead of an Array.</p>
 
     
     <div class="description">
-        <p>Returns a single item where <code>item[key] === value</code></p>
+        <p>Returns a single item where <code>item[prop] === value</code>, or the given function returns <code>true</code>.
+In the latter case, this is identical to
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find">Array.find()</a>.</p>
     </div>
     
 
@@ -933,6 +1230,8 @@ but returns a Collection instead of an Array.</p>
         <th>Type</th>
 
         
+        <th>Argument</th>
+        
 
         
 
@@ -945,13 +1244,16 @@ but returns a Collection instead of an Array.</p>
 
         <tr>
             
-                <td class="name"><code>key</code></td>
+                <td class="name"><code>propOrFn</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
+|
+
+<span class="param-type">function</span>
 
 
 
@@ -959,10 +1261,18 @@ but returns a Collection instead of an Array.</p>
             </td>
 
             
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>the key to filter by</p></td>
+            <td class="description last"><p>The property to test against, or the function to test with</p></td>
         </tr>
 
     
@@ -975,7 +1285,7 @@ but returns a Collection instead of an Array.</p>
             <td class="type">
             
                 
-<span class="param-type">any</span>
+<span class="param-type">*</span>
 
 
 
@@ -983,10 +1293,20 @@ but returns a Collection instead of an Array.</p>
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"><p>the expected value</p></td>
+            <td class="description last"><p>The expected value - only applicable and required if using a property for the first argument</p></td>
         </tr>
 
     
@@ -1031,7 +1351,7 @@ but returns a Collection instead of an Array.</p>
 		<ul class="dummy">
 			<li>
 				<a href="Collection.js.html">Collection.js</a>,
-				 <a href="Collection.js.html#sunlight-1-line-97">line 97</a>
+				 <a href="Collection.js.html#sunlight-1-line-136">line 136</a>
 			</li>
 		</ul>
 	</dd>
@@ -1067,7 +1387,7 @@ but returns a Collection instead of an Array.</p>
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type">*</span>
 
 
 
@@ -1078,9 +1398,11 @@ but returns a Collection instead of an Array.</p>
         
 
     
-        <h5>Example</h5>
+        <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">collection.get(&#x27;id&#x27;, &#x27;123123...&#x27;);</pre>
+    <pre class="sunlight-highlight-javascript">collection.find(&#x27;username&#x27;, &#x27;Bob&#x27;);</pre>
+
+    <pre class="sunlight-highlight-javascript">collection.find(val =&gt; val.username === &#x27;Bob&#x27;);</pre>
 
 
     
@@ -1090,7 +1412,7 @@ but returns a Collection instead of an Array.</p>
             
 <hr>
 <dt>
-    <h4 class="name" id="findAll"><span class="type-signature"></span>findAll(key, value)</h4>
+    <h4 class="name" id="findAll"><span class="type-signature"></span>findAll(prop, value)</h4>
     
     
 </dt>
@@ -1098,7 +1420,7 @@ but returns a Collection instead of an Array.</p>
 
     
     <div class="description">
-        <p>Returns an array of items where <code>item[key] === value</code> of the collection</p>
+        <p>Returns an array of items where <code>item[prop] === value</code> of the collection</p>
     </div>
     
 
@@ -1133,13 +1455,13 @@ but returns a Collection instead of an Array.</p>
 
         <tr>
             
-                <td class="name"><code>key</code></td>
+                <td class="name"><code>prop</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">string</span>
 
 
 
@@ -1150,7 +1472,7 @@ but returns a Collection instead of an Array.</p>
 
             
 
-            <td class="description last"><p>the key to filter by</p></td>
+            <td class="description last"><p>The property to test against</p></td>
         </tr>
 
     
@@ -1163,7 +1485,7 @@ but returns a Collection instead of an Array.</p>
             <td class="type">
             
                 
-<span class="param-type">any</span>
+<span class="param-type">*</span>
 
 
 
@@ -1174,7 +1496,7 @@ but returns a Collection instead of an Array.</p>
 
             
 
-            <td class="description last"><p>the expected value</p></td>
+            <td class="description last"><p>The expected value</p></td>
         </tr>
 
     
@@ -1219,7 +1541,7 @@ but returns a Collection instead of an Array.</p>
 		<ul class="dummy">
 			<li>
 				<a href="Collection.js.html">Collection.js</a>,
-				 <a href="Collection.js.html#sunlight-1-line-79">line 79</a>
+				 <a href="Collection.js.html#sunlight-1-line-114">line 114</a>
 			</li>
 		</ul>
 	</dd>
@@ -1255,7 +1577,7 @@ but returns a Collection instead of an Array.</p>
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;Object></span>
+<span class="param-type">array</span>
 
 
 
@@ -1268,7 +1590,222 @@ but returns a Collection instead of an Array.</p>
     
         <h5>Example</h5>
         
-    <pre class="sunlight-highlight-javascript">collection.getAll(&#x27;username&#x27;, &#x27;Bob&#x27;);</pre>
+    <pre class="sunlight-highlight-javascript">collection.findAll(&#x27;username&#x27;, &#x27;Bob&#x27;);</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="findKey"><span class="type-signature"></span>findKey(propOrFn [, value])</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Returns the key of the item where <code>item[prop] === value</code>, or the given function returns <code>true</code>.
+In the latter case, this is identical to
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex">Array.findIndex()</a>.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>propOrFn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The property to test against, or the function to test with</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The expected value - only applicable and required if using a property for the first argument</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Collection.js.html">Collection.js</a>,
+				 <a href="Collection.js.html#sunlight-1-line-167">line 167</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Examples</h5>
+        
+    <pre class="sunlight-highlight-javascript">collection.findKey(&#x27;username&#x27;, &#x27;Bob&#x27;);</pre>
+
+    <pre class="sunlight-highlight-javascript">collection.findKey(val =&gt; val.username === &#x27;Bob&#x27;);</pre>
 
 
     
@@ -1333,7 +1870,7 @@ but returns a Collection instead of an Array.</p>
 		<ul class="dummy">
 			<li>
 				<a href="Collection.js.html">Collection.js</a>,
-				 <a href="Collection.js.html#sunlight-1-line-25">line 25</a>
+				 <a href="Collection.js.html#sunlight-1-line-54">line 54</a>
 			</li>
 		</ul>
 	</dd>
@@ -1369,7 +1906,7 @@ but returns a Collection instead of an Array.</p>
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type">*</span>
 
 
 
@@ -1380,20 +1917,13 @@ but returns a Collection instead of an Array.</p>
         
 
     
-        <h5>Example</h5>
-        
-    <pre class="sunlight-highlight-javascript">// identical to:
-Array.from(collection.values())[0];</pre>
-
-
-    
 </dd>
 
         
             
 <hr>
 <dt>
-    <h4 class="name" id="last"><span class="type-signature"></span>last()</h4>
+    <h4 class="name" id="firstKey"><span class="type-signature"></span>firstKey()</h4>
     
     
 </dt>
@@ -1401,7 +1931,7 @@ Array.from(collection.values())[0];</pre>
 
     
     <div class="description">
-        <p>Returns the last item in this collection.</p>
+        <p>Returns the first key in this collection.</p>
     </div>
     
 
@@ -1448,7 +1978,7 @@ Array.from(collection.values())[0];</pre>
 		<ul class="dummy">
 			<li>
 				<a href="Collection.js.html">Collection.js</a>,
-				 <a href="Collection.js.html#sunlight-1-line-33">line 33</a>
+				 <a href="Collection.js.html#sunlight-1-line-62">line 62</a>
 			</li>
 		</ul>
 	</dd>
@@ -1484,7 +2014,544 @@ Array.from(collection.values())[0];</pre>
     </dt>
     <dd>
         
-<span class="param-type">Object</span>
+<span class="param-type">*</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="keyArray"><span class="type-signature"></span>keyArray()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Creates an ordered array of the keys of this collection, and caches it internally. The array will only be
+reconstructed if an item is added to or removed from the collection, or if you add/remove elements on the array.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Collection.js.html">Collection.js</a>,
+				 <a href="Collection.js.html#sunlight-1-line-45">line 45</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+        <h5>Example</h5>
+        
+    <pre class="sunlight-highlight-javascript">// identical to:
+Array.from(collection.keys());</pre>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="last"><span class="type-signature"></span>last()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Returns the last item in this collection. This is a relatively slow operation,
+since an array copy of the values must be made to find the last element.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Collection.js.html">Collection.js</a>,
+				 <a href="Collection.js.html#sunlight-1-line-71">line 71</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="lastKey"><span class="type-signature"></span>lastKey()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Returns the last key in this collection. This is a relatively slow operation,
+since an array copy of the keys must be made to find the last element.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Collection.js.html">Collection.js</a>,
+				 <a href="Collection.js.html#sunlight-1-line-81">line 81</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="map"><span class="type-signature"></span>map(fn [, thisArg])</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Identical to
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map">Array.map()</a>.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Function that produces an element of the new array, taking three arguments</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>thisArg</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Value to use as <code>this</code> when executing function</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Collection.js.html">Collection.js</a>,
+				 <a href="Collection.js.html#sunlight-1-line-222">line 222</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">array</span>
 
 
 
@@ -1509,7 +2576,8 @@ Array.from(collection.values())[0];</pre>
 
     
     <div class="description">
-        <p>Returns a random item from this collection.</p>
+        <p>Returns a random item from this collection. This is a relatively slow operation,
+since an array copy of the values must be made to find a random element.</p>
     </div>
     
 
@@ -1556,7 +2624,7 @@ Array.from(collection.values())[0];</pre>
 		<ul class="dummy">
 			<li>
 				<a href="Collection.js.html">Collection.js</a>,
-				 <a href="Collection.js.html#sunlight-1-line-42">line 42</a>
+				 <a href="Collection.js.html#sunlight-1-line-91">line 91</a>
 			</li>
 		</ul>
 	</dd>
@@ -1592,7 +2660,522 @@ Array.from(collection.values())[0];</pre>
     </dt>
     <dd>
         
+<span class="param-type">*</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="randomKey"><span class="type-signature"></span>randomKey()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Returns a random key from this collection. This is a relatively slow operation,
+since an array copy of the keys must be made to find a random element.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Collection.js.html">Collection.js</a>,
+				 <a href="Collection.js.html#sunlight-1-line-101">line 101</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="reduce"><span class="type-signature"></span>reduce(fn [, startVal])</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Identical to
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce">Array.reduce()</a>.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Function used to reduce</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startVal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>The starting value</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Collection.js.html">Collection.js</a>,
+				 <a href="Collection.js.html#sunlight-1-line-267">line 267</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="some"><span class="type-signature"></span>some(fn [, thisArg])</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Identical to
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some">Array.some()</a>.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Function used to test (should return a boolean)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>thisArg</code></td>
+            
+
+            <td class="type">
+            
+                
 <span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Value to use as <code>this</code> when executing function</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Collection.js.html">Collection.js</a>,
+				 <a href="Collection.js.html#sunlight-1-line-237">line 237</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
 
 
 
@@ -1659,7 +3242,7 @@ Array.from(collection.values())[0];</pre>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.1</a>
 	
-		on 2016-10-04T17:26:18-04:00
+		on 2016-10-08T16:10:51-04:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

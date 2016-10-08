@@ -1,3 +1,4 @@
+
 const Command = require('../lib/Structures/Command');
 const ChannelConf = require('../lib/ChannelConf');
 const Log = require('../lib/Logger').Logger;

@@ -68,6 +68,22 @@ module.exports = (req, res, next) => {
       GithubEvents.Ping(data);
       break;
     }
+    case 'repository': {
+      GithubEvents.Repository(data);
+      break;
+    }
+    case 'member': {
+      GithubEvents.Member(data);
+      break;
+    }
+    case 'status': {
+      GithubEvents.Status(data);
+      break;
+    }
+    case 'gollum': {
+      GithubEvents.Gollum(data);
+      break;
+    }
     default: {
       res.send(`The event ${event} isn't being handled. Sorry!`);
     }

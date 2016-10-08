@@ -12,6 +12,7 @@ const Branch = require('./Branch');
 const Release = require('./Release');
 const Fork = require('./Fork');
 const Watch = require('./Watch');
+const Repository = require('./Repository');
 
 class GithubEvents {
   constructor() {
@@ -40,6 +41,7 @@ class GithubEvents {
     this.Release = this.Release.bind(this);
     this.Branch = this.Branch.bind(this);
     this.Ping = this.Ping.bind(this);
+    this.Repository = this.Repository.bind(this);
   }
 
   on(e, cb) {
@@ -105,6 +107,35 @@ class GithubEvents {
       str: Branch(action, payload)
     })
   }
+
+  Repository(payload) {
+    this.emit('repository', {
+      repo: payload.repository.full_name,
+      str: Repository(payload)
+    })
+  }
+
+  Member(payload) {
+    this.emit('member', {
+      repo: payload.repository.full_name,
+      str: Member(payload)
+    })
+  }
+
+  Status(payload) {
+    this.emit('status', {
+      repo: payload.repository.full_name,
+      str: Status(payload)
+    })
+  }
+
+  Gollum(payload) {
+    this.emit('gollum', {
+      repo: payload.repository.full_name,
+      str: Gollum(payload)
+    })
+  }
+
   Ping(data) {
     const repo = data.repository.full_name;
     const hooks = data.hook.events;

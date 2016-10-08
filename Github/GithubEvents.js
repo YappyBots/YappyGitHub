@@ -13,6 +13,9 @@ const Release = require('./Release');
 const Fork = require('./Fork');
 const Watch = require('./Watch');
 const Repository = require('./Repository');
+const Gollum = require('./Gollum');
+const Member = require('./Member');
+const Status = require('./Status');
 
 class GithubEvents {
   constructor() {

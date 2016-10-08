@@ -10,7 +10,7 @@ module.exports = (data) => {
   if (state == 'failure') event = 'failed';
   if (state == 'error') event = 'errored';
 
-  let msg = `📝 Commit \`${commit.id.slice(1, 7)}\`'s test **${description}** ${event}`;
+  let msg = `📝 Commit \`${sha.slice(1, 7)}\`'s test **${description}** ${event}`;
   msg += `<${url}>`;
 
   return msg;

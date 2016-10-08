@@ -71,6 +71,6 @@ module.exports = (req, res, next) => {
     }
   }
 
-  if (headersSent) return false;
+  if (res.headersSent) return false;
   res.send(`Dealing with the webhook's action, ${event}. Sigh...`);
 }

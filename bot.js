@@ -20,7 +20,6 @@ const ServerConf = require('./lib/ServerConf');
 const token = process.env.DISCORD_TESTING_BOT_TOKEN || process.env.BOT_TOKEN;
 const channel = '219479229979426816'; // los discordos channel
 // const channel = '175021235384614912'; // testing channel
-let Prefix = 'T! ';
 let GithubPrefix = 'G! ';
 let ClientReady = false;
 

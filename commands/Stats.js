@@ -24,6 +24,7 @@ class StatsCommand extends Command {
     let SeenMessages = BotCache.SeenMessages.size;
     let SentMessages = BotCache.SentMessages.size + 1;
     let CommandsRun = BotCache.CommandsRun.size;
+    let bot = this.bot;
 
     let message = [
       `**Yappy, the Github Monitor** has been up for **${GetUptime(bot)}**`,

@@ -23,7 +23,9 @@ module.exports = (req, res, next) => {
   const secret = req.headers['x-hub-signature'];
   const data = req.body;
 
-  Log.debug(`Got a \`${event}\` from ${req.body.repository.full_name}`);
+  if (!event || !data || !data.repository) return res.status(403).send('INVALID DATA. PLZ USE GITHUB WEBHOOKS');
+
+  Log.debug(`Got a \`${event}\` from ${data.repository.full_name}`);
 
   switch (event) {
     case 'push': {
@@ -60,5 +62,5 @@ module.exports = (req, res, next) => {
     }
   }
 
-  res.json({ success: true });
+  res.send(`Dealing with the webhook's action, ${event}. Sigh...`);
 }

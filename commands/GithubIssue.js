@@ -74,7 +74,7 @@ class GithubIssue extends Command {
         '```'
       ];
 
-      if (msg.author.equals(bot.user)) return msg.edit(message.join('\n')).catch(e => { throw e });
+      if (msg.author.equals(this.bot.user)) return msg.edit(message.join('\n')).catch(e => { throw e });
 
       msg.channel.sendMessage(message);
     });

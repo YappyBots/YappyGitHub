@@ -46,7 +46,7 @@ app.post('/', GithubWebhooks);
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
-  res.send(err);
+  res.send(err.stack);
 });
 
 Log.Logger.info(`=> Starting app on ${IP || 'localhost'}:${PORT}`);

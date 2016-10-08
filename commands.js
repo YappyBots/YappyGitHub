@@ -71,13 +71,13 @@ module.exports = (bot) => {
     if (err) return Log.error(err);
     files = files.filter(e => e.indexOf('.') > -1);
 
-    Log.debug(`Loading a total of ${files.length} commands.`);
+    Log.info(`Loading a total of ${files.length} commands.`);
 
     files.forEach(f => {
       let command = require(`./commands/${f}`);
       try {
         command = new command(bot);
-        Log.debug(`Loading Command: ${command.help.name}. 👌`);
+        Log.info(`Loading Command: ${command.help.name}. 👌`);
         bot.commands.set(command.help.name, command);
         command.conf.aliases.forEach(alias => {
           bot.aliases.set(alias, command.help.name);

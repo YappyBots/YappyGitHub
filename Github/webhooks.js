@@ -38,12 +38,15 @@ module.exports = (req, res, next) => {
     }
     case 'issues': {
       GithubEvents.Issues(data);
+      break;
     }
     case 'issue_comment': {
       GithubEvents.IssueComment(data);
+      break;
     }
     case 'pull_request': {
       GithubEvents.PullRequest(data);
+      break;
     }
     // case 'watch': {
     //   GithubEvents.Watch(data);
@@ -53,14 +56,21 @@ module.exports = (req, res, next) => {
     // }
     case 'create': {
       GithubEvents.Branch(event, data);
+      break;
     }
     case 'delete': {
       GithubEvents.Branch(event, data);
+      break;
     }
     case 'ping': {
       GithubEvents.Ping(data);
+      break;
+    }
+    default: {
+      res.send(`The event ${event} isn't being handled. Sorry!`);
     }
   }
 
+  if (headersSent) return false;
   res.send(`Dealing with the webhook's action, ${event}. Sigh...`);
 }

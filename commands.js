@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const Log = require('./lib/Logger').Logger;
 const ServerConf = require('./lib/ServerConf');
+const Util = require('./lib/Util');
 const GithubPrefix = `G! `;
 
 const StartsWithPrefix = (msg) => {
@@ -29,6 +30,7 @@ const RunCommand = (msg) => {
   let content = RemovePrefix(msg);
   let command = content.split(' ')[0];
   let args = content.split(' ').slice(1);
+  let perms = bot.permissions(msg);
 
   let cmd;
 
@@ -39,33 +41,37 @@ const RunCommand = (msg) => {
   }
 
   if (cmd) {
+    if (perms < cmd.conf.permLevel) return;
     cmd.run(msg, args);
   }
 }
-const BotElevation = (msg) => {
+const BotPermissions = (msg) => {
   /* This function should resolve to an ELEVATION level which
   is then sent to the command handler for verification*/
   let permlvl = 0;
 
-  if (msg.member && msg.member.hasPermission("ADMINISTRATION")) permlvl = 1;
-  if (msg.author.id === bot.config.owner) permlvl = 2;
+  if (msg.member && msg.member.hasPermission(`ADMINISTRATOR`)) permlvl = 1;
+  if (msg.author.id == msg.client.config.owner) permlvl = 2;
 
   return permlvl;
 }
 
+
 module.exports = (bot) => {
   bot.commands = new Discord.Collection();
   bot.aliases = new Discord.Collection();
-  bot.elevation = BotElevation;
+  bot.permissions = BotPermissions;
   bot.config = {
     owner: '175008284263186437'
   };
 
   fs.readdir('./commands', (err, files) => {
     if (err) return Log.error(err);
+    files = files.filter(e => e.indexOf('.') > -1);
+
     Log.debug(`Loading a total of ${files.length} commands.`);
+
     files.forEach(f => {
-      if (f.indexOf('.') == -1) return false;
       let command = require(`./commands/${f}`);
       try {
         command = new command(bot);
@@ -74,7 +80,9 @@ module.exports = (bot) => {
         command.conf.aliases.forEach(alias => {
           bot.aliases.set(alias, command.help.name);
         });
-      } catch (e) {}
+      } catch (e) {
+        Log.error(e)
+      }
     });
   });
 

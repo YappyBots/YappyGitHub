@@ -18,16 +18,53 @@ class HelpCommand extends Command {
   run(msg, args) {
 
     if (!args[0]) {
+      let commands = this.bot.commands;
+      let commandsForEveryone = commands.filter(e => {
+        return !e.conf.permLevel || e.conf.permLevel == 0;
+      });
+      let commandsForAdmin = commands.filter(e => {
+        return e.conf.permLevel == 1;
+      });
+      let commandsForOwner = commands.filter(e => {
+        return e.conf.permLevel == 2;
+      });
 
-      msg.channel.sendMessage([
-        '**```ini',
+      let message = [
         `[ Commands List ]`,
         ``,
         `Use ?help <command> for details`,
         ``,
-        ...this.bot.commands.map(command => {
-          return `${Pad(command.help.name, 8)} = ${command.help.description}`;
-        }),
+        `PUBLIC`,
+        ...commandsForEveryone.map(command => {
+          let help = command.help;
+          return `${Pad(command.help.name, 8)} = ${help.summary || help.description}`;
+        })
+      ];
+
+      if (msg.client.permissions(msg) > 0) {
+        message = message.concat([
+          ``,
+          `ADMIN`,
+          ...commandsForAdmin.map(command => {
+            let help = command.help;
+            return `${Pad(command.help.name, 8)} = ${help.summary || help.description}`;
+          })
+        ]);
+      }
+      if (msg.client.permissions(msg) > 1) {
+        message = message.concat([
+          ``,
+          `OWNER`,
+          ...commandsForOwner.map(command => {
+            let help = command.help;
+            return `${Pad(command.help.name, 8)} = ${help.summary || help.description}`;
+          })
+        ]);
+      }
+
+      msg.channel.sendMessage([
+        '**```ini',
+        ...message,
         '```**'
       ]);
 
@@ -41,7 +78,7 @@ class HelpCommand extends Command {
         `[ Command: ${command.help.name} ]`,
         ``,
         `Description`,
-        `= ${command.help.description}`,
+        `= ${command.help.description || command.help.summary}`,
         ``,
         `Usage`,
         `= G! ${command.help.usage}`,
@@ -55,11 +92,19 @@ class HelpCommand extends Command {
         command.help.examples && command.help.examples.length ? command.help.examples.map(e => {
           return `= G! ${e}`;
         }).join('\n') : `= N/A`,
+        ``,
+        `Permission`,
+        command.conf.permLevel ? `= ${this._permLevelToWord(command.conf.permLevel)}` : '= Everyone',
         '```**'
       ]);
-
     }
 
+  }
+
+  _permLevelToWord(permLvl) {
+    if (!permLvl || permLvl == 0) return 'Everyone'
+    if (permLvl == 1) return 'Admin';
+    if (permLvl == 2) return 'Owner';
   }
 }
 

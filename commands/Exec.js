@@ -41,10 +41,6 @@ class ExecCommand extends Command {
 
   }
 
-  hasPermission(msg) {
-    return msg.author.id == msg.client.admin.id;
-  }
-
   run(msg, args) {
     let command = args.join(' ');
 

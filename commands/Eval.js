@@ -29,10 +29,6 @@ class EvalCommand extends Command {
 
   }
 
-  hasPermission(msg) {
-    return msg.author.id == msg.client.admin.id;
-  }
-
   run(msg, args, command) {
     command = args.join(' ');
 

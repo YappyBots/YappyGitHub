@@ -6,9 +6,13 @@ const Util = require('./lib/Util');
 const GithubPrefix = `G! `;
 
 const StartsWithPrefix = (msg) => {
-  if (typeof msg == 'object') msg = msg.content;
+  let prefix = ServerConf.grab(msg.guild).prefix;
 
-  return msg.startsWith(GithubPrefix) || !msg.startsWith(ServerConf.grab(msg.guild).prefix) || !msg.startsWith(`<@!${msg.client.user.id}> `) || !msg.startsWith(`<@${msg.client.user.id}> `)
+  Log.debug(prefix);
+
+  if (prefix && msg.content.startsWith(prefix)) return true;
+
+  return msg.content.startsWith(GithubPrefix) || msg.content.startsWith(`<@!${msg.client.user.id}> `) || msg.content.startsWith(`<@${msg.client.user.id}> `)
 }
 const RemovePrefix = (msg) => {
 

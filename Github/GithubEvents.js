@@ -1,5 +1,5 @@
 const { EventEmitter } = require('events');
-const EventEmitter2 = require('eventemitter2').EventEmitter2;
+// const EventEmitter2 = require('eventemitter2').EventEmitter2;
 const Log = require('../lib/Logger').Logger;
 const GithubApi = require('github');
 const GithubCache = require('../lib/Util/GithubCache');
@@ -15,7 +15,7 @@ const Watch = require('./Watch');
 
 class GithubEvents {
   constructor() {
-    this._events = new EventEmitter2({
+    this._events = new EventEmitter({
       wildcard: true,
       maxListeners: 20
     });

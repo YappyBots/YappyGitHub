@@ -19,7 +19,7 @@ module.exports = (bot) => (msg, command, args) => {
     if (!channel) return false;
 
     channel.sendMessage([
-      `**👉 Announcement for ${channel.guild.name.toUpperCase()}** from @${msg.author.username}#${msg.author.discriminator}`,
+      `**👉 Announcement from @${msg.author.username}#${msg.author.discriminator}**`,
       '',
       '```xl',
       message,

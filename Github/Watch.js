@@ -1,3 +1,4 @@
 module.exports = payload => {
-  return `👀 **${payload.sender.login}** is now watching hydrabolt/discord.js`;
+  let isWatching = payload.action == 'started';
+  return `👀 **${payload.sender.login}** is ${isWatching ? 'now' : 'no longer'} watching hydrabolt/discord.js`;
 }

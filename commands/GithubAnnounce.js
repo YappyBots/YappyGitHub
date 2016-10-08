@@ -21,6 +21,7 @@ class GithubAnnounceCommand extends Command {
 
   run(msg, args) {
     if (msg.author.id !== Owner) return false;
+    let bot = this.bot;
 
     let message = args.join(' ');
     let channels = ChannelConf.array();

@@ -48,12 +48,14 @@ module.exports = (req, res, next) => {
       GithubEvents.PullRequest(data);
       break;
     }
-    // case 'watch': {
-    //   GithubEvents.Watch(data);
-    // }
-    // case 'fork': {
-    //   GithubEvents.Fork(data);
-    // }
+    case 'watch': {
+      GithubEvents.Watch(data);
+      break;
+    }
+    case 'fork': {
+      GithubEvents.Fork(data);
+      break;
+    }
     case 'create': {
       GithubEvents.Branch(event, data);
       break;

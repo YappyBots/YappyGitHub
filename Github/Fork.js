@@ -1,3 +1,3 @@
 module.exports = payload => {
-  return `🍝 **${payload.sender.login}** forked hydrabolt/discord.js\n`;
+  return `🍝 **${payload.sender.login}** forked ${payload.repository.full_name}\n`;
 }

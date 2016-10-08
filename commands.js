@@ -8,8 +8,6 @@ const GithubPrefix = `G! `;
 const StartsWithPrefix = (msg) => {
   let prefix = ServerConf.grab(msg.guild).prefix;
 
-  Log.debug(prefix);
-
   if (prefix && msg.content.startsWith(prefix)) return true;
 
   return msg.content.startsWith(GithubPrefix) || msg.content.startsWith(`<@!${msg.client.user.id}> `) || msg.content.startsWith(`<@${msg.client.user.id}> `)

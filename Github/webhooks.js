@@ -23,7 +23,9 @@ module.exports = (req, res, next) => {
   const secret = req.headers['x-hub-signature'];
   const data = req.body;
 
-  Log.debug(`Got a \`${event}\` from ${req.body.repository.full_name}`);
+  if (!event || !data || !data.repository) return res.status(403).send('INVALID DATA. PLZ USE GITHUB WEBHOOKS');
+
+  Log.debug(`Got a \`${event}\` from ${data.repository.full_name}`);
 
   switch (event) {
     case 'push': {
@@ -36,29 +38,41 @@ module.exports = (req, res, next) => {
     }
     case 'issues': {
       GithubEvents.Issues(data);
+      break;
     }
     case 'issue_comment': {
       GithubEvents.IssueComment(data);
+      break;
     }
     case 'pull_request': {
       GithubEvents.PullRequest(data);
+      break;
     }
-    // case 'watch': {
-    //   GithubEvents.Watch(data);
-    // }
-    // case 'fork': {
-    //   GithubEvents.Fork(data);
-    // }
+    case 'watch': {
+      GithubEvents.Watch(data);
+      break;
+    }
+    case 'fork': {
+      GithubEvents.Fork(data);
+      break;
+    }
     case 'create': {
       GithubEvents.Branch(event, data);
+      break;
     }
     case 'delete': {
       GithubEvents.Branch(event, data);
+      break;
     }
     case 'ping': {
       GithubEvents.Ping(data);
+      break;
+    }
+    default: {
+      res.send(`The event ${event} isn't being handled. Sorry!`);
     }
   }
 
-  res.json({ success: true });
+  if (res.headersSent) return false;
+  res.send(`Dealing with the webhook's action, ${event}. Sigh...`);
 }

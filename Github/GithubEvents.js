@@ -1,4 +1,5 @@
 const { EventEmitter } = require('events');
+const EventEmitter2 = require('eventemitter2').EventEmitter2;
 const Log = require('../lib/Logger').Logger;
 const GithubApi = require('github');
 const GithubCache = require('../lib/Util/GithubCache');
@@ -14,7 +15,10 @@ const Watch = require('./Watch');
 
 class GithubEvents {
   constructor() {
-    this._events = new EventEmitter();
+    this._events = new EventEmitter2({
+      wildcard: true,
+      maxListeners: 20
+    });
     this.github = new GithubApi({
       protocol: 'https',
       timeout: 5000
@@ -46,82 +50,69 @@ class GithubEvents {
     this._events.emit(e, data);
   }
 
-  Event(e, cb) {
-    this._events.on(e, cb);
-  }
-
   Issues(payload) {
-    const events = this._events;
-    events.emit(`issues`, {
+    this.emit(`issues`, {
       repo: payload.repository.full_name,
       str: Issues(payload)
     });
   }
 
   IssueComment(payload) {
-    const events = this._events;
-    events.emit(`issueComment`, {
+    this.emit(`issueComment`, {
       repo: payload.repository.full_name,
       str: IssueComment(payload)
     });
   }
 
   Fork(payload) {
-    const events = this._events;
-    events.emit('fork', {
+    this.emit('fork', {
       repo: payload.repository.full_name,
       str: Fork(payload)
     });
   }
 
   PullRequest(payload) {
-    const events = this._events;
-    events.emit(`pr`, {
+    this.emit(`pr`, {
       repo: payload.repository.full_name,
       str: PullRequest(payload)
     });
   }
 
   Push(payload) {
-    const events = this._events;
-    events.emit(`push`, {
+    this.emit(`push`, {
       repo: payload.repository.full_name,
       str: Push(payload)
     });
   }
 
   Watch(payload) {
-    const events = this._events;
-    events.emit(`watch`, {
+    this.emit(`watch`, {
       repo: payload.repository.full_name,
       str: Watch(payload)
     });
   }
 
   Release(payload) {
-    const events = this._events;
-    events.emit(`release`, {
+    this.emit(`release`, {
       repo: payload.repository.full_name,
       str: Release(payload)
     });
   }
 
   Branch(action, payload) {
-    const events = this._events;
-    events.emit('branch', {
+    this.emit('branch', {
       repo: payload.repository.full_name,
       str: Branch(action, payload)
     })
   }
   Ping(data) {
-    const events = this._events;
     const repo = data.repository.full_name;
     const hooks = data.hook.events;
     const str = `🏓 Ping, pong! Webhook is set up! Listening to the following events: ${hooks.map(e => `\`${e}\``).join(', ')}`;
 
     GithubCache.add(repo);
 
-    events.emit('ping', {
+    this.emit('ping', {
       str, repo
     });
   }

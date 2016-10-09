@@ -9,6 +9,9 @@ const message = [
   '    - You can set all of them except watch and fork',
   '      (they are a little buffy for some reason and spam)',
   '  2. Run `G! init user/repo` in the channel where you want to get the events'
+  '',
+  '__Official Server__',
+  '**http://discord.gg/HHqndMG**'
 ];
 
 class InviteCommand extends Command {

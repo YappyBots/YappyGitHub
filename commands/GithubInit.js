@@ -56,7 +56,7 @@ class GithubInitCommand extends Command {
       ChannelConf.add(channelid, repo).then(() => {
         msg.channel.sendMessage([
           `✅ Successfully initialized repository events in this channel for the private repo **${repository.repo}**.`,
-          `The repo must a webhook pointing to <http://discordjsrewritetrello-datitisev.rhcloud.com/> with every event except for \`watch\` and \`fork\`, they are buggy for some reason :/`
+          `The repo must HAVE a webhook pointing to <http://discordjsrewritetrello-datitisev.rhcloud.com/>`
         ]);
       }).catch(err => {
         Log.error(err);

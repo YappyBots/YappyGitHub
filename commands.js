@@ -57,7 +57,12 @@ const BotPermissions = (msg) => {
 
   return permlvl;
 }
-
+const Booted = (bot) => {
+  bot.booted = {
+    date: new Date().toLocaleDateString(),
+    time: new Date().toLocaleTimeString()
+  }
+}
 
 module.exports = (bot) => {
   bot.commands = new Discord.Collection();
@@ -66,6 +71,7 @@ module.exports = (bot) => {
   bot.config = {
     owner: '175008284263186437'
   };
+  Booted(bot);
 
   fs.readdir('./commands', (err, files) => {
     if (err) return Log.error(err);

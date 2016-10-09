@@ -8,7 +8,7 @@ const message = [
   '    - Don\'t select all the events or just select push',
   '    - You can set all of them except watch and fork',
   '      (they are a little buffy for some reason and spam)',
-  '  2. Run `G! init user/repo` in the channel where you want to get the events'
+  '  2. Run `G! init user/repo` in the channel where you want to get the events',
   '',
   '__Official Server__',
   '**http://discord.gg/HHqndMG**'

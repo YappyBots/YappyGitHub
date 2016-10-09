@@ -1,4 +1,4 @@
-const Command = require('../lib/Structures/Command');
+i nconst Command = require('../lib/Structures/Command');
 const ChannelConf = require('../lib/ChannelConf');
 const Log = require('../lib/Logger').Logger;
 const Github = require('../Github/GithubEvents').github;

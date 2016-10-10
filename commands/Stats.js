@@ -36,8 +36,10 @@ class StatsCommand extends Command {
     let bot = this.bot;
 
     let MemoryUsage = bytesToSize(process.memoryUsage().rss, 3);
-    let SeenMessages = BotCache.SeenMessages.size;
-    let SentMessages = BotCache.SentMessages.size + 1;
+    let MessagesSeen = BotCache._MessagesSeen.size;
+    let MessagesSent = BotCache._MessagesSent.size + 1;
+    let MessagesSeenHour = BotCache.SeenMessages.size;
+    let MessagesSentHour = BotCache.SentMessages.size + 1;
     let CommandsRun = BotCache.CommandsRun.size;
     let Booted = bot.booted;
 
@@ -68,8 +70,8 @@ class StatsCommand extends Command {
       `Uptime         : ${GetUptime(bot)}`,
       `Booted         : ${Booted.date} @ ${Booted.time}`,
       `Memory Usage   : ${MemoryUsage}`,
-      `Messages Seen  : ${SeenMessages} (~${(SeenMessages / 60).toFixed(2)} / minute)`,
-      `Messages Sent  : ${SentMessages} (~${(SentMessages / 60).toFixed(2)} / minute)`,
+      `Messages Seen  : ${MessagesSeen} (${MessagesSeenHour} in the last hour, ~${(MessagesSeenHour / 60).toFixed(2)} / minute)`,
+      `Messages Sent  : ${MessagesSent} (${MessagesSentHour} in the last hour, ~${(MessagesSentHour / 60).toFixed(2)} / minute)`,
       ``,
       `# SERVING`,
       `Guilds         : ${bot.guilds.size}`,

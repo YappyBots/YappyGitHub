@@ -1,4 +1,4 @@
 module.exports = payload => {
-  let isWatching = payload.action == 'started';
-  return `👀 **${payload.sender.login}** is ${isWatching ? 'now' : 'no longer'} watching ${payload.repository.full_name}`;
+  let starred = payload.action == 'started';
+  return `👀 **${payload.sender.login}** ${starred ? 'starred' : 'unstarred'} ${payload.repository.full_name}`;
 }

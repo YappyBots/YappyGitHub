@@ -42,19 +42,15 @@ module.exports = data => {
   switch (action) {
     case 'opened': {
       return OpenedPullRequest(data);
-      break;
     }
     case 'closed': {
       return ClosedPullRequest(data);
-      break;
     }
     case 'reopened': {
       return ReopenedPullRequest(data);
-      break;
     }
     case 'synchronize': {
       return SynchronizedPullRequest(data);
-      break;
     }
     default: {
       return '';

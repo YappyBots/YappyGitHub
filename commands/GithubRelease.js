@@ -32,12 +32,17 @@ class GithubReleaseCommand extends Command {
     let user = repository[0];
     let repo = repository[1];
 
+    if (!release) release = 'latest';
+
     github.repos.getReleases({
       user, repo,
       perPage: 99
     }, (err, res) => {
       if (err) err = JSON.parse(err);
-      if (err && err.message !== "Not Found") throw new Error(`Unable to get release ${release} from ${repository.join('/')}\n ${err}`, `github`, err);
+      if (err && err.message !== "Not Found") throw new Error(`Unable to get release ${issueNumber} from \`${repository.join('/')}\`\n ${err}`, `github`, err);
+      if (err && err.message == "Not Found") {
+        return msg.channel.sendMessage(`Unable to get issue #${issueNumber} from \`${repository.join('/')}\`: Issue doesn't exist`);
+      }
 
       let releaseObj = Util.Search(res, release)[0];
 

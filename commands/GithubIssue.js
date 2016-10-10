@@ -50,8 +50,8 @@ class GithubIssue extends Command {
       user, repo,
       number: issueNumber
     }, (err, res) => {
-      err = JSON.parse(err);
 
+      if (err) err = JSON.parse(err);
       if (err && err.message !== "Not Found") throw new Error(`Unable to get issue #${issueNumber} from \`${repository.join('/')}\`\n ${err}`, `github`, err);
       if (err && err.message == "Not Found") {
         return msg.channel.sendMessage(`Unable to get issue #${issueNumber} from \`${repository.join('/')}\`: Issue doesn't exist`);

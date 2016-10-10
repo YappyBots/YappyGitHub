@@ -17,8 +17,12 @@ class SayCommand extends Command {
   }
 
   run(msg, args) {
-    msg.channel.sendMessage(args.join(' '))
-    .then(msg.delete.bind(msg));
+    if (msg.author.id == msg.client.user.id) {
+      msg.edit(args.join(' '))
+    } else {
+      msg.channel.sendMessage(args.join(' '))
+      .then(msg.delete.bind(msg));
+    }
   }
 }
 

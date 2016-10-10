@@ -5,6 +5,8 @@ const ServerConf = require('./lib/ServerConf');
 const Util = require('./lib/Util');
 const GithubPrefix = `G! `;
 
+const ErrorLogger = require('./lib/Structures/ErrorLogger');
+
 const StartsWithPrefix = (msg) => {
   let prefix = ServerConf.grab(msg.guild).prefix;
 
@@ -26,6 +28,7 @@ const RemovePrefix = (msg) => {
   return content;
 }
 const RunCommand = (msg) => {
+
   if (!StartsWithPrefix(msg)) return false;
 
   let bot = msg.client;
@@ -44,8 +47,14 @@ const RunCommand = (msg) => {
 
   if (cmd) {
     if (perms < cmd.conf.permLevel) return;
-    cmd.run(msg, args);
+
+    try {
+      cmd.run(msg, args);
+    } catch (e) {
+      ErrorLogger.error(e, `Yappy encounted an error when trying to execute a command`, msg);
+    }
   }
+
 }
 const BotPermissions = (msg) => {
   /* This function should resolve to an ELEVATION level which
@@ -71,6 +80,7 @@ module.exports = (bot) => {
   bot.config = {
     owner: '175008284263186437'
   };
+  ErrorLogger.init(bot);
   Booted(bot);
 
   fs.readdir('./commands', (err, files) => {
@@ -89,7 +99,7 @@ module.exports = (bot) => {
           bot.aliases.set(alias, command.help.name);
         });
       } catch (e) {
-        Log.error(e)
+        ErrorLogger(e, `Yappy encounted an error when trying to load a command`);
       }
     });
   });

@@ -15,8 +15,8 @@ module.exports = (data) => {
 
   // if (data.context == 'github/pages') return false;
 
-  if (state == 'failure') event = 'failed';
-  if (state == 'error') event = 'errored';
+  if (state === 'failure') event = 'failed';
+  if (state === 'error') event = 'errored';
 
   let msg = `📝 Commit \`${sha.slice(0, 7)}\`'s test `;
 

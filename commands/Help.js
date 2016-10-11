@@ -20,13 +20,13 @@ class HelpCommand extends Command {
     if (!args[0]) {
       let commands = this.bot.commands;
       let commandsForEveryone = commands.filter(e => {
-        return !e.conf.permLevel || e.conf.permLevel == 0;
+        return !e.conf.permLevel || e.conf.permLevel === 0;
       });
       let commandsForAdmin = commands.filter(e => {
-        return e.conf.permLevel == 1;
+        return e.conf.permLevel === 1;
       });
       let commandsForOwner = commands.filter(e => {
-        return e.conf.permLevel == 2;
+        return e.conf.permLevel === 2;
       });
 
       let message = [
@@ -102,9 +102,9 @@ class HelpCommand extends Command {
   }
 
   _permLevelToWord(permLvl) {
-    if (!permLvl || permLvl == 0) return 'Everyone'
-    if (permLvl == 1) return 'Admin';
-    if (permLvl == 2) return 'Owner';
+    if (!permLvl || permLvl === 0) return 'Everyone'
+    if (permLvl === 1) return 'Admin';
+    if (permLvl === 2) return 'Owner';
   }
 }
 

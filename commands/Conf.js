@@ -31,7 +31,7 @@ class ConfCommand extends Command {
     let action = args[0] || 'view';
     let conf = ServerConf.grab(msg.guild);
 
-    if (action == 'view') {
+    if (action === 'view') {
       let message = [
         '```xl',
         `${msg.guild.name.toUpperCase()}'s Configuration`,
@@ -44,7 +44,7 @@ class ConfCommand extends Command {
         '```'
       ];
       msg.channel.sendMessage(message);
-    } else if (action == 'set') {
+    } else if (action === 'set') {
       let key = args[1];
       let value = args.slice(2, 3).join(' ');
 
@@ -53,7 +53,7 @@ class ConfCommand extends Command {
       }).catch(error => {
         msg.channel.sendMessage(error);
       });
-    } else if (action == 'get') {
+    } else if (action === 'get') {
       let key = args[1];
 
       msg.reply(`Configuration key \`${key}\` currently set to \`${conf[key]}\``);
@@ -62,14 +62,3 @@ class ConfCommand extends Command {
 }
 
 module.exports = ConfCommand;
-
-// module.exports = (bot) => (msg, command, args) => {
-//   if (!msg.guild || !msg.member) {
-//     return msg.channel.sendMessage([
-//       'Configuration commands must be used inside a server you share with the bot by an actual user.'
-//     ]);
-//   }
-//   if (msg.author.id !== Owner && !msg.member.permissions.hasPermission('ADMINISTRATOR')) {
-//     return msg.channel.sendMessage('❌ You must have the perm \`ADMINISTRATOR\` to change the bot\'s config');
-//   }
-// }

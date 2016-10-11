@@ -7,11 +7,11 @@ module.exports = data => {
 
   let msg = `💬 `;
 
-  if (action == 'deleted') {
+  if (action === 'deleted') {
     msg += `**${actor.login}** deleted a comment on ${isComment ? 'issue' : 'pull request'} **#${issue.number}** (${issue.title}) \n`;
-  } else if (action == 'created') {
+  } else if (action === 'created') {
     msg += `**${actor.login}** commented on ${isComment ? 'issue' : 'pull request'} **#${issue.number}** (${issue.title}) \n`;
-  } else if (action == 'edited') {
+  } else if (action === 'edited') {
     msg += `**${actor.login}** edited a comment on ${isComment ? 'issue' : 'pull request'} **#${issue.number}** (${issue.title}) \n`;
   }
 

@@ -4,9 +4,9 @@ module.exports = (data) => {
   let repository = data.repository.full_name;
   let event = action;
 
-  if (action == 'publicized') action = 'made the repo public';
-  if (action == 'privatized') action = 'made the repo private';
-  if (action == 'deleted') action = 'deleted the repo';
+  if (action === 'publicized') action = 'made the repo public';
+  if (action === 'privatized') action = 'made the repo private';
+  if (action === 'deleted') action = 'deleted the repo';
 
   let msg = `💿 **${actor.login}** ${action}`;
 

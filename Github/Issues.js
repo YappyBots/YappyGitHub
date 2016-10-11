@@ -44,7 +44,7 @@ const UnassignedIssue = payload => {
   let issue = payload.issue;
   let assigned = payload.assignee;
 
-  let msg = `🛠 **${actor.login}** unassigned ${actor.login == assigned.login ? 'themselves' : `**${assigned.login}**`} from **#${issue.number}** (${issue.title}) \n`;
+  let msg = `🛠 **${actor.login}** unassigned ${actor.login === assigned.login ? 'themselves' : `**${assigned.login}**`} from **#${issue.number}** (${issue.title}) \n`;
   msg += `<${issue.html_url}>\n`;
 
   return msg;
@@ -63,33 +63,33 @@ const ReopenedIssue = payload => {
 module.exports = payload => {
 
   switch (payload.action) {
-    case 'opened':
+    case 'opened': {
       return OpenedIssue(payload);
-      break;
-    case 'edited':
+    }
+    case 'edited': {
       return EditedIssue(payload);
-      break;
-    case 'closed':
+    }
+    case 'closed': {
       return ClosedIssue(payload);
-      break;
-    case 'reopened':
+    }
+    case 'reopened': {
       return ReopenedIssue(payload);
-      break;
-    case 'assigned':
+    }
+    case 'assigned': {
       return AssignedIssue(payload);
-      break;
-    case 'unassigned':
+    }
+    case 'unassigned': {
       return UnassignedIssue(payload);
-      break;
-    case 'labeled':
+    }
+    case 'labeled': {
       return LabeledIssue(payload);
-      break;
-    case 'unlabeled':
+    }
+    case 'unlabeled': {
       return UnlabeledIssue(payload);
-      break;
-    default:
+    }
+    default: {
       return payload;
-      break;
+    }
   }
 
 }

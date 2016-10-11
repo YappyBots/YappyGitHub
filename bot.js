@@ -46,7 +46,7 @@ require('./commands')(bot);
 
 bot.on('ready', () => {
   Log.info('=> Logged in!');
-  new BotsDiscordPwAPI(bot);
+  global.DiscordBotsPwAPI = new BotsDiscordPwAPI(bot);
   ClientReady = true;
 });
 

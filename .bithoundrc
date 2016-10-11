@@ -1,0 +1,10 @@
+{
+  "ignore": [
+    "docs/**/**.**"
+  ],
+  "test": [
+  ],
+  "critics": {
+    "lint": {"engine": "eslint"}
+  }
+}

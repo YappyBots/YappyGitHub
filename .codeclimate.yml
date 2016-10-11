@@ -12,7 +12,7 @@ engines:
       - php
   eslint:
     enabled: true
-    
+
     checks:
       global-require:
         enabled: false
@@ -28,4 +28,5 @@ ratings:
   - "**.php"
   - "**.py"
   - "**.rb"
-exclude_paths: []
+exclude_paths:
+  - "docs/"

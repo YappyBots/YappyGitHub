@@ -28,9 +28,9 @@ class GithubIssue extends Command {
   run(msg, args) {
     if (!args[0]) return msg.channel.sendMessage(`G! help issue`);
 
-    if (args[0] == 'search') {
+    if (args[0] === 'search') {
       this._search(msg, args);
-    } else if (args.length == 1) {
+    } else if (args.length === 1) {
       this._issue(msg, args);
     }
   }
@@ -53,7 +53,7 @@ class GithubIssue extends Command {
 
       if (err) err = JSON.parse(err);
       if (err && err.message !== "Not Found") throw new Error(`Unable to get issue #${issueNumber} from \`${repository.join('/')}\`\n ${err}`, `github`, err);
-      if (err && err.message == "Not Found") {
+      if (err && err.message === "Not Found") {
         return msg.channel.sendMessage(`Unable to get issue #${issueNumber} from \`${repository.join('/')}\`: Issue doesn't exist`);
       }
 

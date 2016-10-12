@@ -1,3 +1,20 @@
+const WebhookPullRequest = (payload) => {
+  let action = payload.action[0].toUpperCase() + payload.action.slice(1, 99);
+  let pr = payload.pull_request;
+  let title = `${action} pull request #${pr.number} (${pr.title})`;
+
+  return {
+    attachments: [{
+
+      title,
+      title_link: pr.html_url,
+      color: '#149617'
+
+    }]
+  }
+
+}
+
 const OpenedPullRequest = data => {
   let actor = data.sender;
   let pr = data.pull_request;
@@ -26,34 +43,19 @@ const ReopenedPullRequest = data => {
 
   return msg;
 }
-const SynchronizedPullRequest = data => {
-  let actor = data.sender;
-  let pr = data.pull_request;
-
-  let msg = `⛽ **${actor.login}** updated pull request **#${pr.number}** (_${pr.title}_) with new commits\n`;
-  msg += `<${pr.html_url}>`;
-
-  return msg;
-}
 
 module.exports = data => {
   let action = data.action;
+  let str;
 
-  switch (action) {
-    case 'opened': {
-      return OpenedPullRequest(data);
-    }
-    case 'closed': {
-      return ClosedPullRequest(data);
-    }
-    case 'reopened': {
-      return ReopenedPullRequest(data);
-    }
-    case 'synchronize': {
-      return SynchronizedPullRequest(data);
-    }
-    default: {
-      return '';
-    }
+  if (action === 'opened') str = OpenedPullRequest(data);
+  if (action === 'closed') str = ClosedPullRequest(data);
+  if (action === 'reopened') str = ReopenedPullRequest(data);
+  if (!str) return false;
+
+  return {
+    str,
+    payload: data,
+    webhook: WebhookPullRequest(data)
   }
 }

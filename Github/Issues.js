@@ -1,3 +1,28 @@
+const WebhookIssue = (payload) => {
+  let action = payload.action[0].toUpperCase() + payload.action.slice(1, 99);
+  let issue = payload.issue;
+  let title = `${action} issue #${issue.number} (${issue.title})`;
+
+  if (action == 'Edited') {
+    title = `Renamed issue #${issue.number} to \`${issue.title}\``;
+  } else if (action == 'Assigned') {
+    title = `Assigned **${assigned.login}** to issue #${issue.number} (${issue.title}) \n`
+  } else if (action == 'Unassigned') {
+    title = `Unassigned **${assigned.login}** from issue #${issue.number} (${issue.title}) \n`
+  }
+
+  return {
+    attachments: [{
+
+      title,
+      title_link: payload.issue.html_url,
+      color: '#E9642D'
+
+    }]
+  }
+
+}
+
 const OpenedIssue = payload => {
   let actor = payload.sender;
   let issue = payload.issue;
@@ -62,34 +87,19 @@ const ReopenedIssue = payload => {
 
 module.exports = payload => {
 
-  switch (payload.action) {
-    case 'opened': {
-      return OpenedIssue(payload);
-    }
-    case 'edited': {
-      return EditedIssue(payload);
-    }
-    case 'closed': {
-      return ClosedIssue(payload);
-    }
-    case 'reopened': {
-      return ReopenedIssue(payload);
-    }
-    case 'assigned': {
-      return AssignedIssue(payload);
-    }
-    case 'unassigned': {
-      return UnassignedIssue(payload);
-    }
-    case 'labeled': {
-      return LabeledIssue(payload);
-    }
-    case 'unlabeled': {
-      return UnlabeledIssue(payload);
-    }
-    default: {
-      return payload;
-    }
+  let str;
+
+  if (payload.action == 'opened') str = OpenedIssue(payload);
+  if (payload.action == 'closed') str = ClosedIssue(payload);
+  if (payload.action == 'reopened') str = ReopenedIssue(payload);
+  if (payload.action == 'assigned') str = AssignedIssue(payload);
+  if (payload.action == 'unassigned') str = UnassignedIssue(payload);
+  if (payload.action == 'labeled') str = LabeledIssue(payload);
+  if (payload.action == 'unlabeled') str = UnlabeledIssue(payload);
+
+  return {
+    str, payload,
+    webhook: WebhookIssue(payload)
   }
 
 }

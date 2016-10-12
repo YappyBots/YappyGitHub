@@ -1,3 +1,14 @@
+const WebhookRepository = (data) => {
+  let action = data.action[0].toUpperCase() + data.action[0].slice(1, 99);
+
+  return {
+    attachments: [{
+      title: `${action} the repo`,
+      color: '#972E26'
+    }]
+  }
+}
+
 module.exports = (data) => {
   let actor = data.sender;
   let action = data.action;
@@ -10,5 +21,9 @@ module.exports = (data) => {
 
   let msg = `💿 **${actor.login}** ${action}`;
 
-  return msg;
+  return {
+    str: msg,
+    payload: data,
+    webhook: WebhookRepository(data)
+  };
 }

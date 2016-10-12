@@ -1,10 +1,11 @@
+const now = require('performance-now');
 const Command = require('../lib/Structures/Command');
 const EvalCode = require('../lib/EvalCode');
 const Log = require('../lib/Logger').Logger;
 const Owner = '175008284263186437';
 
 const clean = text => {
-  if (typeof(text) === "string") {
+  if (typeof text === "string") {
     return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203)).replace("``", "`" + String.fromCharCode(8203) + "`");
   }
   else {
@@ -39,7 +40,7 @@ class EvalCommand extends Command {
         endTime
       } = data;
 
-      if (evaled && evaled.indexOf(this.bot.token) >= 0) {
+      if (evaled && typeof evaled == 'string' && evaled.indexOf(this.bot.token) >= 0) {
         return msg.channel.sendMessage('Cannot complete eval due to token made visible by command.');
       }
 
@@ -67,12 +68,15 @@ class EvalCommand extends Command {
         endTime
       } = data;
 
+      if (!startTime) startTime = now();
+      if (!endTime) endTime = now();
+
       let message = [
         '`EVAL`',
         '```xl',
         clean(command),
         '- - - - - - - errors-in- - - - - - -',
-        clean(error),
+        clean(error) || error,
         '- - - - - - - - - - - - - - - - - - -',
         `In ${endTime - startTime} milliseconds!`,
         '```'

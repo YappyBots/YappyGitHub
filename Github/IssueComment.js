@@ -3,7 +3,7 @@ const WebhookIssueComment = (data) => {
   let isDeleted = data.action === 'deleted';
   let isIssue = !data.issue.pull_request;
 
-  let moreDots = payload.issue.body.length > 200 ? '...' : '';
+  let moreDots = data.issue.body.length > 200 ? '...' : '';
 
   return {
     attachments: [{

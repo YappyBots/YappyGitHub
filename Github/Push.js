@@ -16,11 +16,13 @@ const WebhookPush = (data, info) => {
 
   if (hasExtraCommits) pretext.push(`${oldLength - 5} more commits`);
 
+  let msg = pretext.join('\n');
+
   return {
     attachments: [{
-      pretext,
       title: `Pushed ${info.commitCount} ${info.commitCount > 1 ? 'commits' : 'commit'} to \`${info.branch}\``,
       title_link: data.compare,
+      pretext: msg,
       color: '#7289DA'
     }]
   }

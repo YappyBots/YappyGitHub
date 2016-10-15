@@ -3,11 +3,13 @@ const WebhookIssueComment = (data) => {
   let isDeleted = data.action === 'deleted';
   let isIssue = !data.issue.pull_request;
 
+  let moreDots = payload.issue.body.length > 200 ? '...' : '';
+
   return {
     attachments: [{
       title: `${isCreated ? 'Created' : (isDeleted ? 'Deleted' : '')} a comment on ${isIssue ? 'issue' : 'pull request'} #${data.issue.number}: **${data.issue.title}**`,
       title_link: data.comment.html_url,
-      pretext: `${data.comment.body.split('\n')[0].slice(0, 40)}...`,
+      pretext: data.comment.body.split('\n')[0].slice(0, 200) + moreDots,
 
       color: (isIssue ? '#E48D64' : '#C0E4C0')
     }]

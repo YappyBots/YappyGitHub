@@ -27,7 +27,7 @@ class GithubRemoveCommand extends Command {
 
     if (!conf) {
       return msg.channel.sendMessage('❌ This channel doesn\'t have any github events!');
-    } else if (msg.member && !msg.member.permissions.hasPermission('ADMINISTRATOR') && !msg.author.id !== msg.config.owner) {
+    } else if (msg.member && !msg.member.permissions.hasPermission('ADMINISTRATOR') && !msg.author.id !== this.bot.config.owner) {
       return msg.channel.sendMessage('❌ Insuficient permissions! You must have administrator permissions to delete repository events!');
     }
 

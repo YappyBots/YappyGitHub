@@ -39,7 +39,7 @@ class GithubInitCommand extends Command {
 
     if (conf) {
       return msg.channel.sendMessage('❌ This channel already has events for a github repo!');
-    } else if (msg.member && !msg.member.permissions.hasPermission('ADMINISTRATOR') && !msg.author.id !== msg.config.owner) {
+    } else if (msg.member && !msg.member.permissions.hasPermission('ADMINISTRATOR') && !msg.author.id !== this.bot.config.owner) {
       return msg.channel.sendMessage('❌ Insuficient permissions! You must have administrator permissions to initialize repository events!');
     }
 

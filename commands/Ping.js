@@ -18,7 +18,7 @@ class PingCommand extends Command {
       if (difference > 999) {
         difference = difference / 1000;
       }
-      return message.edit(`Ping, Pong! Took ${difference} ${currentTime - message.createdTimestamp > 999 ? 's' : 'ms'}`);
+      return message.edit(`Ping, Pong! Took ${difference} ${message.createdTimestamp - oldTime > 999 ? 's' : 'ms'}`);
     }).catch(console.error);
   }
 }

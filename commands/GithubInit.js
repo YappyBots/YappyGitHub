@@ -54,10 +54,8 @@ class GithubInitCommand extends Command {
       GithubCache.add(repository.repo);
 
       ChannelConf.add(channelid, repo).then(() => {
-        msg.channel.sendMessage([
-          `✅ Successfully initialized repository events in this channel for the private repo **${repository.repo}**.`,
-          `The repo must have a webhook pointing to <http://discordjsrewritetrello-datitisev.rhcloud.com/>`
-        ]);
+        let message = this._successMessage(repository.repo);
+        msg.channel.sendMessage(message);
       }).catch(err => {
         Log.error(err);
         msg.channel.sendMessage(`❌ An error occurred while trying to initialize repository events for private repo **${repo}** in this channel.\n\`${err}\``);
@@ -91,10 +89,8 @@ class GithubInitCommand extends Command {
       GithubCache.add(repository.repo);
 
       ChannelConf.add(channelid, repo).then(() => {
-        msg.channel.sendMessage([
-          `✅ Successfully initialized repository events in this channel for **${repository.repo}**.`,
-          `The repo must a webhook pointing to <http://discordjsrewritetrello-datitisev.rhcloud.com/> with every event except for \`watch\` and \`fork\`, they are buggy for some reason :/`
-        ]);
+        let message = this._successMessage(repository.repo);
+        msg.channel.sendMessage(message);
       }).catch(err => {
         Log.error(err);
         msg.channel.sendMessage(`❌ An error occurred while trying to initialize repository events for **${repo}** in this channel.\n\`${err}\``);
@@ -102,6 +98,13 @@ class GithubInitCommand extends Command {
 
     });
 
+  }
+
+  _successMessage(repo) {
+    return [
+      `✅ Successfully initialized repository events in this channel for **${repo}**.`,
+      `The repo must a webhook pointing to <http://discordjsrewritetrello-datitisev.rhcloud.com/>`
+    ])
   }
 
 }

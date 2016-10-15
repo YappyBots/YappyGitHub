@@ -14,6 +14,7 @@ const WebhookPush = (data, info) => {
     attachments: [{
       pretext,
       title: `Pushed ${info.commitCount} ${info.commitCount > 1 ? 'commits' : 'commit'} to \`${info.branch}\``,
+      title_link: data.compare,
       color: '#7289DA'
     }]
   }

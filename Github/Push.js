@@ -8,7 +8,13 @@ const WebhookPush = (data, info) => {
       let sha = commit.id.slice(0, 7);
 
       return `[\`${sha}\`](${commit.url}) ${commitMessage} [${author}]`;
-  }).join('\n');
+  });
+
+  let hasExtraCommits = pretext.length > 5;
+  let oldLength = pretext.length;
+  pretext.length = hasExtraCommits ? 5 pretext.length;
+
+  if (hasExtraCommits) pretext.push(`${oldLength - 5} more commits`);
 
   return {
     attachments: [{
@@ -29,12 +35,18 @@ module.exports = data => {
 
   if (!commitCount) return '';
 
-  let msg = `⚡ **${actor.login}** pushed ${commitCount} commits to \`${branch}\`\n`;
+  let msg = `⚡ **${actor.login}** pushed ${commitCount} commits to \`${branch}\``;
 
-  commits.forEach(commit => {
+  let commitArr = commits.map(commit => {
     let commitMessage = commit.message.replace(/\n/g, '\n               ').replace(UrlRegEx, RemoveUrlEmbedding);
-    msg += `        \`${commit.id.slice(0, 7)}\` ${commitMessage} [${commit.committer.username || commit.author.username || actor.login}]\n`;
+    return `\`${commit.id.slice(0, 7)}\` ${commitMessage} [${commit.committer.username || commit.author.username || actor.login}]`;
   });
+
+  commitArr.length = 5;
+
+  msg += commitArr.join('\n        ');
+  msg += `\n${data.compare}`;
+
 
   return {
     str: msg,

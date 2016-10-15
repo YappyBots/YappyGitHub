@@ -12,8 +12,8 @@ class PingCommand extends Command {
   }
 
   run(msg, args) {
+    let currentTime = msg.createdTimestamp;
     msg.channel.sendMessage(`Pinging...`).then(message => {
-      let currentTime = new Date().getTime();
       let difference = currentTime - message.createdTimestamp;
       if (difference > 999) {
         difference = difference / 1000;

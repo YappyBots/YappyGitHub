@@ -13,13 +13,13 @@ class PingCommand extends Command {
 
   run(msg, args) {
     let oldTime = msg.createdTimestamp;
-    msg.channel.sendMessage(`Pinging...`).then(message => {
+    return msg.channel.sendMessage(`Pinging...`).then(message => {
       let difference = message.createdTimestamp - oldTime;
       if (difference > 999) {
         difference = difference / 1000;
       }
       return message.edit(`Ping, Pong! Took ${difference} ${message.createdTimestamp - oldTime > 999 ? 's' : 'ms'}`);
-    }).catch(console.error);
+    });
   }
 }
 

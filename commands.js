@@ -49,7 +49,10 @@ const RunCommand = (msg) => {
     if (perms < cmd.conf.permLevel) return;
 
     try {
-      cmd.run(msg, args);
+      let commandRun = cmd.run(msg, args);
+      if (commandRun && commandRun.catch) {
+        commandRun.catch(e => ErrorLogger.e(e, `Yappy encounted an error when trying to execute a command`, msg));
+      }
     } catch (e) {
       ErrorLogger.error(e, `Yappy encounted an error when trying to execute a command`, msg);
     }

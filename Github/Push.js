@@ -12,7 +12,7 @@ const WebhookPush = (data, info) => {
 
   let hasExtraCommits = pretext.length > 5;
   let oldLength = pretext.length;
-  pretext.length = hasExtraCommits ? 5 pretext.length;
+  pretext.length = hasExtraCommits ? 5 : pretext.length;
 
   if (hasExtraCommits) pretext.push(`${oldLength - 5} more commits`);
 

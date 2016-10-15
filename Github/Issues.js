@@ -2,6 +2,7 @@ const WebhookIssue = (payload) => {
   let action = payload.action[0].toUpperCase() + payload.action.slice(1, 99);
   let issue = payload.issue;
   let title = `${action} issue #${issue.number} (${issue.title})`;
+  let pretext = '';
 
   if (action == 'Edited') {
     title = `Renamed issue #${issue.number} to \`${issue.title}\``;
@@ -11,11 +12,19 @@ const WebhookIssue = (payload) => {
     title = `Unassigned **${assigned.login}** from issue #${issue.number} (${issue.title}) \n`
   }
 
+  if (action === 'Opened' || action === 'Reopened') {
+    let description = payload.issue.body.slice(0, 370);
+    let moreDots = payload.issue.body.length > 370 ? '...' : '';
+
+    pretext = description + moreDots;
+  }
+
   return {
     attachments: [{
 
       title,
       title_link: payload.issue.html_url,
+      pretext: pretext,
       color: '#E9642D'
 
     }]

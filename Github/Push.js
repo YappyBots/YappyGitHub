@@ -47,7 +47,7 @@ module.exports = data => {
   commitArr.length = 5;
 
   msg += `\n` + commitArr.join('\n');
-  msg += `\n${data.compare}`;
+  msg += `\n<${data.compare}>`;
 
 
   return {

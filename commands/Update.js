@@ -35,7 +35,7 @@ class UpdateCommand extends Command {
           '**UPDATE**',
           '',
           'Finished fetching update!',
-          `\`${updateCommand}\``,
+          `\`git pull\``,
           '\`\`\`xl',
           stdout,
           '\`\`\`',

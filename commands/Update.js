@@ -75,7 +75,7 @@ class UpdateCommand extends Command {
   _exec(cmd, opts = {}) {
     return new Promise((resolve, reject) => {
       exec(cmd, opts, (err, stdout, stderr) => {
-        if (err) return reject(stdout));
+        if (err) return reject(stdout);
         resolve(stderr);
       });
     })

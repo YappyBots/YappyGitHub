@@ -45,7 +45,7 @@ class UpdateCommand extends Command {
         return msg.channel.sendMessage(message)
       }
 
-    }).then(this._installDeps)
+    }).then(() => this._installDeps)
     .then(() => {
       msg.channel.sendMessage([
         'Installed dependencies!',

@@ -41,12 +41,12 @@ module.exports = data => {
 
   let commitArr = commits.map(commit => {
     let commitMessage = commit.message.replace(/\n/g, '\n               ').replace(UrlRegEx, RemoveUrlEmbedding);
-    return `\`${commit.id.slice(0, 7)}\` ${commitMessage} [${commit.committer.username || commit.author.username || actor.login}]`;
+    return `        \`${commit.id.slice(0, 7)}\` ${commitMessage} [${commit.committer.username || commit.author.username || actor.login}]`;
   });
 
   commitArr.length = 5;
 
-  msg += commitArr.join('\n        ');
+  msg += `\n` + commitArr.join('\n');
   msg += `\n${data.compare}`;
 
 

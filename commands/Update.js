@@ -57,6 +57,7 @@ class UpdateCommand extends Command {
 
       process.exit();
     }).catch(err => {
+      Log.error(err);
       msg.channel.sendMessage([
         `An error occurred while trying to update bot`,
         '```js',

@@ -29,8 +29,6 @@ const WebhookStatus = (data, str) => {
     // footer_icon: data.repository.owner.avatar_url
   }
 
-  Log.debug(body);
-
   return body;
 }
 

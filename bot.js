@@ -55,6 +55,24 @@ bot.on('error', err => {
 });
 bot.on('disconnect', () => Log.info('Disconnected! Reconnecting...'));
 
+process.on('unhandledRejection', (err) => {
+  if (typeof err == 'object' && !!err.stack) {
+    err.stack = err.stack.replace(new RegExp(__dirname, 'g'), '.');
+  }
+
+  let message = [
+    '**UNHANDLED REJECTION**',
+    '',
+    '```xl',
+    err.stack || err,
+    '```'
+  ].join('\n');
+
+  Log.error(err.stack);
+
+  if (ClientReady) bot.users.get('175008284263186437').sendMessage(message);
+});
+
 process.on('uncaughtException', err => {
   if (typeof err == 'object' && !!err.stack) {
     err.stack = err.stack.replace(new RegExp(__dirname, 'g'), '.');

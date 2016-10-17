@@ -32,7 +32,7 @@ class HelpCommand extends Command {
       let message = [
         `[ Commands List ]`,
         ``,
-        `Use ?help <command> for details`,
+        `Use \`G! help <command>\` for details`,
         ``,
         `PUBLIC`,
         ...commandsForEveryone.map(command => {

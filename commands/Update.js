@@ -48,18 +48,20 @@ class UpdateCommand extends Command {
 
     }).then(() => this._installDeps())
     .then(() => {
-      msg.channel.sendMessage([
+      Object.keys(require.cache).forEach(key => delete require.cache[key]);
+
+      return msg.channel.sendMessage([
         'Installed dependencies!',
         '',
         'Rebooting...'
       ]);
-
-      Object.keys(require.cache).forEach(key => delete require.cache[key]);
-
+    }).then(() => {
       process.exit();
     }).catch(err => {
       console.error(err);
       if (err === "No update") return false;
+      Object.keys(require.cache).forEach(key => delete require.cache[key]);
+
       msg.channel.sendMessage([
         `An error occurred while trying to update bot`,
         '```js',
@@ -67,11 +69,8 @@ class UpdateCommand extends Command {
         '```',
         '',
         'Rebooting...'
-      ]);
+      ]).then(() => process.exit());
 
-      Object.keys(require.cache).forEach(key => delete require.cache[key]);
-
-      process.exit();
     });
   }
 

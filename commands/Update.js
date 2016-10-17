@@ -59,16 +59,15 @@ class UpdateCommand extends Command {
       process.exit();
     }).catch(err => {
       console.error(err);
+      if (err === "No update") return false;
       msg.channel.sendMessage([
         `An error occurred while trying to update bot`,
         '```js',
         err,
         '```',
         '',
-        err === 'No update' ? 'Rebooting...' : ''
+        'Rebooting...'
       ]);
-
-      if (err === "No update") return false;
 
       Object.keys(require.cache).forEach(key => delete require.cache[key]);
 

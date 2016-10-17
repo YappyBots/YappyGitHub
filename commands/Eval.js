@@ -33,12 +33,7 @@ class EvalCommand extends Command {
   run(msg, args, command) {
     command = args.join(' ');
 
-    EvalCode(this.bot, msg, command).then(data => {
-      var {
-        evaled,
-        startTime,
-        endTime
-      } = data;
+    EvalCode(this.bot, msg, command).then(evaled => {
 
       if (evaled && typeof evaled == 'string' && evaled.indexOf(this.bot.token) >= 0) {
         return msg.channel.sendMessage('Cannot complete eval due to token made visible by command.');
@@ -50,8 +45,6 @@ class EvalCommand extends Command {
         clean(command),
         '- - - - - - evaluates-to- - - - - - -',
         evaled !== undefined ? clean(evaled) : 'undefined',
-        '- - - - - - - - - - - - - - - - - - -',
-        `In ${endTime - startTime} milliseconds!`,
         '- - - - - - - of type - - - - - - - -',
         typeof evaled,
         '```'
@@ -60,16 +53,7 @@ class EvalCommand extends Command {
       msg.channel.sendMessage(message).catch(err => {
         Log.error(err);
       });
-    }).catch(data => {
-
-      let {
-        error,
-        startTime,
-        endTime
-      } = data;
-
-      if (!startTime) startTime = now();
-      if (!endTime) endTime = now();
+    }).catch(error => {
 
       let message = [
         '`EVAL`',
@@ -77,8 +61,6 @@ class EvalCommand extends Command {
         clean(command),
         '- - - - - - - errors-in- - - - - - -',
         clean(error) || error,
-        '- - - - - - - - - - - - - - - - - - -',
-        `In ${endTime - startTime} milliseconds!`,
         '```'
       ].join('\n');
 

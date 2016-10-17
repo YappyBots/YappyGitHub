@@ -29,7 +29,8 @@ class UpdateCommand extends Command {
           '',
           'No update available!'
         ];
-        return msg.channel.sendMessage(message);
+        msg.channel.sendMessage(message);
+        throw "No update";
       } else {
         let message = [
           '**UPDATE**',
@@ -57,15 +58,17 @@ class UpdateCommand extends Command {
 
       process.exit();
     }).catch(err => {
-      Log.error(err);
+      console.error(err);
       msg.channel.sendMessage([
         `An error occurred while trying to update bot`,
         '```js',
         err,
         '```',
         '',
-        'Rebooting...'
+        err === 'No update' ? 'Rebooting...' : ''
       ]);
+
+      if (err === "No update") return false;
 
       Object.keys(require.cache).forEach(key => delete require.cache[key]);
 

@@ -9,7 +9,7 @@ class UpdateCommand extends Command {
     this.props.help = {
       name: 'update',
       description: 'update the bot',
-      usage: 'say'
+      usage: 'update'
     };
 
     this.setConf({

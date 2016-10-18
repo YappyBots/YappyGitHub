@@ -3,6 +3,7 @@ const bot = new Discord.Client();
 const BotCache = new require('./lib/BotCache')(bot);
 const Log = require('./lib/Logger').Logger;
 const ServerConf = require('./lib/ServerConf');
+const ErrorLogger = require('./lib/Structures/ErrorLogger');
 const BotsDiscordPwAPI = require('./lib/Structures/BotsDiscordPw');
 
 const token = process.env.DISCORD_TESTING_BOT_TOKEN || process.env.BOT_TOKEN;
@@ -70,7 +71,7 @@ process.on('unhandledRejection', (err) => {
 
   Log.error(err.stack);
 
-  if (ClientReady) bot.users.get('175008284263186437').sendMessage(message);
+  if (ClientReady) ErrorLogger.error(err);
 });
 
 process.on('uncaughtException', err => {
@@ -88,7 +89,7 @@ process.on('uncaughtException', err => {
 
   Log.error(err.stack);
 
-  if (ClientReady) bot.users.get('175008284263186437').sendMessage(message);
+  if (ClientReady) ErrorLogger.error(err);
 });
 
 Log.info('=> Logging in...');

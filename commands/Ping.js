@@ -12,16 +12,17 @@ class PingCommand extends Command {
     }
   }
 
-  run(msg, args) {
+  run(msg) {
     const startTime = now();
 
     return msg.channel.sendMessage(`Pinging...`).then(message => {
       const endTime = now();
       let difference = (endTime - startTime).toFixed(3);
-      if (difference > 999) {
-        difference = difference / 1000;
+      let moreThanOneSecond = endTime - startTime > 999;
+      if (moreThanOneSecond) {
+        difference = (difference / 1000).toFixed(3);
       }
-      return message.edit(`Ping, Pong! Took ${difference} ${endTime - startTime > 999 ? 's' : 'ms'}`);
+      return message.edit(`Ping, Pong! Took ${difference} ${moreThanOneSecond ? 's' : 'ms'}`);
     });
   }
 }

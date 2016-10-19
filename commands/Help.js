@@ -1,4 +1,3 @@
-const Log = require('../lib/Logger').Logger;
 const Command = require('../lib/Structures/Command');
 const Pad = require('../lib/Util').Pad;
 
@@ -63,9 +62,9 @@ class HelpCommand extends Command {
       }
 
       msg.channel.sendMessage([
-        '**```ini',
+        '```ini',
         ...message,
-        '```**'
+        '```'
       ]);
 
     } else {
@@ -74,7 +73,7 @@ class HelpCommand extends Command {
       if (!this.bot.commands.has(command)) return false;
       command = this.bot.commands.get(command);
       msg.channel.sendMessage([
-        '**```ini',
+        '```ini',
         `[ Command: ${command.help.name} ]`,
         ``,
         `Description`,
@@ -95,7 +94,7 @@ class HelpCommand extends Command {
         ``,
         `Permission`,
         command.conf.permLevel ? `= ${this._permLevelToWord(command.conf.permLevel)}` : '= Everyone',
-        '```**'
+        '```'
       ]);
     }
 

@@ -33,13 +33,10 @@ class GithubInitCommand extends Command {
     let channelid = msg.channel.id;
     let repo = args[0];
     let isPrivate = args[1] && (args[1].toLowerCase() == 'private');
-    let conf = ChannelConf.find('channel_id', channelid);
 
     msg.channel.sendMessage('⚙ Working...');
 
-    if (conf) {
-      return msg.channel.sendMessage('❌ This channel already has events for a github repo!');
-    } else if (msg.member && !msg.member.permissions.hasPermission('ADMINISTRATOR') && !msg.author.id !== this.bot.config.owner) {
+    if (msg.member && !msg.member.permissions.hasPermission('ADMINISTRATOR') && !msg.author.id !== this.bot.config.owner) {
       return msg.channel.sendMessage('❌ Insuficient permissions! You must have administrator permissions to initialize repository events!');
     }
 
@@ -53,7 +50,7 @@ class GithubInitCommand extends Command {
     if (isPrivate || GithubCache.exists(repository.repo)) {
       GithubCache.add(repository.repo);
 
-      ChannelConf.add(channelid, repo).then(() => {
+      ChannelConf.Add(channelid, msg.guild.id, repo).then(() => {
         let message = this._successMessage(repository.repo);
         msg.channel.sendMessage(message);
       }).catch(err => {
@@ -72,7 +69,7 @@ class GithubInitCommand extends Command {
     Github.repos.get({
       user: repoUser,
       repo: repoName
-    }, (err, res) => {
+    }, (err) => {
       let errorMessage = err && err.message || null;
 
       if (errorMessage) {
@@ -88,7 +85,7 @@ class GithubInitCommand extends Command {
 
       GithubCache.add(repository.repo);
 
-      ChannelConf.add(channelid, repo).then(() => {
+      ChannelConf.Add(channelid, msg.guild.id, repo).then(() => {
         let message = this._successMessage(repository.repo);
         msg.channel.sendMessage(message);
       }).catch(err => {

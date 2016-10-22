@@ -1,0 +1,77 @@
+@import 'DocsSidebar';
+@import 'ClassViewer';
+@import 'FileViewer';
+@import 'TypeDefViewer';
+
+.docs-viewer {
+  background: #fefefe;
+  color: #111;
+  
+  padding: 1rem;
+
+  hr {
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    margin: 1rem 0;
+  }
+
+  .doc-part-view {
+    display: inline-block;
+    border-left: 1px solid #eee;
+    padding-left: 2rem;
+    flex: 1;
+
+    p {
+      font-size: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      color: #333;
+      font-weight: 300;
+    }
+  }
+
+  .info {
+    display: block;
+    background: lighten($primary_color, 42%);
+    padding: 1rem;
+    border:1px solid #ccc;
+    margin-top:0.5rem;
+  }
+
+  .info:before {
+    font-weight: bold;
+    content: "Info: ";
+  }
+
+  .warn {
+    display: block;
+    background: lighten(#F32121, 42%);
+    padding: 1rem;
+    border:1px solid #ccc;
+    margin-top:0.5rem;
+  }
+
+  .warn:before {
+    font-weight: bold;
+    content: "Warning! ";
+  }
+
+  .scrolled {
+    background: rgba(255, 255, 0, 0.3);
+  }
+  
+  .type:not(:last-child):after {
+    font-family: 'Source Sans Pro', sans-serif;
+    content: " or ";
+    font-weight: 500;
+  }
+}
+
+.docs-viewer > .container {
+  display: inline-flex;
+  @include mq($until: desktop) {
+    flex-direction: column;
+  }
+}

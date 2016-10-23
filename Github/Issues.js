@@ -4,11 +4,11 @@ const WebhookIssue = (payload) => {
   let title = `${action} issue #${issue.number} (${issue.title})`;
   let pretext = '';
 
-  if (action == 'Edited') {
+  if (action === 'Edited') {
     title = `Renamed issue #${issue.number} to \`${issue.title}\``;
-  } else if (action == 'Assigned') {
+  } else if (action === 'Assigned') {
     title = `Assigned **${assigned.login}** to issue #${issue.number} (${issue.title}) \n`
-  } else if (action == 'Unassigned') {
+  } else if (action === 'Unassigned') {
     title = `Unassigned **${assigned.login}** from issue #${issue.number} (${issue.title}) \n`
   }
 
@@ -68,7 +68,7 @@ const AssignedIssue = payload => {
   let issue = payload.issue;
   let assigned = payload.assignee;
 
-  let msg = `🛠 **${actor.login}** assigned ${actor.login == assigned.login ? 'themselves' : `**${assigned.login}**`} to **#${issue.number}** (${issue.title}) \n`;
+  let msg = `🛠 **${actor.login}** assigned ${actor.login === assigned.login ? 'themselves' : `**${assigned.login}**`} to **#${issue.number}** (${issue.title}) \n`;
   msg += `<${issue.html_url}>\n`;
 
   return msg;
@@ -98,13 +98,13 @@ module.exports = payload => {
 
   let str;
 
-  if (payload.action == 'opened') str = OpenedIssue(payload);
-  if (payload.action == 'closed') str = ClosedIssue(payload);
-  if (payload.action == 'reopened') str = ReopenedIssue(payload);
-  if (payload.action == 'assigned') str = AssignedIssue(payload);
-  if (payload.action == 'unassigned') str = UnassignedIssue(payload);
-  if (payload.action == 'labeled') str = LabeledIssue(payload);
-  if (payload.action == 'unlabeled') str = UnlabeledIssue(payload);
+  if (payload.action === 'opened') str = OpenedIssue(payload);
+  if (payload.action === 'closed') str = ClosedIssue(payload);
+  if (payload.action === 'reopened') str = ReopenedIssue(payload);
+  if (payload.action === 'assigned') str = AssignedIssue(payload);
+  if (payload.action === 'unassigned') str = UnassignedIssue(payload);
+  if (payload.action === 'labeled') str = LabeledIssue(payload);
+  if (payload.action === 'unlabeled') str = UnlabeledIssue(payload);
 
   return {
     str, payload,

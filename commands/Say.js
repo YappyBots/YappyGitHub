@@ -17,7 +17,7 @@ class SayCommand extends Command {
   }
 
   run(msg, args) {
-    if (msg.author.id == msg.client.user.id) {
+    if (msg.author.id === msg.client.user.id) {
       msg.edit(args.join(' '))
     } else {
       msg.channel.sendMessage(args.join(' '))

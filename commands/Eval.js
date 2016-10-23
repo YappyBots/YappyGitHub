@@ -35,7 +35,7 @@ class EvalCommand extends Command {
 
     EvalCode(this.bot, msg, command).then(evaled => {
 
-      if (evaled && typeof evaled == 'string' && evaled.indexOf(this.bot.token) >= 0) {
+      if (evaled && typeof evaled === 'string' && evaled.indexOf(this.bot.token) >= 0) {
         return msg.channel.sendMessage('Cannot complete eval due to token made visible by command.');
       }
 

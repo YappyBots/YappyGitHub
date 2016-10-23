@@ -44,7 +44,7 @@ class StatsCommand extends Command {
     let Booted = bot.booted;
 
     let TextChannels = bot.channels.filter(e => e.type !== 'voice').size;
-    let VoiceChannels = bot.channels.filter(e => e.type == 'voice').size;
+    let VoiceChannels = bot.channels.filter(e => e.type === 'voice').size;
 
     let Dependencies = new Map();
     Dependencies.set('moment', pack.dependencies['moment'].split('^')[1]);

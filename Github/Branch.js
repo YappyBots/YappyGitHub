@@ -32,8 +32,8 @@ module.exports = (action, payload) => {
 
   let str;
 
-  if (action == 'create') str = CreateBranch(payload);
-  if (action == 'delete') str = DeleteBranch(payload);
+  if (action === 'create') str = CreateBranch(payload);
+  if (action === 'delete') str = DeleteBranch(payload);
 
   return {
     str, payload,

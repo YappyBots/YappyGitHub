@@ -13,9 +13,9 @@ const Log = require('../lib/Logger').Logger;
 //   console.log(`Signature: ${signature}`);
 //   console.log(`Secret: ${secret}`);
 //   console.log(`Decrypted: ${decrypted}`);
-//   console.log(`Equals: ${signature == decrypted}`)
+//   console.log(`Equals: ${signature === decrypted}`)
 //
-//   return signature == decrypted;
+//   return signature === decrypted;
 // }
 
 module.exports = (req, res, next) => {

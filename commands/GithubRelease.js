@@ -40,7 +40,7 @@ class GithubReleaseCommand extends Command {
     }, (err, res) => {
       if (err) err = JSON.parse(err);
       if (err && err.message !== "Not Found") throw new Error(`Unable to get release ${issueNumber} from \`${repository.join('/')}\`\n ${err}`, `github`, err);
-      if (err && err.message == "Not Found") {
+      if (err && err.message === "Not Found") {
         return msg.channel.sendMessage(`Unable to get issue #${issueNumber} from \`${repository.join('/')}\`: Issue doesn't exist`);
       }
 
@@ -56,7 +56,7 @@ class GithubReleaseCommand extends Command {
         id: releaseObj.id
       }, (err, release) => {
         if (err && err.message !== "Not Found") throw new Error(`Unable to get release ${release} from ${repository.join('/')}\n ${err}`, `github`, err);
-        if (err && err.message == "Not Found") {
+        if (err && err.message === "Not Found") {
           return msg.channel.sendMessage(`Unable to get release ${releaseObj.tag} from ${repository.join('/')}: Release doesn't exist`);
         }
 

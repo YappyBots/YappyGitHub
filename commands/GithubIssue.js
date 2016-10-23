@@ -83,7 +83,7 @@ class GithubIssue extends Command {
 
   _search(msg, args) {
 
-    let page = args[args.length - 1].indexOf('p') == 0 ? parseInt(args[args.length - 1].slice(1)) : 1;
+    let page = args[args.length - 1].indexOf('p') === 0 ? parseInt(args[args.length - 1].slice(1)) : 1;
     let query = args.slice(1).join(' ').replace(`p${page}`, '');
 
     if (!query) return false;

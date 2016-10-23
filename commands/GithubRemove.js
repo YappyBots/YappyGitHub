@@ -33,8 +33,8 @@ class GithubRemoveCommand extends Command {
     }
 
     if (conf.length > 1 && repo) {
-      conf = conf.filter(e => e.repo == repo)[0];
-    } else if (conf.length == 1) conf = conf[0];
+      conf = conf.filter(e => e.repo === repo)[0];
+    } else if (conf.length === 1) conf = conf[0];
 
     if (!conf) {
       return msg.channel.sendMessage(`❌ This channel doesn\'t have github events for **${repo}**!`);

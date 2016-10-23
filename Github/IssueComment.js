@@ -36,7 +36,7 @@ module.exports = data => {
 
   msg += (action !== 'deleted' && comment ? `<${comment.html_url}>\n` : '');
 
-  if (msg == `💬 `) msg = false;
+  if (msg === `💬 `) msg = false;
 
   return {
     str: msg,

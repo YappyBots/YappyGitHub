@@ -22,7 +22,7 @@ const WebhookStatus = (data, str) => {
     title: `${data.description || data.context} (${data.state})`,
     title_link: data.target_url || '',
     pretext: `Test for commit \`${data.sha.slice(0, 7)}\` ${data.state}`,
-    color: data.state == 'success' ? 'good' : 'warning',
+    color: data.state === 'success' ? 'good' : 'warning',
 
     // Footer
     // footer: data.repository.name,

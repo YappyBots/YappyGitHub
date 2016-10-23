@@ -32,7 +32,7 @@ class GithubInitCommand extends Command {
 
     let channelid = msg.channel.id;
     let repo = args[0];
-    let isPrivate = args[1] && (args[1].toLowerCase() == 'private');
+    let isPrivate = args[1] && (args[1].toLowerCase() === 'private');
 
     msg.channel.sendMessage('⚙ Working...');
 
@@ -79,7 +79,7 @@ class GithubInitCommand extends Command {
       }
 
       if (errorMessage && errorMessage !== "Not Found") return msg.channel.sendMessage(`Unable to get repository info for \`${repo}\`\n ${err}`);
-      if (errorMessage && errorMessage == "Not Found") {
+      if (errorMessage && errorMessage === "Not Found") {
         return msg.channel.sendMessage(`❌ Unable to initialize! The repository \`${repository.repo}\` doesn't exist!`);
       }
 

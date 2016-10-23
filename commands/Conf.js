@@ -29,7 +29,7 @@ class ConfCommand extends Command {
 
   run(msg, args) {
     let action = args[0] || 'view';
-    let conf = ServerConf.grab(msg.guild);
+    let conf = ServerConf.GetGuild(msg.guild);
 
     if (action === 'view') {
       let message = [

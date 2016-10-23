@@ -38,7 +38,7 @@ class GithubPullRequestCommand extends Command {
   _pr(msg, args) {
 
     let prNumber = parseInt(args[0]);
-    let repository = ServerConf.grab(msg.guild).repo;
+    let repository = ServerConf.GetGuild(msg.guild).repo;
     if (!repository) return msg.channel.sendMessage(`Global repository hasn't been configured. Please tell the server owner that they need to do \`G! conf set repo <user/repo>\`.`);
 
     repository = repository.split('/');
@@ -80,7 +80,7 @@ class GithubPullRequestCommand extends Command {
 
     let page = args[args.length - 1].indexOf('p') === 0 ? parseInt(args[args.length - 1].slice(1)) : 1;
     let query = args.slice(1).join(' ').replace(`p${page}`, '');
-    let repository = ServerConf.grab(msg.guild).repo;
+    let repository = ServerConf.GetGuild(msg.guild).repo;
     if (!repository) return msg.channel.sendMessage(`Global repository hasn't been configured. Please tell the server owner that they need to do \`G! conf set repo <user/repo>\`.`);
 
     repository = repository.split('/');

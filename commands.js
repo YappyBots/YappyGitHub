@@ -8,7 +8,7 @@ const GithubPrefix = `G! `;
 const ErrorLogger = require('./lib/Structures/ErrorLogger');
 
 const StartsWithPrefix = (msg) => {
-  let prefix = ServerConf.grab(msg.guild).prefix;
+  let prefix = ServerConf.GetGuild(msg.guild).prefix;
 
   if (prefix && msg.content.startsWith(prefix)) return true;
 
@@ -17,7 +17,7 @@ const StartsWithPrefix = (msg) => {
 const RemovePrefix = (msg) => {
 
   let content = msg.content.replace(`<@${msg.client.user.id}> ` , '').replace(`<@!${msg.client.user.id}> `, '');
-  let CustomPrefix = ServerConf.grab(msg.guild).prefix;
+  let CustomPrefix = ServerConf.GetGuild(msg.guild).prefix;
 
   if (content.startsWith(GithubPrefix)) {
     content = content.replace(GithubPrefix, '')

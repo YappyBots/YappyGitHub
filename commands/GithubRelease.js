@@ -25,7 +25,7 @@ class GithubReleaseCommand extends Command {
   run(msg, args) {
 
     let release = args[0];
-    let repository = ServerConf.grab(msg.guild).repo;
+    let repository = ServerConf.GetGuild(msg.guild).repo;
     if (!repository) return msg.channel.sendMessage(`Global repository hasn't been configured. Please tell the server owner that they need to do \`G! conf set repo <user/repo>\`.`);
 
     repository = repository.split('/');

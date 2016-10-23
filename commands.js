@@ -8,7 +8,8 @@ const GithubPrefix = `G! `;
 const ErrorLogger = require('./lib/Structures/ErrorLogger');
 
 const StartsWithPrefix = (msg) => {
-  let prefix = ServerConf.GetGuild(msg.guild).prefix;
+  let conf = ServerConf.GetGuild(msg.guild);
+  let prefix = conf ? conf.prefix : undefined;
 
   if (prefix && msg.content.startsWith(prefix)) return true;
 

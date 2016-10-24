@@ -52,9 +52,15 @@ app.use((err, req, res, next) => {
   Log.Logger.error(err);
 });
 
-Log.Logger.info(`=> Starting app on ${IP || 'localhost'}:${PORT}`);
+if (process.env.WEB_NO_STANDALONE) {
+  Log.Logger.info(`=> Adding "Yappy Github" to main web...`);
+  let web = require('../../web');
+  web.use(server);
+  Log.Logger.info(`=> Added "Yappy Github" to main web!`);
+} else {
+  Log.Logger.info(`=> Starting app on ${IP || 'localhost'}:${PORT}`);
 
-
-server.listen(PORT, IP, () => {
-  Log.Logger.info(`=> Listening on ${IP || 'localhost'}:${PORT}`);
-});
+  server.listen(PORT, IP, () => {
+    Log.Logger.info(`=> Listening on ${IP || 'localhost'}:${PORT}`);
+  });
+}

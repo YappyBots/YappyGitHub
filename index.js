@@ -55,6 +55,7 @@ app.use((err, req, res, next) => {
 if (process.env.WEB_NO_STANDALONE) {
   Log.Logger.info(`=> Adding "Yappy Github" to main web...`);
   let web = require('../../web');
+  console.log(web);
   web.get('/', (req, res) => {
     res.render('home', {
       logs: Log.Logger.logs

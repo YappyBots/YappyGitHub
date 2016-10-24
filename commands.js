@@ -18,11 +18,12 @@ const StartsWithPrefix = (msg) => {
 const RemovePrefix = (msg) => {
 
   let content = msg.content.replace(`<@${msg.client.user.id}> ` , '').replace(`<@!${msg.client.user.id}> `, '');
-  let CustomPrefix = ServerConf.GetGuild(msg.guild).prefix;
+  let conf = ServerConf.GetGuild(msg.guild);
+  let CustomPrefix = conf ? conf.prefix : undefined;
 
   if (content.startsWith(GithubPrefix)) {
     content = content.replace(GithubPrefix, '')
-  } else if (content.startsWith(CustomPrefix)) {
+  } else if (CustomPrefix && content.startsWith(CustomPrefix)) {
     content = content.replace(CustomPrefix, '');
   }
 

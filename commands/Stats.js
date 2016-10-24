@@ -48,7 +48,7 @@ class StatsCommand extends Command {
 
     let Dependencies = new Map();
     Dependencies.set('moment', pack.dependencies['moment'].split('^')[1]);
-    Dependencies.set('sqlite', pack.dependencies['sqlite'].split('^')[1]);
+    Dependencies.set('mongoose', pack.dependencies['mongoose'].split('^')[1]);
     Dependencies.set('socket.io', pack.dependencies['socket.io'].split('^')[1]);
     Dependencies.set('chalk', pack.dependencies['chalk'].split('^')[1]);
     Dependencies.set('express', pack.dependencies['express'].split('^')[1]);
@@ -56,7 +56,7 @@ class StatsCommand extends Command {
     let dependencies = [
       [
         `Moment v${Dependencies.get('moment')}`,
-        `SQLite v${Dependencies.get('sqlite')}`,
+        `Mongoose v${Dependencies.get('mongoose')}`,
         `Socket.IO v${Dependencies.get('socket.io')}`
       ].join(', '),
       [
@@ -70,8 +70,8 @@ class StatsCommand extends Command {
       `Uptime         : ${GetUptime(bot)}`,
       `Booted         : ${Booted.date} @ ${Booted.time}`,
       `Memory Usage   : ${MemoryUsage}`,
-      `Messages Seen  : ${MessagesSeen} (${MessagesSeenHour} in the last hour, ~${(MessagesSeenHour / 60).toFixed(2)} / minute)`,
-      `Messages Sent  : ${MessagesSent} (${MessagesSentHour} in the last hour, ~${(MessagesSentHour / 60).toFixed(2)} / minute)`,
+      `Messages Seen  : ${MessagesSeen}`,
+      `Messages Sent  : ${MessagesSent}`,
       ``,
       `# SERVING`,
       `Guilds         : ${bot.guilds.size}`,

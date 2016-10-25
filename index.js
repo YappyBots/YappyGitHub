@@ -61,7 +61,6 @@ if (process.env.WEB_NO_STANDALONE) {
     });
   });
   web.post('/', GithubWebhooks);
-  console.log(web);
   Log.Logger.info(`=> Added "Yappy Github" to main web!`);
 } else {
   Log.Logger.info(`=> Starting app on ${IP || 'localhost'}:${PORT}`);

@@ -55,13 +55,13 @@ app.use((err, req, res, next) => {
 if (process.env.WEB_NO_STANDALONE) {
   Log.Logger.info(`=> Adding "Yappy Github" to main web...`);
   let web = require('../../web');
-  console.log(web);
   web.get('/', (req, res) => {
     res.render('home', {
       logs: Log.Logger.logs
     });
   });
   web.post('/', GithubWebhooks);
+  console.log(web);
   Log.Logger.info(`=> Added "Yappy Github" to main web!`);
 } else {
   Log.Logger.info(`=> Starting app on ${IP || 'localhost'}:${PORT}`);

@@ -53,15 +53,23 @@ app.use((err, req, res, next) => {
 });
 
 if (process.env.WEB_NO_STANDALONE) {
-  Log.Logger.info(`=> Adding "Yappy Github" to main web...`);
-  let web = require('../../web');
-  web.get('/', (req, res) => {
+  let Router = express.Router();
+  Router.engine('hbs', exphbs({
+    defaultLayout: 'main',
+    extname: '.hbs'
+  }));
+  Router.set('view engine', 'hbs');
+  Router.use(bodyParser.json({
+    limit: '250kb'
+  }));
+  Router.use(express.static(path.join(__dirname, 'public')));
+  Router.get('/', (req, res) => {
     res.render('home', {
       logs: Log.Logger.logs
     });
   });
-  web.post('/', GithubWebhooks);
-  Log.Logger.info(`=> Added "Yappy Github" to main web!`);
+  Router.post('/', GithubWebhooks);
+  module.exports = Router;
 } else {
   Log.Logger.info(`=> Starting app on ${IP || 'localhost'}:${PORT}`);
 

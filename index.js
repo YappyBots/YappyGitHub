@@ -14,8 +14,8 @@ const stopSignals = [
   'SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
   'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGUSR2', 'SIGTERM'
 ];
-const PORT = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080;
-const IP = process.env.OPENSHIFT_NODEJS_IP || process.env.IP || null;
+const PORT = process.env.OPENSHIFT_NODEJS_PORT || process.env.YAPPY_GITHUB_PORT || process.env.PORT || 8080;
+const IP = process.env.OPENSHIFT_NODEJS_IP || process.env.YAPPY_GITHUB_IP || process.env.IP || null;
 
 Log.Socket(io);
 

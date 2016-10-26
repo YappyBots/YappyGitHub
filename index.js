@@ -69,7 +69,7 @@ if (process.env.WEB_NO_STANDALONE) {
     });
   });
   Router.post('/', GithubWebhooks);
-  module.exports = Router;
+  exports = Router;
 } else {
   Log.Logger.info(`=> Starting app on ${IP || 'localhost'}:${PORT}`);
 

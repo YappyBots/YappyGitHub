@@ -4,17 +4,14 @@ const RemoveUrlEmbedding = (url) => `<${url}>`;
 const WebhookPush = (data, info) => {
   let pretext = info.commits.map(commit => {
       let commitMessage = commit.message.split('\n')[0].replace(UrlRegEx, RemoveUrlEmbedding);
-      let author = commit.committer.username || commit.author.username || actor.login;
+      let author = commit.committer.username || commit.author.username || info.actor.login;
       let sha = commit.id.slice(0, 7);
 
       return `[\`${sha}\`](${commit.url}) ${commitMessage} [${author}]`;
   });
 
   let hasExtraCommits = pretext.length > 5;
-  let oldLength = pretext.length;
   pretext.length = hasExtraCommits ? 5 : pretext.length;
-
-  if (hasExtraCommits) pretext.push(`${oldLength - 5} more commits`);
 
   let msg = pretext.join('\n');
 

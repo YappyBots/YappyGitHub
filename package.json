@@ -1,7 +1,7 @@
 {
-  "name": "discord-bot-trello-discordjs-rewrite",
+  "name": "discord-bot-yappy-github-monitor",
   "version": "1.0.0",
-  "description": "Keeps track of changes in the DiscordJS Rewrite Trello board",
+  "description": "A github monitor bot for Discord",
   "main": "index.js",
   "scripts": {
     "test": "eslint src/ && node docs/generator/generator.js silent",

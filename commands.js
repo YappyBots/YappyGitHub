@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const path = require('path');
 const Log = require('./lib/Logger').Logger;
 const ServerConf = require('./lib/ServerConf');
 const Util = require('./lib/Util');
@@ -88,14 +89,15 @@ module.exports = (bot) => {
   ErrorLogger.init(bot);
   Booted(bot);
 
-  fs.readdir('./commands', (err, files) => {
+  let commandsPath = path.resolve(__dirname, './commands');
+  fs.readdir(commandsPath, (err, files) => {
     if (err) return Log.error(err);
     files = files.filter(e => e.indexOf('.') > -1);
 
     Log.info(`Loading a total of ${files.length} commands.`);
 
     files.forEach(f => {
-      let command = require(`./commands/${f}`);
+      let command = require(`${commandsPath}/${f}`);
       try {
         command = new command(bot);
         Log.info(`Loading Command: ${command.help.name}. 👌`);

@@ -54,11 +54,6 @@ app.use((err, req, res, next) => {
 
 if (process.env.WEB_NO_STANDALONE) {
   let Router = express.Router();
-  Router.engine('hbs', exphbs({
-    defaultLayout: 'main',
-    extname: '.hbs'
-  }));
-  Router.set('view engine', 'hbs');
   Router.use(bodyParser.json({
     limit: '250kb'
   }));

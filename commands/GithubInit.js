@@ -50,10 +50,14 @@ class GithubInitCommand extends Command {
     if (isPrivate || GithubCache.exists(repository.repo)) {
       GithubCache.add(repository.repo);
 
-      ChannelConf.Add(channelid, msg.guild.id, repo).then(() => {
+      ChannelConf.Find(channelid, repository.repo).then(doc => {
+        if (doc) return Promise.reject(`❌ Repository is already initialized in this channel`);
+        return ChannelConf.Add(channelid, msg.guild.id, repository.repo);
+      }).then(() => {
         let message = this._successMessage(repository.repo);
-        msg.channel.sendMessage(message);
+        return msg.channel.sendMessage(message);
       }).catch(err => {
+        if (typeof err === "string" && err.indexOf(`❌`) > -1) return msg.channel.sendMessage(err);
         Log.error(err);
         msg.channel.sendMessage(`❌ An error occurred while trying to initialize repository events for private repo **${repo}** in this channel.\n\`${err}\``);
       });
@@ -85,10 +89,14 @@ class GithubInitCommand extends Command {
 
       GithubCache.add(repository.repo);
 
-      ChannelConf.Add(channelid, msg.guild.id, repo).then(() => {
+      return ChannelConf.Find(channelid, repository.repo).then(doc => {
+        if (doc) return Promise.reject(`❌ Repository is already initialized in this channel`);
+        return ChannelConf.Add(channelid, msg.guild.id, repository.repo);
+      }).then(() => {
         let message = this._successMessage(repository.repo);
         msg.channel.sendMessage(message);
       }).catch(err => {
+        if (typeof err === "string" && err.indexOf(`❌`) > -1) return msg.channel.sendMessage(err);
         Log.error(err);
         msg.channel.sendMessage(`❌ An error occurred while trying to initialize repository events for **${repo}** in this channel.\n\`${err}\``);
       });

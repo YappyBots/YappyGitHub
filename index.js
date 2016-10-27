@@ -36,7 +36,7 @@ app.set('view engine', 'hbs');
 app.use(bodyParser.json({
   limit: '250kb'
 }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.resolve(__dirname, './public')));
 
 app.get('/', (req, res) => {
   res.render('home', {
@@ -46,7 +46,7 @@ app.get('/', (req, res) => {
 
 app.post('/', GithubWebhooks);
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   res.status(err.status || 500);
   res.send(err.stack);
   Log.Logger.error(err);

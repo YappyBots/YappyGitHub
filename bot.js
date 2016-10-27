@@ -6,7 +6,7 @@ const ServerConf = require('./lib/ServerConf');
 const ErrorLogger = require('./lib/Structures/ErrorLogger');
 const BotsDiscordPwAPI = require('./lib/Structures/BotsDiscordPw');
 
-const token = process.env.DISCORD_TESTING_BOT_TOKEN || process.env.BOT_TOKEN;
+const token = process.env.DISCORD_TESTING_BOT_TOKEN || process.env.YAPPY_GITHUB_DISCORD;
 let GithubPrefix = 'G! ';
 let ClientReady = false;
 

@@ -32,15 +32,12 @@ class StatsCommand extends Command {
     });
   }
 
-  run(msg, args) {
+  run(msg) {
     let bot = this.bot;
 
     let MemoryUsage = bytesToSize(process.memoryUsage().rss, 3);
     let MessagesSeen = BotCache._MessagesSeen.size;
     let MessagesSent = BotCache._MessagesSent.size + 1;
-    let MessagesSeenHour = BotCache.SeenMessages.size;
-    let MessagesSentHour = BotCache.SentMessages.size + 1;
-    let CommandsRun = BotCache.CommandsRun.size;
     let Booted = bot.booted;
 
     let TextChannels = bot.channels.filter(e => e.type !== 'voice').size;
@@ -85,7 +82,7 @@ class StatsCommand extends Command {
       `Dependencies   : ${dependencies}`
     ];
 
-    msg.channel.sendCode('LDIF', message).catch(Log.error);
+    return msg.channel.sendCode('LDIF', message);
   }
 }
 

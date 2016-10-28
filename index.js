@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
 app.post('/', GithubWebhooks);
 
 app.use((err, req, res) => {
-  res.status(err.status || 500);
+  req.status(err.status || 500);
   res.send(err.stack);
   Log.Logger.error(err);
 });

@@ -41,7 +41,8 @@ module.exports = (data) => {
   let state = data.state;
   let event = 'succeeded';
 
-  if (description && description.includes('progress') && description.includes(`GitHub Pages`)) return false;
+  if (description && ( description.includes('progress') || description.includes(`GitHub Pages`) )) return false;
+  if (state === "pending") return false;
 
   if (state === 'failure') event = 'failed';
   if (state === 'error') event = 'errored';

@@ -1,16 +1,11 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const BotCache = new require('./lib/BotCache')(bot);
 const Log = require('./lib/Logger').Logger;
-const ServerConf = require('./lib/ServerConf');
 const ErrorLogger = require('./lib/Structures/ErrorLogger');
 const BotsDiscordPwAPI = require('./lib/Structures/BotsDiscordPw');
 
 const token = process.env.DISCORD_TESTING_BOT_TOKEN || process.env.YAPPY_GITHUB_DISCORD || process.env.BOT_TOKEN;
-let GithubPrefix = 'G! ';
 let ClientReady = false;
-
-const PingCommand = require('./commands/Ping');
 
 // ===== DISCORD =====
 
@@ -48,7 +43,6 @@ require('./commands')(bot);
 bot.on('ready', () => {
   Log.info('=> Logged in!');
   global.DiscordBotsPwAPI = new BotsDiscordPwAPI(bot);
-  ClientReady = true;
 });
 
 bot.on('error', err => {
@@ -61,14 +55,6 @@ process.on('unhandledRejection', (err) => {
     err.stack = err.stack.replace(new RegExp(__dirname, 'g'), '.');
   }
 
-  let message = [
-    '**UNHANDLED REJECTION**',
-    '',
-    '```xl',
-    err.stack || err,
-    '```'
-  ].join('\n');
-
   Log.error(err.stack);
 
   if (ClientReady) ErrorLogger.error(err);
@@ -79,14 +65,6 @@ process.on('uncaughtException', err => {
     err.stack = err.stack.replace(new RegExp(__dirname, 'g'), '.');
   }
 
-  let message = [
-    '**UNCAUGHT EXCEPTION**',
-    '',
-    '```xl',
-    err.stack || err,
-    '```'
-  ].join('\n');
-
   Log.error(err.stack);
 
   if (ClientReady) ErrorLogger.error(err);
@@ -94,12 +72,8 @@ process.on('uncaughtException', err => {
 
 Log.info('=> Logging in...');
 
-bot.login(token).then(token => {
-  // Detect if login failed or didn't occur after 7.5s
-  setTimeout(() => {
-    if (ClientReady) return false;
-    Log.error('=> Unable to log in; invalid credentials or Discord is down');
-  }, 7500);
+bot.login(token).then(() => {
+  ClientReady = true;
 }).catch(err => {
   Log.error('=> Unable to log in!');
   Log.error(err);

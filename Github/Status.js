@@ -6,7 +6,6 @@ let statuses = new Collection();
 const WebhookStatus = (data, str) => {
 
   let body = {
-    username: 'Yappy',
     attachments: []
   }
 

@@ -2,7 +2,6 @@ const WebhookWatch = (data, str) => {
   let starred = data.action === 'started';
 
   return {
-    username: 'Yappy',
     attachments: [{
 
       title: `${starred ? 'Added' : 'Removed'} star`,

@@ -2,7 +2,6 @@ const WebhookFork = (data, str) => {
   let starred = data.action === 'started';
 
   return {
-    username: 'Yappy',
     attachments: [{
 
       title: `Forked repo => ${data.forkee.full_name}`,

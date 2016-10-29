@@ -1,5 +1,41 @@
 const Discord = require('discord.js');
-const bot = new Discord.Client();
+const bot = new Discord.Client({
+  disableEveryone: true,
+  messageSweepInterval: 300,
+  messageCacheLifetime: 600,
+  disabledEvents: [
+    "typingStart",
+    "typingStop",
+    "userUpdate",
+    "voiceStateUpdate",
+    "channelPinsUpdate",
+    "channelUpdate",
+    "guildBanAdd",
+    "guildBanRemove",
+    "guildEmojiCreate",
+    "guildEmojiDelete",
+    "guildEmojiUpdate",
+    "guildMemberAdd",
+    "guildMemberAvailable",
+    "guildMemberRemove",
+    "guildMembersChunk",
+    "guildMemberSpeaking",
+    "guildMemberUpdate",
+    "guildUnavailable",
+    "guildUpdate",
+    "messageDelete",
+    "messageDeleteBulk",
+    "messageUpdate",
+    "presenceUpdate",
+    "roleCreate",
+    "roleDelete",
+    "roleUpdate",
+    "userUpdate",
+    "voiceStateUpdate",
+    "debug",
+    "warn",
+  ],
+});
 const Log = require('./lib/Logger').Logger;
 const ErrorLogger = require('./lib/Structures/ErrorLogger');
 const BotsDiscordPwAPI = require('./lib/Structures/BotsDiscordPw');

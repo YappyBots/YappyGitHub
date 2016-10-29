@@ -12,8 +12,12 @@ class SayCommand extends Command {
       examples: [
         'say Mermelada',
         'say I am Yappy! Nice to meet you!'
-      ]
+      ],
     };
+
+    this.setConf({
+      permLevel: 1,
+    });
   }
 
   run(msg, args) {

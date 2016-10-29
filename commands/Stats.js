@@ -29,7 +29,7 @@ class StatsCommand extends Command {
   }
   run(msg) {
     let bot = this.bot;
-    let MemoryUsage = bytesToSize(process.memoryUsage().rss, 3);
+    let MemoryUsage = bytesToSize(process.memoryUsage().heapUsed, 3);
     let Booted = bot.booted;
     let TextChannels = bot.channels.filter(e => e.type !== 'voice').size;
     let VoiceChannels = bot.channels.filter(e => e.type === 'voice').size;

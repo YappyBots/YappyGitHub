@@ -2,6 +2,7 @@ const express = require('express');
 const exphbs  = require('express-handlebars');
 const path    = require('path');
 const Log = require('./lib/Logger');
+require('@risingstack/trace');
 
 const app = express();
 const bodyParser = require('body-parser');

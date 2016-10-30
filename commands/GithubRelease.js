@@ -27,12 +27,12 @@ class GithubReleaseCommand extends Command {
     let release = args[0];
     let repository = ServerConf.GetGuild(msg.guild).repo;
     if (!repository) return msg.channel.sendMessage(`Global repository hasn't been configured. Please tell the server owner that they need to do \`G! conf set repo <user/repo>\`.`);
+    if (!release) return msg.channel.sendMessage(`Please specify what release to get data for with \`G! release <tag>\`, it doesn't need to be the full tag either.`);
 
     repository = repository.split('/');
     let user = repository[0];
     let repo = repository[1];
 
-    if (!release) release = 'latest';
 
     github.repos.getReleases({
       user, repo,

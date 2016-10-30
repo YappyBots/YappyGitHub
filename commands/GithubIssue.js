@@ -47,7 +47,7 @@ class GithubIssue extends Command {
     let repo = repository[1];
 
     github.issues.get({
-      user, repo,
+      owner: user, repo,
       number: issueNumber
     }, (err, res) => {
 

@@ -33,9 +33,9 @@ class GithubReleaseCommand extends Command {
     let user = repository[0];
     let repo = repository[1];
 
-
     github.repos.getReleases({
-      user, repo,
+      owner: user,
+      repo,
       perPage: 99
     }, (err, res) => {
       if (err) err = JSON.parse(err);
@@ -51,7 +51,7 @@ class GithubReleaseCommand extends Command {
       }
 
       github.repos.getRelease({
-        user: 'hydrabolt',
+        owner: 'hydrabolt',
         repo: 'discord.js',
         id: releaseObj.id
       }, (err, release) => {

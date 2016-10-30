@@ -46,9 +46,10 @@ class GithubPullRequestCommand extends Command {
     let repo = repository[1];
 
     github.pullRequests.get({
-      user, repo,
+      owner: user, repo,
       number: prNumber
     }, (err, res) => {
+      if (err) Log.error(err);
       if (err || !res.commits_url) return msg.channel.sendMessage(`G! issue ${prNumber}`);
 
       let message = [

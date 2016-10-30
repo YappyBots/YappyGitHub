@@ -11,10 +11,6 @@ const io = require('socket.io')(server);
 
 const GithubWebhooks = require('./Github/webhooks');
 
-const stopSignals = [
-  'SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
-  'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGUSR2', 'SIGTERM'
-];
 const PORT = process.env.OPENSHIFT_NODEJS_PORT || process.env.YAPPY_GITHUB_PORT || process.env.PORT || 8080;
 const IP = process.env.OPENSHIFT_NODEJS_IP || process.env.YAPPY_GITHUB_IP || process.env.IP || null;
 
@@ -24,7 +20,7 @@ let SocketReady = false;
 
 require('./bot');
 
-io.on('connection', socket => {
+io.on('connection', () => {
   if (SocketReady) return false;
   Log.Logger.debug('Socket.IO Connected!');
   SocketReady = true;
@@ -47,9 +43,9 @@ app.get('/', (req, res) => {
 
 app.post('/', GithubWebhooks);
 
-app.use((err, req, res) => {
-  req.status(err.status || 500);
-  res.send(err.stack);
+app.use((req, res, next, err) => {
+  res.status(err && err.status || 500);
+  res.send(err && err.stack || err);
   Log.Logger.error(err);
 });
 

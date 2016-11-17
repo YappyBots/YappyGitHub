@@ -71,7 +71,7 @@ class GithubInitCommand extends Command {
     }
 
     Github.repos.get({
-      user: repoUser,
+      owner: repoUser,
       repo: repoName
     }, (err) => {
       let errorMessage = err && err.message || null;
@@ -82,7 +82,7 @@ class GithubInitCommand extends Command {
         } catch (e) {}
       }
 
-      if (errorMessage && errorMessage !== "Not Found") return msg.channel.sendMessage(`Unable to get repository info for \`${repo}\`\n ${err}`);
+      if (errorMessage && errorMessage !== "Not Found") return msg.channel.sendMessage(`❌ Unable to get repository info for \`${repo}\`\n${err}`);
       if (errorMessage && errorMessage === "Not Found") {
         return msg.channel.sendMessage(`❌ Unable to initialize! The repository \`${repository.repo}\` doesn't exist!`);
       }

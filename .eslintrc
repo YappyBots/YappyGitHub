@@ -1,7 +1,7 @@
 {
   "extends": "eslint:recommended",
   "parserOptions": {
-    "ecmaVersion": 6
+    "ecmaVersion": 7
   },
   "env": {
     "es6": true,
@@ -65,7 +65,7 @@
     "key-spacing": 2,
     "keyword-spacing": 2,
     "max-depth": 2,
-    "max-len": [2, 200, 2],
+    "max-len": [2, 300, 2],
     "max-nested-callbacks": [2, { "max": 4 }],
     "max-statements-per-line": [2, { "max": 2 }],
     "newline-per-chained-call": [2, { "ignoreChainWithDepth": 3 }],
@@ -84,7 +84,7 @@
     "operator-linebreak": [2, "after"],
     "padded-blocks": [2, "never"],
     "quote-props": [2, "as-needed"],
-    "quotes": [2, "double", { "avoidEscape": true, "allowTemplateLiterals": true }],
+    "quotes": [2, "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
     "semi-spacing": 2,
     "semi": 2,
     "space-before-blocks": 2,

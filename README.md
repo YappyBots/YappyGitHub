@@ -1,8 +1,6 @@
 # Yappy, the Github Monitor
 
 [![Online Users in Yappy Discord Server](https://discordapp.com/api/guilds/231548941492027393/embed.png)](https://discord.gg/HHqndMG)
-[![Yappy: David (Dependencies Status)](https://img.shields.io/david/datitisev/DiscordBot-Yappy.svg?maxAge=2592000)](https://david-dm.org/datitisev/DiscordBot-Yappy)
-[![Yappy: Codacy Badge](https://api.codacy.com/project/badge/Grade/950ed41fd5b6417d9cc83f332d93e0ef)](https://www.codacy.com/app/datiti/DiscordBot-Yappy?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=datitisev/DiscordBot-Yappy&amp;utm_campaign=Badge_Grade)
 
 Monitor your github repos by adding this bot to your server, set up a channel for it, and don't miss any events!
 
@@ -12,7 +10,6 @@ Join our Discord server at https://discord.gg/HHqndMG
 
 ### Commands
 Prefixes are `G! ` (with space), custom prefix set up, or mention the bot.
-
 
 __**Util**__:
   - `help` - a help command... yeah :P

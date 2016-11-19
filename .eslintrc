@@ -7,8 +7,10 @@
     "es6": true,
     "node": true
   },
+  "globals": {
+    "Log": true,
+  },
   "rules": {
-
     "no-console": 0,
     "new-cap": 0,
 

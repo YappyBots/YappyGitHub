@@ -4,7 +4,8 @@
   "description": "A Github repo monitor bot for Discord",
   "main": "lib/index.js",
   "scripts": {
-    "start": "node lib/index.js"
+    "start": "node lib/index.js",
+    "lint": "eslint ."
   },
   "repository": {
     "url": "https://github.com/datitisev/DiscordBot-Yappy",
@@ -14,13 +15,23 @@
   "license": "MIT",
   "dependencies": {
     "Webcord": "Tyler0130/Webcord#dev",
+    "body-parser": "^1.15.2",
     "chalk": "^1.1.3",
     "discord.js": "github:hydrabolt/discord.js#indev",
     "express": "^4.14.0",
     "github": "^6.1.0",
     "moment": "^2.16.0",
     "moment-duration-format": "^1.3.0",
+    "mongoose": "^4.6.8",
     "performance-now": "^0.2.0",
+    "raven": "^0.12.3",
     "winston": "^2.3.0"
+  },
+  "devDependencies": {
+    "esdoc": "^0.4.8",
+    "esdoc-es7-plugin": "^0.0.3",
+    "ink-docstrap": "^1.3.0",
+    "jsdoc": "^3.4.3",
+    "jsdoc-strip-async-await": "^0.1.0"
   }
 }

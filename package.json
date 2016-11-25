@@ -30,8 +30,7 @@
     "winston-sentry": "^0.1.5"
   },
   "devDependencies": {
-    "esdoc": "^0.4.8",
-    "esdoc-es7-plugin": "^0.0.3",
+    "eslint": "^3.10.2",
     "ink-docstrap": "^1.3.0",
     "jsdoc": "^3.4.3",
     "jsdoc-strip-async-await": "^0.1.0"

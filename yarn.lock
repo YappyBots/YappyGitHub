@@ -497,9 +497,9 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint@^3.10.2:
-  version "3.10.2"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-3.10.2.tgz#c9a10e8bf6e9d65651204778c503341f1eac3ce7"
+eslint@^3.11.1:
+  version "3.11.1"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-3.11.1.tgz#408be581041385cba947cd8d1cd2227782b55dbf"
   dependencies:
     babel-code-frame "^6.16.0"
     chalk "^1.1.3"
@@ -727,13 +727,14 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-github@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/github/-/github-6.1.0.tgz#664cbd232c59ce9d050749a188bd0f57ec8abcd8"
+github@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/github/-/github-7.0.0.tgz#d22c161e45e24d28a75077a2780c91719e20e85d"
   dependencies:
     follow-redirects "0.0.7"
     https-proxy-agent "^1.0.0"
     mime "^1.2.11"
+    netrc "^0.1.4"
 
 glob@^7.0.0, glob@^7.0.3, glob@^7.0.5:
   version "7.1.1"
@@ -1119,9 +1120,9 @@ mongodb@2.2.11:
     mongodb-core "2.0.13"
     readable-stream "2.1.5"
 
-mongoose@^4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-4.7.0.tgz#adb7c6b73dfb76f204a70ba6cd364f887dcc2012"
+mongoose@^4.7.1:
+  version "4.7.1"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-4.7.1.tgz#3842df23f5eb5db31d27311d2a3fb4cca2b5cd9e"
   dependencies:
     async "2.1.2"
     bson "~0.5.4"
@@ -1172,6 +1173,10 @@ natural-compare@^1.4.0:
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
+
+netrc@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/netrc/-/netrc-0.1.4.tgz#6be94fcaca8d77ade0a9670dc460914c94472444"
 
 number-is-nan@^1.0.0:
   version "1.0.1"

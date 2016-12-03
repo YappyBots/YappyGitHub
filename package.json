@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "start": "node lib/index.js",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "docs": "jsdoc -c .jsdoc.json"
   },
   "repository": {
     "url": "https://github.com/datitisev/DiscordBot-Yappy",

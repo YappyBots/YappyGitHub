@@ -43,29 +43,13 @@ app.get('/', (req, res) => {
 
 app.post('/', GithubWebhooks);
 
-app.use((req, res, next, err) => {
+app.use((err, req, res, next) => {
   res.status(err && err.status || 500);
   res.send(err && err.stack || err);
   Log.Logger.error(err);
 });
 
-if (process.env.WEB_NO_STANDALONE) {
-  let Router = express.Router();
-  Router.use(bodyParser.json({
-    limit: '250kb'
-  }));
-  Router.use(express.static(path.join(__dirname, 'public')));
-  Router.get('/', (req, res) => {
-    res.render('home', {
-      logs: Log.Logger.logs
-    });
-  });
-  Router.post('/', GithubWebhooks);
-  exports = Router;
-} else {
-  Log.Logger.info(`=> Starting app on ${IP || 'localhost'}:${PORT}`);
-
-  server.listen(PORT, IP, () => {
-    Log.Logger.info(`=> Listening on ${IP || 'localhost'}:${PORT}`);
-  });
-}
+Log.Logger.info(`=> Starting app on ${IP || 'localhost'}:${PORT}`);
+server.listen(PORT, IP, () => {
+  Log.Logger.info(`=> Listening on ${IP || 'localhost'}:${PORT}`);
+});

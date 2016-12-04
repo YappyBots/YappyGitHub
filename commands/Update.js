@@ -84,7 +84,7 @@ class UpdateCommand extends Command {
   }
 
   _installDeps() {
-    return this._exec('npm install --no-optional')
+    return this._exec('yarn install')
   }
 }
 

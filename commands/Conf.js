@@ -65,7 +65,7 @@ class ConfCommand extends Command {
   
   generateArgs(strOrArgs = '') {
     let str = Array.isArray(strOrArgs) ? strOrArgs.join(' ') : strOrArgs;
-    let y = str.match(/[^\s""]+|"([^"]*)"|"([^"]*)'/g);
+    let y = str.match(/[^\s'']+|'([^']*)'|'([^']*)'/g);
     if (y === null) return str.split(' ');
     return y.map(e => e.replace(/'/g, ``));
   }

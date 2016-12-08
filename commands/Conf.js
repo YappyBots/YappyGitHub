@@ -48,6 +48,8 @@ class ConfCommand extends Command {
     } else if (action === 'set') {
       let key = args[1];
       let value = args.slice(2, 3).join(' ');
+      
+      Log.debug(`Args: [${args.join(', ')}]. Key: ${key}. Value: ${value}`);
 
       conf.set(key, value).then(success => {
         msg.channel.sendMessage(success);

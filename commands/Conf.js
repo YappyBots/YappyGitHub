@@ -30,6 +30,7 @@ class ConfCommand extends Command {
   run(msg, args) {
     let action = args[0] || 'view';
     let conf = ServerConf.GetGuild(msg.guild);
+    args = this.generateArgs(args);
 
     if (action === 'view') {
       let message = [
@@ -45,7 +46,6 @@ class ConfCommand extends Command {
       ];
       msg.channel.sendMessage(message);
     } else if (action === 'set') {
-      args = this.generateArgs(args);
       let key = args[1];
       let value = args.slice(2, 3).join(' ');
 

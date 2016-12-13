@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/datitisev/DiscordBot-Yappy#readme",
   "dependencies": {
-    "@risingstack/trace": "^2.36.0",
+    "@risingstack/trace": "^3.0.0",
     "Webcord": "github:tyler0130/Webcord#dev",
     "body-parser": "^1.15.2",
     "chalk": "^1.1.3",

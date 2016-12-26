@@ -28,6 +28,7 @@
     "mongoose": "^4.7.1",
     "performance-now": "^0.2.0",
     "raven": "^0.12.3",
+    "uws": "^0.12.0",
     "winston": "^2.3.0"
   },
   "devDependencies": {

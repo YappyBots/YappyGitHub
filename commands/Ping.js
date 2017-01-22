@@ -14,7 +14,9 @@ class PingCommand extends Command {
   run(msg) {
 
     return msg.channel.sendMessage(`Pinging...`).then(message => {
-      let difference = (message.createdTimestamp - msg.createdTimestamp).toFixed(2);
+      const startTime = msg.createdTimestamp;
+      const endTime = message.createdTimestamp;
+      let difference = (endTime - startTime).toFixed(2);
       let moreThanOneSecond = endTime - startTime > 999;
       if (moreThanOneSecond) {
         difference = (difference / 1000).toFixed(2);

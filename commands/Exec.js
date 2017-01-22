@@ -1,17 +1,13 @@
 const { spawn, exec } = require('child_process');
-const now = require('performance-now');
 const Command = require('../lib/Structures/Command');
 const Log = require('../lib/Logger').Logger;
 const Owner = '175008284263186437';
 
 const Exec = (cmd, opts = {}) => {
-  let startTime = now();
-  let endTime;
   return new Promise((resolve, reject) => {
     exec(cmd, opts, (err, stdout, stderr) => {
-      endTime = now();
-      if (err) return reject({ stderr, startTime, endTime });
-      resolve({ stdout, startTime, endTime });
+      if (err) return reject({ stderr });
+      resolve({ stderr, stdout });
     });
   })
 }
@@ -57,7 +53,7 @@ class ExecCommand extends Command {
       messageToEdit = message;
     }).then(() => Exec(command))
     .then(data => {
-      let { stdout, startTime, endTime } = data;
+      let { stdout } = data;
 
       stdout = stdout.substring(0, stdout.length - 1);
 
@@ -78,9 +74,9 @@ class ExecCommand extends Command {
         Log.error(data);
         throw data;
       }
-      let { stderr, startTime, endTime } = data;
+      let { stderr } = data;
 
-      stderr = stderr.substring(0, stderr.length - 1);
+      stderr = stderr.substring(0, 1900);
 
       let message = [
         '`EXEC`',

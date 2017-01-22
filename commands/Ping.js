@@ -1,4 +1,3 @@
-const now = require('performance-now');
 const Command = require('../lib/Structures/Command');
 
 class PingCommand extends Command {
@@ -13,14 +12,12 @@ class PingCommand extends Command {
   }
 
   run(msg) {
-    const startTime = now();
 
     return msg.channel.sendMessage(`Pinging...`).then(message => {
-      const endTime = now();
-      let difference = (endTime - startTime).toFixed(3);
+      let difference = (message.createdTimestamp - msg.createdTimestamp).toFixed(2);
       let moreThanOneSecond = endTime - startTime > 999;
       if (moreThanOneSecond) {
-        difference = (difference / 1000).toFixed(3);
+        difference = (difference / 1000).toFixed(2);
       }
       return message.edit(`Ping, Pong! Took ${difference} ${moreThanOneSecond ? 's' : 'ms'}`);
     });

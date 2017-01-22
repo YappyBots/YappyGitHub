@@ -1,8 +1,9 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client({
   disableEveryone: true,
-  messageSweepInterval: 300,
-  messageCacheLifetime: 600,
+  messageCacheMaxSize: 20,
+  messageSweepInterval: 60,
+  messageCacheLifetime: 60,
   disabledEvents: [
     "CHANNEL_CREATE",
     "CHANNEL_UPDATE",

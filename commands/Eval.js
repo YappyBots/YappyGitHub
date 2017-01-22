@@ -1,4 +1,3 @@
-const now = require('performance-now');
 const Command = require('../lib/Structures/Command');
 const EvalCode = require('../lib/EvalCode');
 const Log = require('../lib/Logger').Logger;

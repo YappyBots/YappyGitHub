@@ -86,7 +86,7 @@ process.on('unhandledRejection', (err) => {
 
   Log.error(err.stack);
 
-  if (ClientReady) ErrorLogger.error(err);
+  if (ClientReady && !(err instanceof Promise)) ErrorLogger.error(err);
 });
 
 process.on('uncaughtException', err => {
@@ -96,7 +96,7 @@ process.on('uncaughtException', err => {
 
   Log.error(err.stack);
 
-  if (ClientReady) ErrorLogger.error(err);
+  if (ClientReady && !(err instanceof Promise)) ErrorLogger.error(err);
 });
 
 Log.info('=> Logging in...');

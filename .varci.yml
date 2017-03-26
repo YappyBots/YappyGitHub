@@ -10,37 +10,35 @@ ruleset:
       - body matches "/^LGTM/"
     merge: true
   
-  respond_to_me:
-  
-    name: Respond to me when I comment mentioning @VarCI-bot
-    events: [ issue_comment ]
-    when:
-      - action = "created"
-      - user.login = "datitisev"
-      - body contains "@VarCI-bot"
-    comment: |
-      Perfect @{{ user.login }} - now replace the first two rules with your own!
-  
-      If you wish to keep the third rule, you can merge by starting a comment with "LGTM".
-  
-      Please see the following resources if you get stuck - best of luck!
-  
-      - [Documentation](https://var.ci/docs)
-      - [Support](https://var.ci/support)
-  
-  welcome_me:
-  
-    name: Introduce me to VarCI when I open a pull request
-    events: [ pull_request ]
+  auto_merge_readme_or_license:
+    name: "Auto-merge updates to one of `README.md` or `LICENSE`"
+    events: pull_request
     when:
       - action = "opened"
-      - user.login = "datitisev"
-    comment: |
-      Welcome to VarCI @{{ user.login }}!
-  
-      Continue pushing changes to the config in this branch and I'll validate the changes.
-  
-      You can also test out new rules in your pull requests before merging them.
-  
-      For example, try triggering the second rule by mentioning me (@VarCI-bot) right now!
-  
+      - files has "README.md" OR files has "LICENSE"
+      - changed_files = 1
+    merge: true
+    message: '@{{ user.login }}, thanks!'
+
+  require_screenshot_if_changed_css:
+    name: "Require screenshot when there are style changes"
+    events: [ pull_request ]
+    message: >
+      @{{ user.login }}, please include screenshot(s) when making style changes so
+      we can review the new look and feel. Thanks!
+    when:
+      - action = "opened"
+      - count(filter(files, "[name=/\.css$/]")) > 0
+      - not(body matches "/!\[image\]\(.*?\)/")
+      
+  check_broken_links_in_readme:
+    name: "Check for broken links in `README.md`"
+    events: [ pull_request ]
+    message: >
+      @{{ user.login }}, one of the links in the diff did not return
+      an HTTP status code of 200. Please check for broken links and/or redirects.
+      The first broken link is: {{ diff_links.broken.0 }}
+    when:
+      - files has "README.md"
+      - action = "opened" or action = "reopened"
+      - count(diff_links.broken) > 0

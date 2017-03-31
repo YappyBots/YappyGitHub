@@ -29,13 +29,13 @@ app.engine('hbs', exphbs({
   extname: '.hbs'
 }));
 app.set('view engine', 'hbs');
-app.use(bodyParser.json({
-  limit: '250kb'
-}));
 app.use(bodyParser.urlencoded({
   extended: false,
   limit: '250kb'
 }))
+app.use(bodyParser.json({
+  limit: '250kb'
+}));
 app.use(express.static(path.resolve(__dirname, './public')));
 
 app.get('/', (req, res) => {

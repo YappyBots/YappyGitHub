@@ -58,6 +58,7 @@ bot.on('guildCreate', (guild) => {
   ]);
 });
 bot.on('guildDelete', (guild) => {
+  if (!guild.name) return; // djs pls
   let message = [
     '```diff',
     `- Guild: ${guild.name}`,

@@ -45,7 +45,7 @@ bot.on('guildCreate', (guild) => {
   let message = [
     '```diff',
     `+ Guild: ${guild.name}`,
-    `+ Owner: @${guild.owner.user.username}#${guild.owner.user.discriminator}`,
+    `+ Owner: @${guild.owner ? guild.owner.user.tag : 'Unknown'}`,
     '```'
   ];
   bot.channels.get('231911521557544960').sendMessage(message);
@@ -61,7 +61,7 @@ bot.on('guildDelete', (guild) => {
   let message = [
     '```diff',
     `- Guild: ${guild.name}`,
-    `- Owner: @${guild.owner.user.username}#${guild.owner.user.discriminator}`,
+    `- Owner: @${guild.owner ? guild.owner.user.tag : 'Unknown'}`,
     '```'
   ];
   bot.channels.get('231911521557544960').sendMessage(message);

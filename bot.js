@@ -42,6 +42,7 @@ require('./lib/CommandLogger')(bot);
 require('./lib/Github')(bot);
 
 bot.on('guildCreate', (guild) => {
+  if (!guild.available) return; // djs pls
   let message = [
     '```diff',
     `+ Guild: ${guild.name}`,
@@ -58,7 +59,7 @@ bot.on('guildCreate', (guild) => {
   ]);
 });
 bot.on('guildDelete', (guild) => {
-  if (!guild.name) return; // djs pls
+  if (!guild.available) return; // djs pls
   let message = [
     '```diff',
     `- Guild: ${guild.name}`,

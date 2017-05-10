@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "eslint": "^3.12.2",
-    "fs-extra": "^2.1.0",
+    "fs-extra": "^3.0.0",
     "jsdoc-parse": "^3.0.0"
   }
 }

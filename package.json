@@ -22,6 +22,7 @@
     "erlpack": "hammerandchisel/erlpack#master",
     "express": "^4.15.3",
     "github": "^9.2.0",
+    "hbs": "^4.0.1",
     "jsondiffpatch": "^0.2.4",
     "moment": "^2.18.1",
     "moment-duration-format": "^1.3.0",

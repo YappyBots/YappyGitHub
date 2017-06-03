@@ -1,6 +1,7 @@
 # Yappy, the Github Monitor
 
 [![Online Users in Yappy Discord Server](https://discordapp.com/api/guilds/231548941492027393/embed.png)](https://discord.gg/HHqndMG)
+<span class="badge-patreon"><a href="https://www.patreon.com/YappyBots" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a></span>
 
 Monitor your github repos by adding this bot to your server, set up a channel for it, and don't miss any events!
 

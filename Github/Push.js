@@ -4,7 +4,7 @@ const RemoveUrlEmbedding = (url) => `<${url}>`;
 const WebhookPush = (data, info) => {
   let pretext = info.commits.map(commit => {
       let commitMessage = commit.message.split('\n')[0].replace(UrlRegEx, RemoveUrlEmbedding);
-      let author = commit.committer.username || commit.author.username || info.actor.login;
+      let author = commit.committer.name || commit.author.name || info.actor.login;
       let sha = commit.id.slice(0, 7);
 
       return `[\`${sha}\`](${commit.url}) ${commitMessage} [${author}]`;
@@ -38,7 +38,7 @@ module.exports = data => {
 
   let commitArr = commits.map(commit => {
     let commitMessage = commit.message.replace(/\n/g, '\n               ').replace(UrlRegEx, RemoveUrlEmbedding);
-    return `        \`${commit.id.slice(0, 7)}\` ${commitMessage} [${commit.committer.username || commit.author.username || actor.login}]`;
+    return `        \`${commit.id.slice(0, 7)}\` ${commitMessage} [${commit.committer.name || commit.author.name || actor.login}]`;
   });
 
   commitArr.length = 5;

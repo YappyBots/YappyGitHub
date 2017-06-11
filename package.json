@@ -3,13 +3,15 @@
   "version": "2.0.0",
   "description": "A Github repo monitor bot for Discord",
   "main": "lib/index.js",
+  "private": true,
   "scripts": {
     "start": "node lib/index.js",
     "lint": "eslint .",
-    "docs": "jsdoc -c .jsdoc.json"
+    "docs": "docgen --source lib --jsdoc .jsdoc.json --custom docs/index.yml --output docs/docs.json",
+    "docs:test": "docgen --source lib --custom docs/index.yml"
   },
   "repository": {
-    "url": "https://github.com/datitisev/DiscordBot-Yappy",
+    "url": "https://github.com/YappyBots/YappyGithub",
     "type": "git"
   },
   "author": "David Sevilla Martin <dsevilla192@icloud.com>",
@@ -32,6 +34,9 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "eslint": "^3.19.0"
+    "eslint": "^3.19.0",
+    "discord.js-docgen": "hydrabolt/discord.js-docgen",
+    "jsdoc": "^3.4.3",
+    "jsdoc-strip-async-await": "^0.1.0"
   }
 }

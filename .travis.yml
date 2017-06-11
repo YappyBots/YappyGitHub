@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "6"
+cache:
+  directories:
+    - node_modules
+install: npm install
+script:
+  - bash ./deploy/deploy.sh
+env:
+  global:
+    - COMMIT_AUTHOR_EMAIL: "dsevilla192@icloud.com"
+dist: trusty
+sudo: false

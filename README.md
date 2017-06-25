@@ -6,9 +6,10 @@
 
 Monitor your github repos by adding this bot to your server, set up a channel for it, and don't miss any events!
 
-### Help
+### Info
 
 Join our Discord server at https://discord.gg/HHqndMG
+Invite the bot at http://bit.ly/DiscordYappyGithub
 
 ### Commands
 Prefixes are `G! ` (with space), custom prefix set up, or mention the bot.

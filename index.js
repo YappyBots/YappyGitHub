@@ -30,9 +30,9 @@ app.engine('hbs', exphbs({
 }));
 app.set('view engine', 'hbs');
 app.use(bodyParser.urlencoded({
-  extended: false,
+  extended: true,
   limit: '250kb'
-}))
+}));
 app.use(bodyParser.json({
   limit: '250kb'
 }));

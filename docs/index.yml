@@ -4,3 +4,5 @@
       path: welcome.md
     - name: Setting Up
       path: settingup.md
+    - name: Contributing
+      path: Contributing.md

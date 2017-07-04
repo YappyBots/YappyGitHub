@@ -63,7 +63,7 @@
     "eol-last": 2,
     "func-names": 2,
     "func-style": [2, "declaration", { "allowArrowFunctions": true }],
-    "indent": [2, 2, { "SwitchCase": 1 }],
+    "indent": [2, 2, { "SwitchCase": 1, "MemberExpression": 0 }],
     "key-spacing": 2,
     "keyword-spacing": 2,
     "max-depth": 2,

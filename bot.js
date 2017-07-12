@@ -5,7 +5,6 @@ const bot = new Discord.Client({
   messageSweepInterval: 300,
   messageCacheLifetime: 300,
   disabledEvents: [
-    "CHANNEL_CREATE",
     "CHANNEL_UPDATE",
     "GUILD_UPDATE",
     "GUILD_BAN_ADD",

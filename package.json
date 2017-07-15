@@ -20,7 +20,7 @@
     "body-parser": "^1.17.2",
     "bugsnag": "^1.10.0",
     "chalk": "^2.0.1",
-    "discord.js": "hydrabolt/discord.js",
+    "discord.js": "github:hydrabolt/discord.js",
     "express": "^4.15.3",
     "github": "^9.2.0",
     "hbs": "^4.0.1",
@@ -33,7 +33,7 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "discord.js-docgen": "hydrabolt/discord.js-docgen",
+    "discord.js-docgen": "github:hydrabolt/discord.js-docgen",
     "eslint": "^4.2.0",
     "jsdoc": "^3.5.3",
     "jsdoc-strip-async-await": "^0.1.0"

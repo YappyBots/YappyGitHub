@@ -37,7 +37,6 @@ let ClientReady = false;
 
 // ===== DISCORD =====
 
-require('./lib/CommandLogger')(bot);
 require('./lib/Github')(bot);
 
 bot.on('guildCreate', (guild) => {

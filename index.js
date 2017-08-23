@@ -38,6 +38,13 @@ app.use(bodyParser.json({
 }));
 app.use(express.static(path.resolve(__dirname, './public')));
 
+app.use((req, res, next) => {
+  if (req.headers['content-type'] === 'application/x-www-form-urlencoded' && req.body && req.body.payload) {
+    req.body = JSON.parse(req.body.payload);
+  }
+  next();
+});
+
 app.get('/', (req, res) => {
   res.render('home', {
     logs: Log.Logger.logs

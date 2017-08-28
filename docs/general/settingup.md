@@ -10,9 +10,8 @@ Follow the following steps to set up Yappy with any repo on Github.
 **Github**
 1. Go to the Github repo you want to have events for
 2. Click Settings > Webhooks
-3. Set `URL` to https://discordjsrewritetrello-datitisev.rhcloud.com
-4. Set `Content Type` to `application/json`
-  - This was the default a while ago, until Github decided to change it 🙄. Soon™ Yappy will support both `application/json` and `application/x-www-form-urlencoded`.
+3. Set `URL` to https://www.yappybots.tk/github
+4. Set `Content-Type` to whatever you prefer, Yappy supports both `application/json` and `application/x-www-form-urlencoded`.
 5. Select the events you want to emit to the channel
 6. Click "Add Webhook"
 

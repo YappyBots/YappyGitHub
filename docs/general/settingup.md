@@ -1,5 +1,8 @@
 # Setting Up
 
+> Keep in mind these are the instructions for the rewrite.
+> If you are using Yappy, the Github Monitor, before the rewrite goes live, please set the URL to https://www.yappybots.tk
+
 Follow the following steps to set up Yappy with any repo on Github.
 
 **Discord**

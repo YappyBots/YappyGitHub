@@ -28,7 +28,7 @@ Yappy Github needs the following environment variables:
 - **OPTIONAL** `YAPPY_GITHUB_BUGSNAG` - a bugsnag token
 - **OPTIONAL** `YAPPY_GITHUB_SENTRY` - a sentry token
 
-Yappy GitLab also needs to be run with NodeJS v7 or higher and the `--harmony` (only if you are in NodeJS v7) flag.
+Yappy Github also needs to be run with NodeJS v7 or higher and the `--harmony` (only if you are in NodeJS v7) flag.
 An example on running the bot:
 
 ```sh

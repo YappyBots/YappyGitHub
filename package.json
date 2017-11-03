@@ -31,8 +31,9 @@
     "mongoose": "^4.12.6",
     "performance-now": "^2.1.0",
     "raven": "^2.2.1",
+    "swag": "^0.7.0",
     "winston": "^2.4.0",
-    "yappybots-addons": "git+https://github.com/YappyBots/yappy-addons.git"
+    "yappybots-addons": "github:YappyBots/yappy-addons"
   },
   "devDependencies": {
     "discord.js-docgen": "github:hydrabolt/discord.js-docgen",

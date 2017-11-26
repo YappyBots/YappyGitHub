@@ -1,14 +1,18 @@
 language: node_js
 node_js:
-  - "8"
+  - 8
+  - 9
+install: npm install
+script: npm lint
+jobs:
+  include:
+    - stage: deploy
+      node_js: 9
+      script: bash ./travis/deploy.sh
+      env:
+        - COMMIT_AUTHOR_EMAIL: "dsevilla192@icloud.com"
 cache:
   directories:
     - node_modules
-install: npm install
-script:
-  - bash ./deploy/deploy.sh
-env:
-  global:
-    - COMMIT_AUTHOR_EMAIL: "dsevilla192@icloud.com"
 dist: trusty
 sudo: false

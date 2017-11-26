@@ -10,7 +10,6 @@ function tests {
 }
 
 function build {
-  npm run lint
   npm run docs
 }
 

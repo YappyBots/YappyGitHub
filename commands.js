@@ -36,7 +36,7 @@ const RunCommand = (msg) => {
 
   let bot = msg.client;
   let content = RemovePrefix(msg);
-  let command = content.split(' ')[0];
+  let command = content.split(' ')[0].toLowerCase();
   let args = content.split(' ').slice(1);
   let perms = bot.permissions(msg);
 

@@ -17,7 +17,7 @@
   "author": "David Sevilla Martin <dsevilla192@icloud.com>",
   "license": "MIT",
   "dependencies": {
-    "@octokit/rest": "^14.0.4",
+    "@octokit/rest": "^14.0.7",
     "body-parser": "^1.18.2",
     "bugsnag": "^1.12.0",
     "chalk": "^2.3.0",
@@ -27,10 +27,10 @@
     "hbs": "^4.0.1",
     "jsondiffpatch": "^0.2.5",
     "moment": "^2.20.1",
-    "moment-duration-format": "^1.3.0",
-    "mongoose": "^4.13.6",
+    "moment-duration-format": "^2.2.1",
+    "mongoose": "^5.0.1",
     "performance-now": "^2.1.0",
-    "raven": "^2.3.0",
+    "raven": "^2.4.0",
     "swag": "^0.7.0",
     "winston": "^2.4.0",
     "yappybots-addons": "github:YappyBots/yappy-addons"

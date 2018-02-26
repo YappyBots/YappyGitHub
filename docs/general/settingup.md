@@ -1,7 +1,10 @@
 # Setting Up
 
-> Keep in mind these are the instructions for the rewrite.
-> If you are using Yappy, the Github Monitor, before the rewrite goes live, please set the URL to https://www.yappybots.tk
+<warn>
+Keep in mind these are the instructions for the beta.
+If you are not using the beta, please set the URL to https://www.yappybots.tk.
+This message will be removed when the beta goes live.
+</warn>
 
 Follow the following steps to set up Yappy with any repo on Github.
 

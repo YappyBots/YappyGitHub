@@ -3,6 +3,7 @@
 [![Online Users in Yappy Discord Server](https://discordapp.com/api/guilds/231548941492027393/embed.png)](https://discord.gg/HHqndMG)
 [![Yappy: David (Dependencies Status)](https://img.shields.io/david/datitisev/DiscordBot-Yappy.svg?maxAge=2592000)](https://david-dm.org/datitisev/DiscordBot-Yappy)
 [![Yappy: Codacy Badge](https://api.codacy.com/project/badge/Grade/950ed41fd5b6417d9cc83f332d93e0ef)](https://www.codacy.com/app/datiti/DiscordBot-Yappy?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=datitisev/DiscordBot-Yappy&amp;utm_campaign=Badge_Grade)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FYappyBots%2FYappyGithub.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FYappyBots%2FYappyGithub?ref=badge_shield)
 
 Monitor your github repos by adding this bot to your server, set up a channel for it, and don't miss any events!
 
@@ -35,3 +36,7 @@ __**Admin**__:
   - `conf set <key> [value]` - sets the key to the value, `repo`'s value may be none to disable
   - `init <repo>` - initialize repo events on channel
   - `remove` - remove repo events on channel
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FYappyBots%2FYappyGithub.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FYappyBots%2FYappyGithub?ref=badge_large)

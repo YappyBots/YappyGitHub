@@ -1,11 +1,11 @@
 # Yappy, the Github Monitor
 
-[![Online Users in Yappy Discord Server](https://discordapp.com/api/guilds/231548941492027393/embed.png)](https://discord.gg/HHqndMG)
 <span class="badge-patreon"><a href="https://www.patreon.com/YappyBots" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a></span>
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FYappyBots%2FYappyGithub.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FYappyBots%2FYappyGithub?ref=badge_shield)
 
 Monitor your github repos by adding this bot to your server, set up a channel for it, and don't miss any events!
 
-### Help
+## Information
 
 Join our Discord server at https://discord.gg/HHqndMG
 
@@ -32,3 +32,6 @@ __**Admin**__:
   - `conf set <key> [value]` - sets the key to the value, `repo`'s value may be none to disable
   - `init <repo> [private]` - initialize repo events on channel
   - `remove` - remove repo events on channel
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FYappyBots%2FYappyGithub.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FYappyBots%2FYappyGithub?ref=badge_large)

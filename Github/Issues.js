@@ -99,12 +99,13 @@ module.exports = payload => {
   let str;
 
   if (payload.action === 'opened') str = OpenedIssue(payload);
-  if (payload.action === 'closed') str = ClosedIssue(payload);
-  if (payload.action === 'reopened') str = ReopenedIssue(payload);
-  if (payload.action === 'assigned') str = AssignedIssue(payload);
-  if (payload.action === 'unassigned') str = UnassignedIssue(payload);
-  if (payload.action === 'labeled') str = LabeledIssue(payload);
-  if (payload.action === 'unlabeled') str = UnlabeledIssue(payload);
+  else if (payload.action === 'closed') str = ClosedIssue(payload);
+  else if (payload.action === 'edited') str = EditedIssue(payload);
+  else if (payload.action === 'reopened') str = ReopenedIssue(payload);
+  else if (payload.action === 'assigned') str = AssignedIssue(payload);
+  else if (payload.action === 'unassigned') str = UnassignedIssue(payload);
+//   if (payload.action === 'labeled') str = LabeledIssue(payload);
+//   if (payload.action === 'unlabeled') str = UnlabeledIssue(payload);
 
   return {
     str, payload,

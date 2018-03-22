@@ -104,8 +104,7 @@ module.exports = payload => {
   else if (payload.action === 'reopened') str = ReopenedIssue(payload);
   else if (payload.action === 'assigned') str = AssignedIssue(payload);
   else if (payload.action === 'unassigned') str = UnassignedIssue(payload);
-//   if (payload.action === 'labeled') str = LabeledIssue(payload);
-//   if (payload.action === 'unlabeled') str = UnlabeledIssue(payload);
+  else return;
 
   return {
     str, payload,

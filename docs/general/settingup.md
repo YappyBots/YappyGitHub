@@ -2,7 +2,7 @@
 
 <warn>
 Keep in mind these are the instructions for the beta.
-If you are not using the beta, please set the URL to https://www.yappybots.tk.
+If you are not using the beta, please set the URL to https://www.yappybots.ga.
 This message will be removed when the beta goes live.
 </warn>
 
@@ -16,7 +16,7 @@ Follow the following steps to set up Yappy with any repo on Github.
 **Github**
 1. Go to the Github repo you want to have events for
 2. Click Settings > Webhooks
-3. Set `URL` to https://www.yappybots.tk/github
+3. Set `URL` to https://www.yappybots.ga/github
 4. Set `Content-Type` to whatever you prefer, Yappy supports both `application/json` and `application/x-www-form-urlencoded`.
 5. Select the events you want to emit to the channel
 6. Click "Add Webhook"

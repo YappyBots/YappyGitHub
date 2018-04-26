@@ -108,7 +108,7 @@ class GithubInitCommand extends Command {
   _successMessage(repo) {
     return [
       `✅ Successfully initialized repository events in this channel for **${repo}**.`,
-      `The repo must a webhook pointing to <https://www.yappybots.tk>`,
+      `The repo must a webhook pointing to <https://www.yappybots.ga>`,
       `To use webhooks and have a nicer GitHub log, create a webhook in this channel called "Yappy" or "Github" and give the bot \`MANAGE WEBHOOKS\` permission in this channel`
     ]
   }

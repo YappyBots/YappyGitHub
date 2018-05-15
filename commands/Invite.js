@@ -4,7 +4,7 @@ const message = [
   'To invite Yappy to your server: https://discordapp.com/oauth2/authorize?client_id=219218963647823872&scope=bot&permissions=67439616',
   '',
   '__Instructions__:',
-  '  1. Create webhook to https://www.yappybots.ga',
+  '  1. Create webhook to https://www.yappybots.tk',
   '    - Select any events you want to get updates for!',
   '  2. Run `G! init user/repo` in the channel where you want to get the events',
   '',

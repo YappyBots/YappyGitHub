@@ -5,4 +5,4 @@ ignore: {}
 patch:
   'npm:debug:20170905':
     - '@risingstack/trace > debug':
-        patched: '2018-05-28T12:33:06.289Z'
+        patched: '2018-05-28T12:32:26.529Z'

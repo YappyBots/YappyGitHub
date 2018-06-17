@@ -10,6 +10,7 @@ Monitor your github repos by adding this bot to your server, set up a channel fo
 Join our Discord server at https://discord.gg/HHqndMG
 
 ### Commands
+
 Prefixes are `G! ` (with space), custom prefix set up, or mention the bot.
 
 __**Util**__:
@@ -34,4 +35,9 @@ __**Admin**__:
   - `remove` - remove repo events on channel
 
 ## License
+
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FYappyBots%2FYappyGithub.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FYappyBots%2FYappyGithub?ref=badge_large)
+
+### Developer Documentation
+
+https://yappybots.github.io/#/docs/yappygithub/

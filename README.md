@@ -9,9 +9,11 @@ Monitor your github repos by adding this bot to your server, set up a channel fo
 ### Info
 
 Join our Discord server at https://discord.gg/HHqndMG
+
 Invite the bot at http://bit.ly/DiscordYappyGithub
 
 ### Commands
+
 Prefixes are `G! ` (with space), custom prefix set up, or mention the bot.
 
 
@@ -35,3 +37,7 @@ __**Admin**__:
   - `conf set <key> [value]` - sets the key to the value, `repo`'s value may be none to disable
   - `init <repo>` - initialize repo events on channel
   - `remove` - remove repo events on channel
+
+### Developer Documentation
+
+https://www.yappybots.tk/#/docs/yappygithub/

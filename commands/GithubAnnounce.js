@@ -37,7 +37,7 @@ class GithubAnnounceCommand extends Command {
 
       if (!channel) return false;
 
-      channel.sendMessage([
+      channel.send([
         `**👉 Announcement from @${msg.author.username}#${msg.author.discriminator}**`,
         '',
         '```xl',

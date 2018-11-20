@@ -35,7 +35,7 @@ class EvalCommand extends Command {
     EvalCode(this.bot, msg, command).then(evaled => {
 
       if (evaled && typeof evaled === 'string' && evaled.indexOf(this.bot.token) >= 0) {
-        return msg.channel.sendMessage('Cannot complete eval due to token made visible by command.');
+        return msg.channel.send('Cannot complete eval due to token made visible by command.');
       }
 
       let message = [
@@ -49,7 +49,7 @@ class EvalCommand extends Command {
         '```'
       ].join('\n');
 
-      msg.channel.sendMessage(message).catch(err => {
+      msg.channel.send(message).catch(err => {
         Log.error(err);
       });
     }).catch(error => {
@@ -63,7 +63,7 @@ class EvalCommand extends Command {
         '```'
       ].join('\n');
 
-      msg.channel.sendMessage(message);
+      msg.channel.send(message);
     });
   }
 

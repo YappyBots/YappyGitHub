@@ -24,7 +24,7 @@ class SayCommand extends Command {
     if (msg.author.id === msg.client.user.id) {
       msg.edit(args.join(' '))
     } else {
-      msg.channel.sendMessage(args.join(' '))
+      msg.channel.send(args.join(' '))
       .then(msg.delete.bind(msg));
     }
   }

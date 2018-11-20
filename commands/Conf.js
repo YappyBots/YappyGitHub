@@ -44,7 +44,7 @@ class ConfCommand extends Command {
         `${Util.Pad('repo', 10)}: ${conf.repo || 'None'}`,
         '```'
       ];
-      msg.channel.sendMessage(message);
+      msg.channel.send(message);
     } else if (action === 'set') {
       let key = args[1];
       let value = args.slice(2, 3).join(' ');
@@ -52,9 +52,9 @@ class ConfCommand extends Command {
       Log.debug(`Args: [${args.join(', ')}]. Key: ${key}. Value: ${value}`);
 
       conf.set(key, value).then(success => {
-        msg.channel.sendMessage(success);
+        msg.channel.send(success);
       }).catch(error => {
-        msg.channel.sendMessage(error);
+        msg.channel.send(error);
       });
     } else if (action === 'get') {
       let key = args[1];

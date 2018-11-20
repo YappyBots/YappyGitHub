@@ -24,12 +24,12 @@ class GithubRemoveCommand extends Command {
     let conf = ChannelConf.FindByChannel(channelid);
     let repo = args[0];
 
-    msg.channel.sendMessage('⚙ Working...');
+    msg.channel.send('⚙ Working...');
 
     if (!conf || !conf[0]) {
-      return msg.channel.sendMessage('❌ This channel doesn\'t have any github events!');
+      return msg.channel.send('❌ This channel doesn\'t have any github events!');
     } else if (msg.member && !msg.member.permissions.hasPermission('ADMINISTRATOR') && msg.author.id !== this.bot.config.owner) {
-      return msg.channel.sendMessage('❌ Insuficient permissions! You must have administrator permissions to delete repository events!');
+      return msg.channel.send('❌ Insuficient permissions! You must have administrator permissions to delete repository events!');
     }
 
     if (conf.length > 1 && repo) {
@@ -37,16 +37,16 @@ class GithubRemoveCommand extends Command {
     } else if (conf.length === 1) conf = conf[0];
 
     if (!conf) {
-      return msg.channel.sendMessage(`❌ This channel doesn\'t have github events for **${repo}**!`);
+      return msg.channel.send(`❌ This channel doesn\'t have github events for **${repo}**!`);
     } else if (conf.length && conf.length > 1) {
-      return msg.channel.sendMessage(`❌ Specify what github repo event to remove! You can remove ${conf.map(e => `**${e.repo}**`).join(', ')}`);
+      return msg.channel.send(`❌ Specify what github repo event to remove! You can remove ${conf.map(e => `**${e.repo}**`).join(', ')}`);
     }
 
     return conf.delete().then(() => {
-      msg.channel.sendMessage(`✅ Successfully removed repository events in this channel for **${conf.repo}**.`);
+      msg.channel.send(`✅ Successfully removed repository events in this channel for **${conf.repo}**.`);
     }).catch(err => {
       Log.error(err);
-      msg.channel.sendMessage(`❌ An error occurred while trying to remove repository events for **${conf.repo}** in this channel.\n\`${err}\``);
+      msg.channel.send(`❌ An error occurred while trying to remove repository events for **${conf.repo}** in this channel.\n\`${err}\``);
     });
 
   }

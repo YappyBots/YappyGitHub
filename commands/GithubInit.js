@@ -34,15 +34,15 @@ class GithubInitCommand extends Command {
     let repo = args[0];
     let isPrivate = args[1] && (args[1].toLowerCase() === 'private');
 
-    msg.channel.sendMessage('⚙ Working...');
+    msg.channel.send('⚙ Working...');
 
     if (msg.member && !msg.member.permissions.hasPermission('ADMINISTRATOR') && !msg.author.id !== this.bot.config.owner) {
-      return msg.channel.sendMessage('❌ Insuficient permissions! You must have administrator permissions to initialize repository events!');
+      return msg.channel.send('❌ Insuficient permissions! You must have administrator permissions to initialize repository events!');
     }
 
     let repository = GithubUrlParser.Parse(repo);
 
-    if (!repository) return msg.channel.sendMessage('❌ Error! \`${repo}\` is an invalid Github repository resolvable.');
+    if (!repository) return msg.channel.send('❌ Error! \`${repo}\` is an invalid Github repository resolvable.');
 
     let repoName = repository.name;
     let repoUser = repository.owner;
@@ -55,18 +55,18 @@ class GithubInitCommand extends Command {
         return ChannelConf.Add(channelid, msg.guild.id, repository.repo);
       }).then(() => {
         let message = this._successMessage(repository.repo);
-        return msg.channel.sendMessage(message);
+        return msg.channel.send(message);
       }).catch(err => {
-        if (typeof err === "string" && err.indexOf(`❌`) > -1) return msg.channel.sendMessage(err);
+        if (typeof err === "string" && err.indexOf(`❌`) > -1) return msg.channel.send(err);
         Log.error(err);
-        msg.channel.sendMessage(`❌ An error occurred while trying to initialize repository events for private repo **${repo}** in this channel.\n\`${err}\``);
+        msg.channel.send(`❌ An error occurred while trying to initialize repository events for private repo **${repo}** in this channel.\n\`${err}\``);
       });
 
       return false;
     }
 
     if (!repoName || !repoUser) {
-      msg.channel.sendMessage(`❌ Invalid repository: **${repo}**`);
+      msg.channel.send(`❌ Invalid repository: **${repo}**`);
       return;
     }
 
@@ -82,9 +82,9 @@ class GithubInitCommand extends Command {
         } catch (e) {}
       }
 
-      if (errorMessage && errorMessage !== "Not Found") return msg.channel.sendMessage(`❌ Unable to get repository info for \`${repo}\`\n${err}`);
+      if (errorMessage && errorMessage !== "Not Found") return msg.channel.send(`❌ Unable to get repository info for \`${repo}\`\n${err}`);
       if (errorMessage && errorMessage === "Not Found") {
-        return msg.channel.sendMessage(`❌ Unable to initialize! The repository \`${repository.repo}\` doesn't exist!`);
+        return msg.channel.send(`❌ Unable to initialize! The repository \`${repository.repo}\` doesn't exist!`);
       }
 
       GithubCache.add(repository.repo);
@@ -94,11 +94,11 @@ class GithubInitCommand extends Command {
         return ChannelConf.Add(channelid, msg.guild.id, repository.repo);
       }).then(() => {
         let message = this._successMessage(repository.repo);
-        msg.channel.sendMessage(message);
+        msg.channel.send(message);
       }).catch(err => {
-        if (typeof err === "string" && err.indexOf(`❌`) > -1) return msg.channel.sendMessage(err);
+        if (typeof err === "string" && err.indexOf(`❌`) > -1) return msg.channel.send(err);
         Log.error(err);
-        msg.channel.sendMessage(`❌ An error occurred while trying to initialize repository events for **${repo}** in this channel.\n\`${err}\``);
+        msg.channel.send(`❌ An error occurred while trying to initialize repository events for **${repo}** in this channel.\n\`${err}\``);
       });
 
     });

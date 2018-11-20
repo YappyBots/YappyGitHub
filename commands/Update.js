@@ -29,7 +29,7 @@ class UpdateCommand extends Command {
           '',
           'No update available!'
         ];
-        msg.channel.sendMessage(message);
+        msg.channel.send(message);
         throw "No update";
       } else {
         let message = [
@@ -43,14 +43,14 @@ class UpdateCommand extends Command {
           'Installing dependencies...'
         ];
 
-        return msg.channel.sendMessage(message)
+        return msg.channel.send(message)
       }
 
     }).then(() => this._installDeps())
     .then(() => {
       Object.keys(require.cache).forEach(key => delete require.cache[key]);
 
-      return msg.channel.sendMessage([
+      return msg.channel.send([
         'Installed dependencies!',
         '',
         'Rebooting...'
@@ -62,7 +62,7 @@ class UpdateCommand extends Command {
       if (err === "No update") return false;
       Object.keys(require.cache).forEach(key => delete require.cache[key]);
 
-      msg.channel.sendMessage([
+      msg.channel.send([
         `An error occurred while trying to update bot`,
         '```js',
         err,

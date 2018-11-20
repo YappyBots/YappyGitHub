@@ -13,7 +13,7 @@ class PingCommand extends Command {
 
   run(msg) {
 
-    return msg.channel.sendMessage(`Pinging...`).then(message => {
+    return msg.channel.send(`Pinging...`).then(message => {
       const startTime = msg.createdTimestamp;
       const endTime = message.createdTimestamp;
       let difference = (endTime - startTime).toFixed(2);

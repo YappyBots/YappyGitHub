@@ -26,7 +26,7 @@ class GithubPullRequestCommand extends Command {
   }
 
   run(msg, args) {
-    if (!args[0]) return msg.channel.sendMessage(`G! help pr`);
+    if (!args[0]) return msg.channel.send(`G! help pr`);
 
     if (args[0] === 'search') {
       this._search(msg, args);
@@ -39,7 +39,7 @@ class GithubPullRequestCommand extends Command {
 
     let prNumber = parseInt(args[0]);
     let repository = ServerConf.GetGuild(msg.guild).repo;
-    if (!repository) return msg.channel.sendMessage(`Global repository hasn't been configured. Please tell the server owner that they need to do \`G! conf set repo <user/repo>\`.`);
+    if (!repository) return msg.channel.send(`Global repository hasn't been configured. Please tell the server owner that they need to do \`G! conf set repo <user/repo>\`.`);
 
     repository = repository.split('/');
     let user = repository[0];
@@ -50,7 +50,7 @@ class GithubPullRequestCommand extends Command {
       number: prNumber
     }, (err, res) => {
       if (err) Log.error(err);
-      if (err || !res.commits_url) return msg.channel.sendMessage(`G! issue ${prNumber}`);
+      if (err || !res.commits_url) return msg.channel.send(`G! issue ${prNumber}`);
 
       let message = [
         `**PULL REQUEST #${prNumber} IN ${repository.join('/')}**`,
@@ -72,7 +72,7 @@ class GithubPullRequestCommand extends Command {
 
       if (msg.author.equals(msg.client.user)) return msg.edit(message.join('\n')).catch(e => { throw e });
 
-      msg.channel.sendMessage(message);
+      msg.channel.send(message);
     });
 
   }
@@ -82,7 +82,7 @@ class GithubPullRequestCommand extends Command {
     let page = args[args.length - 1].indexOf('p') === 0 ? parseInt(args[args.length - 1].slice(1)) : 1;
     let query = args.slice(1).join(' ').replace(`p${page}`, '');
     let repository = ServerConf.GetGuild(msg.guild).repo;
-    if (!repository) return msg.channel.sendMessage(`Global repository hasn't been configured. Please tell the server owner that they need to do \`G! conf set repo <user/repo>\`.`);
+    if (!repository) return msg.channel.send(`Global repository hasn't been configured. Please tell the server owner that they need to do \`G! conf set repo <user/repo>\`.`);
 
     repository = repository.split('/');
 
@@ -107,7 +107,7 @@ class GithubPullRequestCommand extends Command {
 
       if (!pagination.items || !pagination.items.length) message.push(`No pull requests found for that query in ${repository.join('/')} :/`)
 
-      msg.channel.sendMessage(message);
+      msg.channel.send(message);
     });
 
   }

@@ -47,8 +47,8 @@ bot.on('guildCreate', (guild) => {
     `+ Owner: @${guild.owner ? guild.owner.user.tag : 'Unknown'}`,
     '```'
   ];
-  bot.channels.get('231911521557544960').sendMessage(message);
-  guild.owner.user.sendMessage([
+  bot.channels.get('231911521557544960').send(message);
+  guild.owner.user.send([
     `Hi! I'm Yappy, a bot that outputs github events from repos into the desired channel.`,
     `To set up a custom prefix and a global repo for commands such as \`G! issue 5\`, say \`G! conf view\` to see the current configuration, and use \`G! conf set <key> <value\` to set config keys.`,
     `If you need to know where to point the webhook, say \`G! invite\` to see the webhook endpoint, and the events you should use.`,
@@ -64,7 +64,7 @@ bot.on('guildDelete', (guild) => {
     `- Owner: @${guild.owner ? guild.owner.user.tag : 'Unknown'}`,
     '```'
   ];
-  bot.channels.get('231911521557544960').sendMessage(message);
+  bot.channels.get('231911521557544960').send(message);
 });
 
 require('./commands')(bot);

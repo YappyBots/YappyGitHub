@@ -49,7 +49,7 @@ class ExecCommand extends Command {
 
     let messageToEdit;
 
-    msg.channel.sendMessage(runningMessage).then(message => {
+    msg.channel.send(runningMessage).then(message => {
       messageToEdit = message;
     }).then(() => Exec(command))
     .then(data => {

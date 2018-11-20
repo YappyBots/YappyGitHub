@@ -26,7 +26,7 @@ class GithubIssue extends Command {
   }
 
   run(msg, args) {
-    if (!args[0]) return msg.channel.sendMessage(`G! help issue`);
+    if (!args[0]) return msg.channel.send(`G! help issue`);
 
     if (args[0] === 'search') {
       this._search(msg, args);
@@ -40,7 +40,7 @@ class GithubIssue extends Command {
     let issueNumber = parseInt(args[0]);
 
     let repository = ServerConf.GetGuild(msg.guild).repo;
-    if (!repository) return msg.channel.sendMessage(`Global repository hasn't been configured. Please tell the server owner that they need to do \`G! conf set repo <user/repo>\`.`);
+    if (!repository) return msg.channel.send(`Global repository hasn't been configured. Please tell the server owner that they need to do \`G! conf set repo <user/repo>\`.`);
 
     repository = repository.split('/');
     let user = repository[0];
@@ -54,10 +54,10 @@ class GithubIssue extends Command {
       if (err) err = JSON.parse(err);
       if (err && err.message !== "Not Found") throw new Error(`Unable to get issue #${issueNumber} from \`${repository.join('/')}\`\n ${err}`, `github`, err);
       if (err && err.message === "Not Found") {
-        return msg.channel.sendMessage(`Unable to get issue #${issueNumber} from \`${repository.join('/')}\`: Issue doesn't exist`);
+        return msg.channel.send(`Unable to get issue #${issueNumber} from \`${repository.join('/')}\`: Issue doesn't exist`);
       }
 
-      if (res.html_url.indexOf('pull') >= 0) return msg.channel.sendMessage(`G! pr ${issueNumber}`);
+      if (res.html_url.indexOf('pull') >= 0) return msg.channel.send(`G! pr ${issueNumber}`);
 
       let message = [
         `**ISSUE #${issueNumber} IN ${repository.join('/')}**`,
@@ -76,7 +76,7 @@ class GithubIssue extends Command {
 
       if (msg.author.equals(this.bot.user)) return msg.edit(message.join('\n')).catch(e => { throw e });
 
-      msg.channel.sendMessage(message);
+      msg.channel.send(message);
     });
 
   }
@@ -89,7 +89,7 @@ class GithubIssue extends Command {
     if (!query) return false;
 
     let repository = ServerConf.GetGuild(msg.guild).repo;
-    if (!repository) return msg.channel.sendMessage(`Global repository hasn't been configured. Please tell the server owner that they need to do \`G! conf set repo <user/repo>\`.`);
+    if (!repository) return msg.channel.send(`Global repository hasn't been configured. Please tell the server owner that they need to do \`G! conf set repo <user/repo>\`.`);
 
     repository = repository.split('/');
 
@@ -114,7 +114,7 @@ class GithubIssue extends Command {
 
       if (!pagination.items || !pagination.items.length) message.push(`No issues found for that query in ${repository.join('/')} :/`)
 
-      msg.channel.sendMessage(message);
+      msg.channel.send(message);
     });
 
   }

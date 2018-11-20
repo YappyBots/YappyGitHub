@@ -24,7 +24,7 @@ class InviteCommand extends Command {
   }
 
   run(msg, args) {
-    msg.channel.sendMessage(message);
+    msg.channel.send(message);
   }
 }
 

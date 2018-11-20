@@ -61,7 +61,7 @@ class HelpCommand extends Command {
         ]);
       }
 
-      msg.channel.sendMessage([
+      msg.channel.send([
         '```ini',
         ...message,
         '```'
@@ -72,7 +72,7 @@ class HelpCommand extends Command {
       let command = args[0];
       if (!this.bot.commands.has(command)) return false;
       command = this.bot.commands.get(command);
-      msg.channel.sendMessage([
+      msg.channel.send([
         '```ini',
         `[ Command: ${command.help.name} ]`,
         ``,

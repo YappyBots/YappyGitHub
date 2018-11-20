@@ -18,7 +18,7 @@ class UpdateCommand extends Command {
   }
 
   run(msg, args) {
-    return msg.channel.sendMessage([
+    return msg.channel.send([
       '**REBOOT**',
       '',
       'Rebooting...'

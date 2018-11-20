@@ -67,7 +67,7 @@ const BotPermissions = (msg) => {
   is then sent to the command handler for verification*/
   let permlvl = 0;
 
-  if (msg.member && msg.member.hasPermission(`ADMINISTRATOR`)) permlvl = 1;
+  if (msg.member && msg.member.has(`ADMINISTRATOR`)) permlvl = 1;
   if (msg.author.id == msg.client.config.owner) permlvl = 2;
 
   return permlvl;

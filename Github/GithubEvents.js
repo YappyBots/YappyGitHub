@@ -26,10 +26,10 @@ class GithubEvents {
       timeout: 5000
     });
 
-    this.github.authenticate({
-      type: "oauth",
-      token: process.env.GITHUB_TOKEN
-    });
+    // this.github.authenticate({
+    //   type: "oauth",
+    //   token: process.env.GITHUB_TOKEN
+    // });
 
     this._latestEvents = [];
 

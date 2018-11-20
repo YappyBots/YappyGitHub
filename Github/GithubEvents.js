@@ -1,7 +1,5 @@
-const { EventEmitter } = require('events');
 const EventEmitter2 = require('eventemitter2').EventEmitter2;
-const Log = require('../lib/Logger').Logger;
-const GithubApi = require('github');
+const GithubApi = require('@octokit/rest');
 const GithubCache = require('../lib/Util/GithubCache');
 
 const Issues = require('./Issues');

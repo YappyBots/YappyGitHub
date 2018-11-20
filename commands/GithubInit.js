@@ -73,20 +73,7 @@ class GithubInitCommand extends Command {
     Github.repos.get({
       owner: repoUser,
       repo: repoName
-    }, (err) => {
-      let errorMessage = err && err.message || null;
-
-      if (errorMessage) {
-        try {
-          errorMessage = JSON.parse(err.message).message;
-        } catch (e) {}
-      }
-
-      if (errorMessage && errorMessage !== "Not Found") return msg.channel.send(`❌ Unable to get repository info for \`${repo}\`\n${err}`);
-      if (errorMessage && errorMessage === "Not Found") {
-        return msg.channel.send(`❌ Unable to initialize! The repository \`${repository.repo}\` doesn't exist!`);
-      }
-
+    }).then(() => {
       GithubCache.add(repository.repo);
 
       return ChannelConf.Find(channelid, repository.repo).then(doc => {
@@ -100,7 +87,19 @@ class GithubInitCommand extends Command {
         Log.error(err);
         msg.channel.send(`❌ An error occurred while trying to initialize repository events for **${repo}** in this channel.\n\`${err}\``);
       });
+    }).catch(err => {
+      let errorMessage = err && err.message || null;
 
+      if (errorMessage) {
+        try {
+          errorMessage = JSON.parse(err.message).message;
+        } catch (e) { }
+      }
+
+      if (errorMessage && errorMessage !== "Not Found") return msg.channel.send(`❌ Unable to get repository info for \`${repo}\`\n${err}`);
+      if (errorMessage && errorMessage === "Not Found") {
+        return msg.channel.send(`❌ Unable to initialize! The repository \`${repository.repo}\` doesn't exist!`);
+      }
     });
 
   }

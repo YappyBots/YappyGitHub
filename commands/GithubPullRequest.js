@@ -48,9 +48,8 @@ class GithubPullRequestCommand extends Command {
     github.pullRequests.get({
       owner: user, repo,
       number: prNumber
-    }, (err, res) => {
-      if (err) Log.error(err);
-      if (err || !res.commits_url) return msg.channel.send(`G! issue ${prNumber}`);
+    }).then((res) => {
+      if (!res.commits_url) return msg.channel.send(`G! issue ${prNumber}`);
 
       let message = [
         `**PULL REQUEST #${prNumber} IN ${repository.join('/')}**`,
@@ -77,7 +76,7 @@ class GithubPullRequestCommand extends Command {
 
   }
 
-  _search(msg, args) {
+  async _search(msg, args) {
 
     let page = args[args.length - 1].indexOf('p') === 0 ? parseInt(args[args.length - 1].slice(1)) : 1;
     let query = args.slice(1).join(' ').replace(`p${page}`, '');
@@ -86,11 +85,9 @@ class GithubPullRequestCommand extends Command {
 
     repository = repository.split('/');
 
-    github.search.issues({
+    return github.search.issues({
       q: query + `+repo:${repository.join('/')}`
-    }, (err, res) => {
-      if (err) throw err;
-
+    }).then(res => {
       res.items = res.items.filter(e => e.html_url.indexOf('/pull/') >= 0);
 
       let pagination = Util.Paginate(res.items, page || 1, 10);
@@ -107,9 +104,8 @@ class GithubPullRequestCommand extends Command {
 
       if (!pagination.items || !pagination.items.length) message.push(`No pull requests found for that query in ${repository.join('/')} :/`)
 
-      msg.channel.send(message);
+      return msg.channel.send(message);
     });
-
   }
 }
 

@@ -49,14 +49,7 @@ class GithubIssue extends Command {
     github.issues.get({
       owner: user, repo,
       number: issueNumber
-    }, (err, res) => {
-
-      if (err) err = JSON.parse(err);
-      if (err && err.message !== "Not Found") throw new Error(`Unable to get issue #${issueNumber} from \`${repository.join('/')}\`\n ${err}`, `github`, err);
-      if (err && err.message === "Not Found") {
-        return msg.channel.send(`Unable to get issue #${issueNumber} from \`${repository.join('/')}\`: Issue doesn't exist`);
-      }
-
+    }).then(res => {
       if (res.html_url.indexOf('pull') >= 0) return msg.channel.send(`G! pr ${issueNumber}`);
 
       let message = [
@@ -77,6 +70,12 @@ class GithubIssue extends Command {
       if (msg.author.equals(this.bot.user)) return msg.edit(message.join('\n')).catch(e => { throw e });
 
       msg.channel.send(message);
+    }).catch(err => {
+      if (err) err = JSON.parse(err);
+      if (err && err.message !== "Not Found") throw new Error(`Unable to get issue #${issueNumber} from \`${repository.join('/')}\`\n ${err}`, `github`, err);
+      if (err && err.message === "Not Found") {
+        return msg.channel.send(`Unable to get issue #${issueNumber} from \`${repository.join('/')}\`: Issue doesn't exist`);
+      }
     });
 
   }
@@ -93,10 +92,9 @@ class GithubIssue extends Command {
 
     repository = repository.split('/');
 
-    github.search.issues({
+    return github.search.issues({
       q: query + `+repo:${repository.join('/')}`
-    }, (err, res) => {
-      if (err) throw err;
+    }).then((res) => {
 
       res.items = res.items.filter(e => e.html_url.indexOf('/pull/') < 0);
 
@@ -115,8 +113,7 @@ class GithubIssue extends Command {
       if (!pagination.items || !pagination.items.length) message.push(`No issues found for that query in ${repository.join('/')} :/`)
 
       msg.channel.send(message);
-    });
-
+    })
   }
 
 }

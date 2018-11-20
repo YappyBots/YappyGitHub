@@ -37,29 +37,18 @@ class GithubReleaseCommand extends Command {
       owner: user,
       repo,
       perPage: 99
-    }, (err, res) => {
-      if (err) err = JSON.parse(err);
-      if (err && err.message !== "Not Found") throw new Error(`Unable to get release \`${release}\` from \`${repository.join('/')}\`\n ${err}`, `github`, err);
-      if (err && err.message === "Not Found") {
-        return msg.channel.send(`Unable to get release \`${release}\` from \`${repository.join('/')}\`: Issue doesn't exist`);
-      }
-
+    }).then((res) => {
       let releaseObj = Util.Search(res, release)[0];
 
       if (!releaseObj) {
         return msg.channel.send(`Couldn't find release \`${release}\` in ${repository.join('/')}`);
       }
 
-      github.repos.getRelease({
+      return github.repos.getRelease({
         owner: 'hydrabolt',
         repo: 'discord.js',
         id: releaseObj.id
-      }, (err, release) => {
-        if (err && err.message !== "Not Found") throw new Error(`Unable to get release ${release} from ${repository.join('/')}\n ${err}`, `github`, err);
-        if (err && err.message === "Not Found") {
-          return msg.channel.send(`Unable to get release ${releaseObj.tag} from ${repository.join('/')}: Release doesn't exist`);
-        }
-
+      }).then((release) => {
         let message = [
           `**RELEASE ${release.name} IN ${repository.join('/')}**`,
           `<${release.html_url}>`,
@@ -75,7 +64,18 @@ class GithubReleaseCommand extends Command {
         ];
 
         msg.channel.send(message).catch(Log.error);
+      }).catch(err => {
+        if (err && err.message !== "Not Found") throw new Error(`Unable to get release ${release} from ${repository.join('/')}\n ${err}`, `github`, err);
+        if (err && err.message === "Not Found") {
+          return msg.channel.send(`Unable to get release ${releaseObj.tag} from ${repository.join('/')}: Release doesn't exist`);
+        }
       })
+    }).catch(err => {
+      if (err) err = JSON.parse(err);
+      if (err && err.message !== "Not Found") throw new Error(`Unable to get release \`${release}\` from \`${repository.join('/')}\`\n ${err}`, `github`, err);
+      if (err && err.message === "Not Found") {
+        return msg.channel.send(`Unable to get release \`${release}\` from \`${repository.join('/')}\`: Issue doesn't exist`);
+      }
     });
 
   }

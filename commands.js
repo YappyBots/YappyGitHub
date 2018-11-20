@@ -111,5 +111,11 @@ module.exports = (bot) => {
     });
   });
 
-  bot.on('message', RunCommand);
+  bot.on('message', msg => {
+    try {
+      RunCommand(msg);
+    } catch (e) {
+      ErrorLogger(e, 'Yappy encountered an error when trying to run a command');
+    }
+  });
 }

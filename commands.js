@@ -57,6 +57,7 @@ const RunCommand = (msg) => {
         commandRun.catch(e => ErrorLogger.error(e, `Yappy encountered an error when trying to execute a command`, msg));
       }
     } catch (e) {
+      console.error(e);
       ErrorLogger.error(e, `Yappy encountered an error when trying to execute a command`, msg);
     }
   }

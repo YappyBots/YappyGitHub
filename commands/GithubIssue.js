@@ -49,21 +49,21 @@ class GithubIssue extends Command {
     github.issues.get({
       owner: user, repo,
       number: issueNumber
-    }).then(res => {
-      if (res.html_url.indexOf('pull') >= 0) return msg.channel.send(`G! pr ${issueNumber}`);
+    }).then(({ data }) => {
+      if (data.html_url.indexOf('pull') >= 0) return msg.channel.send(`G! pr ${issueNumber}`);
 
       let message = [
         `**ISSUE #${issueNumber} IN ${repository.join('/')}**`,
-        `<${res.html_url}>`,
+        `<${data.html_url}>`,
         ``,
         '```xl',
-        `${Util.Pad('Title', 10)}: ${res.title}`,
-        `${Util.Pad('Author', 10)}: ${res.user ? res.user.login : 'Unknown'}`,
-        `${Util.Pad('Status', 10)}: ${res.state === 'open' ? 'Open' : 'Closed'}`,
-        `${Util.Pad('Assignee', 10)}: ${res.assignee ? res.assignee.login : 'None'}`,
-        `${Util.Pad('Milestone', 10)}: ${res.milestone ? res.milestone.title : 'None'}`,
-        `${Util.Pad('Labels', 10)}: ${res.labels && res.labels.length ? res.labels.map(e => e.name).join(', ') : 'None'}`,
-        `${Util.Pad('Comments', 10)}: ${res.comments}`,
+        `${Util.Pad('Title', 10)}: ${data.title}`,
+        `${Util.Pad('Author', 10)}: ${data.user ? data.user.login : 'Unknown'}`,
+        `${Util.Pad('Status', 10)}: ${data.state === 'open' ? 'Open' : 'Closed'}`,
+        `${Util.Pad('Assignee', 10)}: ${data.assignee ? data.assignee.login : 'None'}`,
+        `${Util.Pad('Milestone', 10)}: ${data.milestone ? data.milestone.title : 'None'}`,
+        `${Util.Pad('Labels', 10)}: ${data.labels && data.labels.length ? data.labels.map(e => e.name).join(', ') : 'None'}`,
+        `${Util.Pad('Comments', 10)}: ${data.comments}`,
         '```'
       ];
 
@@ -93,8 +93,8 @@ class GithubIssue extends Command {
 
     return github.search.issues({
       q: query + `+repo:${repository.join('/')}`
-    }).then((issues) => {
-      issues = issues.filter(e => e.html_url.indexOf('/pull/') < 0);
+    }).then(({ data }) => {
+      const issues = data.items.filter(e => e.html_url.indexOf('/pull/') < 0);
 
       let pagination = Util.Paginate(issues, page, 10);
 

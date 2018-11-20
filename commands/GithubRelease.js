@@ -44,11 +44,11 @@ class GithubReleaseCommand extends Command {
         return msg.channel.send(`Couldn't find release \`${release}\` in ${repository.join('/')}`);
       }
 
-      return github.repos.getRelease({
-        owner: 'hydrabolt',
-        repo: 'discord.js',
+      return github.repos.listReleases({
+        owner: user,
+        repo: repo,
         id: releaseObj.id
-      }).then((release) => {
+      }).then(({ data: release }) => {
         let message = [
           `**RELEASE ${release.name} IN ${repository.join('/')}**`,
           `<${release.html_url}>`,

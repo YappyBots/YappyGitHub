@@ -74,7 +74,7 @@ class GithubIssue extends Command {
       if (err && err.message === "Not Found") {
         msg.channel.send(`Unable to get issue #${issueNumber} from \`${repository.join('/')}\`: Issue doesn't exist`);
         throw new Error(`Unable to get issue #${issueNumber} from \`${repository.join('/')}\`\n ${err}`, `github`, err);
-      }
+      } else throw err;
     });
 
   }
@@ -93,11 +93,10 @@ class GithubIssue extends Command {
 
     return github.search.issues({
       q: query + `+repo:${repository.join('/')}`
-    }).then((res) => {
+    }).then((issues) => {
+      issues = issues.filter(e => e.html_url.indexOf('/pull/') < 0);
 
-      res.items = res.items.filter(e => e.html_url.indexOf('/pull/') < 0);
-
-      let pagination = Util.Paginate(res.items, page, 10);
+      let pagination = Util.Paginate(issues, page, 10);
 
       let message = [
         `**ISSUES FOUND FOR QUERY \`${query}\` IN ${repository.join('/')}**`,

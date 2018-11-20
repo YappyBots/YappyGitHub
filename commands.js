@@ -57,7 +57,7 @@ const RunCommand = (msg) => {
         commandRun.catch(e => ErrorLogger.error(e, `Yappy encountered an error when trying to execute a command`, msg));
       }
     } catch (e) {
-      console.error(e);
+      Log.error(e);
       ErrorLogger.error(e, `Yappy encountered an error when trying to execute a command`, msg);
     }
   }
@@ -68,7 +68,7 @@ const BotPermissions = (msg) => {
   is then sent to the command handler for verification*/
   let permlvl = 0;
 
-  if (msg.member && msg.member.has(`ADMINISTRATOR`)) permlvl = 1;
+  if (msg.member && msg.member.permissions.has(`ADMINISTRATOR`)) permlvl = 1;
   if (msg.author.id == msg.client.config.owner) permlvl = 2;
 
   return permlvl;
@@ -107,7 +107,8 @@ module.exports = (bot) => {
           bot.aliases.set(alias, command.help.name);
         });
       } catch (e) {
-        ErrorLogger(e, `Yappy encountered an error when trying to load a command`);
+        Log.error(e);
+        ErrorLogger.error(e, `Yappy encountered an error when trying to load a command`);
       }
     });
   });
@@ -117,7 +118,7 @@ module.exports = (bot) => {
       RunCommand(msg);
     } catch (e) {
       Log.error(e);
-      ErrorLogger(e, 'Yappy encountered an error when trying to run a command');
+      ErrorLogger.error(e, 'Yappy encountered an error when trying to run a command');
     }
   });
 }

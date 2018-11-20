@@ -33,7 +33,7 @@ class GithubReleaseCommand extends Command {
     let user = repository[0];
     let repo = repository[1];
 
-    github.repos.getReleases({
+    github.repos.listReleases({
       owner: user,
       repo,
       perPage: 99
@@ -44,7 +44,7 @@ class GithubReleaseCommand extends Command {
         return msg.channel.send(`Couldn't find release \`${release}\` in ${repository.join('/')}`);
       }
 
-      return github.repos.listReleases({
+      return github.repos.getRelease({
         owner: user,
         repo: repo,
         id: releaseObj.id

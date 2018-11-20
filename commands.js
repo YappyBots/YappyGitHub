@@ -115,6 +115,7 @@ module.exports = (bot) => {
     try {
       RunCommand(msg);
     } catch (e) {
+      Log.error(e);
       ErrorLogger(e, 'Yappy encountered an error when trying to run a command');
     }
   });

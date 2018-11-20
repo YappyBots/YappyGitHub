@@ -37,8 +37,8 @@ class GithubReleaseCommand extends Command {
       owner: user,
       repo,
       perPage: 99
-    }).then((res) => {
-      let releaseObj = Util.Search(res, release)[0];
+    }).then(({ data }) => {
+      let releaseObj = Util.Search(data.items, release)[0];
 
       if (!releaseObj) {
         return msg.channel.send(`Couldn't find release \`${release}\` in ${repository.join('/')}`);
@@ -71,7 +71,6 @@ class GithubReleaseCommand extends Command {
         }
       })
     }).catch(err => {
-      if (err) err = JSON.parse(err);
       if (err && err.message !== "Not Found") throw new Error(`Unable to get release \`${release}\` from \`${repository.join('/')}\`\n ${err}`, `github`, err);
       if (err && err.message === "Not Found") {
         return msg.channel.send(`Unable to get release \`${release}\` from \`${repository.join('/')}\`: Issue doesn't exist`);

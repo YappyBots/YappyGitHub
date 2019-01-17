@@ -32,7 +32,7 @@ const Log = require('./lib/Logger').Logger;
 const ErrorLogger = require('./lib/Structures/ErrorLogger');
 const BotsDiscordPwAPI = require('./lib/Structures/BotsDiscordPw');
 
-const token = process.env.DISCORD_TESTING_BOT_TOKEN || process.env.YAPPY_GITHUB_DISCORD || process.env.BOT_TOKEN;
+const token = process.env.DISCORD_TOKEN;
 let ClientReady = false;
 
 // ===== DISCORD =====

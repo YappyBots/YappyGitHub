@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const exphbs  = require('express-handlebars');
 const path    = require('path');
@@ -10,8 +12,8 @@ const io = require('socket.io')(server);
 
 const GithubWebhooks = require('./Github/webhooks');
 
-const PORT = process.env.OPENSHIFT_NODEJS_PORT || process.env.YAPPY_GITHUB_PORT || process.env.PORT || 8080;
-const IP = process.env.OPENSHIFT_NODEJS_IP || process.env.YAPPY_GITHUB_IP || process.env.IP || null;
+const IP = process.env.WEB_IP || null;
+const PORT = process.env.WEB_PORT || 8080;
 
 Log.Socket(io);
 

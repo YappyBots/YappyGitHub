@@ -31,6 +31,7 @@
     "mongoose": "^5.4.20",
     "performance-now": "^2.1.0",
     "raven": "^2.4.2",
+    "snekfetch": "^4.0.4",
     "swag": "^0.7.0",
     "winston": "^2.4.1",
     "yappybots-addons": "github:YappyBots/yappy-addons"

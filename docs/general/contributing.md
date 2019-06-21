@@ -9,7 +9,9 @@ $ git clone https://github.com/YappyBots/YappyGithub.git
 
 ### Linting
 
-Please use an ESLint plugin for your editor, and use the current configuration (located in `.eslintrc`).
+Please use a Prettier plugin for your editor, and use the current configuration (located in `.prettierc`).
+
+You can automatically lint the code by running `npm run lint`.
 
 ### Github Events
 

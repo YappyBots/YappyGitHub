@@ -84,7 +84,7 @@ process.on('unhandledRejection', console.error);
   if (channelsToMigrate.length) process.stdout.write('DB |> Channels |> ');
 
   await qq.addAll(
-    channelsToMigrate.map((ch) => async () => {
+    channelsToMigrate.map(ch => async () => {
       const channel = await Channel.forge({
         id: ch.channelID,
         name: ch.channelName,

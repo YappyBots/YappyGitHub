@@ -20,7 +20,6 @@
     "@octokit/rest": "^16.28.2",
     "body-parser": "^1.19.0",
     "bookshelf": "^0.15.1",
-    "bookshelf-cast": "^1.0.2",
     "bugsnag": "^2.4.3",
     "chalk": "^2.4.2",
     "clean-stack": "^2.1.0",

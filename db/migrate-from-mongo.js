@@ -78,7 +78,7 @@ process.on('unhandledRejection', console.error);
   console.log(`DB |> Channels |> Migrating (${channelsToMigrate.length})`);
 
   const qq = new PQueue({
-    concurrency: 5,
+    concurrency: 1,
   });
 
   if (channelsToMigrate.length) process.stdout.write('DB |> Channels |> ');

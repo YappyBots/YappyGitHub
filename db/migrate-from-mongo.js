@@ -77,10 +77,14 @@ process.on('unhandledRejection', console.error);
 
   console.log(`DB |> Channels |> Migrating (${channelsToMigrate.length})`);
 
+  const qq = new PQueue({
+    concurrency: 5,
+  });
+
   if (channelsToMigrate.length) process.stdout.write('DB |> Channels |> ');
 
-  await Promise.all(
-    channelsToMigrate.map(async ch => {
+  await qq.addAll(
+    channelsToMigrate.map((ch) => async () => {
       const channel = await Channel.forge({
         id: ch.channelID,
         name: ch.channelName,

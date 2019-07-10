@@ -6,7 +6,9 @@
   "scripts": {
     "test": "eslint src/ && node docs/generator/generator.js silent",
     "start": "node index.js",
-    "docs": "node docs/generator/generator.js"
+    "docs": "node docs/generator/generator.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -31,11 +33,13 @@
     "moment-duration-format": "^2.2.2",
     "mongoose": "^5.3.13",
     "socket.io": "^2.2.0",
-    "superagent": "^4.1.0"
+    "superagent": "^4.1.0",
+    "snyk": "^1.192.4"
   },
   "devDependencies": {
     "eslint": "^5.12.0",
     "fs-extra": "^7.0.1",
     "jsdoc-parse": "^3.0.0"
-  }
+  },
+  "snyk": true
 }

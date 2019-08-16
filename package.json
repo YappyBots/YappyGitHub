@@ -8,7 +8,9 @@
     "start": "node lib/index.js",
     "lint": "prettier --write 'lib/**/*.js' 'db/**/*.js'",
     "docs": "docgen --source lib --jsdoc .jsdoc.json --custom docs/index.yml --output docs/docs.json",
-    "docs:test": "docgen --source lib --custom docs/index.yml"
+    "docs:test": "docgen --source lib --custom docs/index.yml",
+    "db:migrate": "knex migrate:latest",
+    "db:rollback": "knex rollback"
   },
   "repository": {
     "url": "https://github.com/YappyBots/YappyGithub",

@@ -24,6 +24,8 @@ module.exports = (req, res, next) => {
   const data = req.body;
 
   if (!event || !data || !data.repository) return res.status(403).send('INVALID DATA. PLZ USE GITHUB WEBHOOKS');
+  
+  res.send('Processing event.');
 
   Log.debug(`Got a \`${event}\` from ${data.repository.full_name}`);
 
@@ -84,11 +86,6 @@ module.exports = (req, res, next) => {
       GithubEvents.Gollum(data);
       break;
     }
-    default: {
-      res.send(`The event ${event} isn't being handled. Sorry!`);
-    }
-  }
 
-  if (res.headersSent) return false;
-  res.send(`Dealing with the webhook's action, ${event}. Sigh...`);
+  }
 }

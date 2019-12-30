@@ -29,7 +29,7 @@
     "express-handlebars": "^3.0.0",
     "moment": "^2.23.0",
     "moment-duration-format": "^2.2.2",
-    "mongoose": "^5.3.13",
+    "mongoose": "^5.7.5",
     "socket.io": "^2.2.0",
     "superagent": "^4.1.0"
   },

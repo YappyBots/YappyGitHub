@@ -41,7 +41,7 @@ process.on('unhandledRejection', console.error);
 
   const guilds = await Guild.fetchAll();
   const guildsToMigrate = (await serverConfig.find({})).filter(
-    g => g && g.guildID && !guilds.get(g.guildID)
+    (g) => g && g.guildID && !guilds.get(g.guildID)
   );
 
   console.log(`DB |> Guilds |> Migrating (${guildsToMigrate.length})`);
@@ -53,7 +53,7 @@ process.on('unhandledRejection', console.error);
   if (guildsToMigrate.length) process.stdout.write('DB |> Guilds |> ');
 
   await queue.addAll(
-    guildsToMigrate.map(guild => async () =>
+    guildsToMigrate.map((guild) => async () =>
       (await Guild.forge({
         id: guild.guildID,
         name: guild.guildName,
@@ -72,7 +72,7 @@ process.on('unhandledRejection', console.error);
 
   const channels = await Channel.fetchAll();
   const channelsToMigrate = (await channelConfig.find({})).filter(
-    ch => ch && ch.channelID && !channels.get(ch.channelID)
+    (ch) => ch && ch.channelID && !channels.get(ch.channelID)
   );
 
   console.log(`DB |> Channels |> Migrating (${channelsToMigrate.length})`);
@@ -84,7 +84,7 @@ process.on('unhandledRejection', console.error);
   if (channelsToMigrate.length) process.stdout.write('DB |> Channels |> ');
 
   await qq.addAll(
-    channelsToMigrate.map(ch => async () => {
+    channelsToMigrate.map((ch) => async () => {
       const channel = await Channel.forge({
         id: ch.channelID,
         name: ch.channelName,
@@ -100,7 +100,7 @@ process.on('unhandledRejection', console.error);
 
       if (Array.isArray(ch.repos))
         await Promise.all(
-          ch.repos.map(repo =>
+          ch.repos.map((repo) =>
             channel.related('repos').create({
               name: repo,
             })

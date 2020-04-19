@@ -1,6 +1,6 @@
-exports.up = knex => {
+exports.up = (knex) => {
   return knex.schema
-    .createTable('guilds', t => {
+    .createTable('guilds', (t) => {
       t.string('id').primary();
 
       t.string('name').nullable();
@@ -8,7 +8,7 @@ exports.up = knex => {
       t.string('prefix').nullable();
     })
 
-    .createTable('channels', t => {
+    .createTable('channels', (t) => {
       t.string('id').primary();
 
       t.string('name').nullable();
@@ -23,12 +23,10 @@ exports.up = knex => {
       t.json('ignored_users').defaultTo([]);
       t.json('ignored_branches').defaultTo([]);
 
-      t.foreign('guild_id')
-        .references('guilds.id')
-        .onDelete('cascade');
+      t.foreign('guild_id').references('guilds.id').onDelete('cascade');
     });
 };
 
-exports.down = knex => {
+exports.down = (knex) => {
   return knex.schema.dropTable('channels').dropTable('guilds');
 };

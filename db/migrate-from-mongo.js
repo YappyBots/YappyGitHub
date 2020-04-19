@@ -40,12 +40,14 @@ process.on('unhandledRejection', console.error);
   console.log('DB |> Guilds |> Retrieving');
 
   const guilds = await Guild.fetchAll();
-  const guildConfigs = (await serverConfig.find({}));
-  const guildsToMigrate = [...new Set(
-    guildConfigs.map(e => String(e.get('guildId'))).filter(
-      (id) => !guilds.get(id)
-    )
-  )];
+  const guildConfigs = await serverConfig.find({});
+  const guildsToMigrate = [
+    ...new Set(
+      guildConfigs
+        .map((e) => String(e.get('guildId')))
+        .filter((id) => !guilds.get(id))
+    ),
+  ];
 
   console.log(`DB |> Guilds |> Migrating (${guildsToMigrate.length})`);
 

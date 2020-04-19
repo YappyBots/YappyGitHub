@@ -10,7 +10,7 @@
     "docs": "docgen --source lib --jsdoc .jsdoc.json --custom docs/index.yml --output docs/docs.json",
     "docs:test": "docgen --source lib --custom docs/index.yml",
     "db:migrate": "knex migrate:latest",
-    "db:rollback": "knex rollback"
+    "db:rollback": "knex migrate:rollback"
   },
   "repository": {
     "url": "https://github.com/YappyBots/YappyGithub",
@@ -21,11 +21,12 @@
   "dependencies": {
     "@octokit/rest": "^17.3.0",
     "body-parser": "^1.19.0",
-    "bookshelf": "^0.15.1",
+    "bookshelf": "^1.1.1",
+    "bookshelf-case-converter-plugin": "^1.0.0",
     "bugsnag": "^2.4.3",
     "chalk": "^4.0.0",
     "clean-stack": "^2.2.0",
-    "discord.js": "github:discordjs/discord.js",
+    "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "hbs": "^4.1.1",

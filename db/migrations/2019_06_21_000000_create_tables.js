@@ -16,7 +16,7 @@ exports.up = knex => {
 
       t.string('repo').nullable();
 
-      t.boolean('use_embed').defaultTo(false);
+      t.boolean('use_embed').defaultTo(true);
 
       t.json('disabled_events').nullable();
 

@@ -1,6 +1,6 @@
 exports.up = (knex) =>
   knex.schema.table('channels', (t) => {
-    t.string('ignored_repos').defaultTo([]);
+    t.json('ignored_repos').defaultTo([]);
   });
 
 exports.down = (knex) =>

@@ -18,7 +18,7 @@ exports.up = (knex) => {
 
       t.boolean('use_embed').defaultTo(true);
 
-      t.json('disabled_events').nullable();
+      t.json('disabled_events').defaultTo(['merge_request/update']);
 
       t.json('ignored_users').defaultTo([]);
       t.json('ignored_branches').defaultTo([]);

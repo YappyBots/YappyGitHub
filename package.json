@@ -19,6 +19,7 @@
   "author": "David Sevilla Martin <dsevilla192@icloud.com>",
   "license": "MIT",
   "dependencies": {
+    "@YappyBots/addons": "github:yappybots/yappy-addons#a95f95dad09524ce55709c335db9adcc7e7d5d73",
     "@octokit/rest": "^17.3.0",
     "body-parser": "^1.19.0",
     "bookshelf": "^1.1.1",
@@ -29,6 +30,7 @@
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "got": "^10.7.0",
     "hbs": "^4.1.1",
     "jsondiffpatch": "^0.4.1",
     "knex": "^0.21.0",
@@ -39,7 +41,6 @@
     "performance-now": "^2.1.0",
     "pretty-error": "^2.1.1",
     "raven": "^2.6.4",
-    "snekfetch": "^4.0.4",
     "sqlite3": "^4.1.1",
     "swag": "^0.7.0",
     "winston": "^3.2.1",

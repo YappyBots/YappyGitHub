@@ -1,7 +1,7 @@
-# Yappy, the Github Monitor
+# Yappy, the GitHub Monitor
 
 <span class="badge-patreon"><a href="https://www.patreon.com/YappyBots" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a></span>
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FYappyBots%2FYappyGithub.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FYappyBots%2FYappyGithub?ref=badge_shield)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FYappyBots%2FYappyGitHub.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FYappyBots%2FYappyGitHub?ref=badge_shield)
 
 Monitor your github repos by adding this bot to your server, set up a channel for it, and don't miss any events!
 
@@ -20,7 +20,7 @@ __**Util**__:
   - `ping` - uh... ping? pong!
   - `stats` - shows the stats of the bot... what else?
 
-__**Github**__:
+__**GitHub**__:
   - `issues search <query>` - search issues by any field in the global repo
   - `issue <number>` - gives info about that specific issue in the global repo
   - `pr search <query>` - search pull requests by any field in the global repo
@@ -36,7 +36,7 @@ __**Admin**__:
 
 ## License
 
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FYappyBots%2FYappyGithub.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FYappyBots%2FYappyGithub?ref=badge_large)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FYappyBots%2FYappyGitHub.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FYappyBots%2FYappyGitHub?ref=badge_large)
 
 ### Developer Documentation
 

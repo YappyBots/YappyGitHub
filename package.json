@@ -34,6 +34,7 @@
     "hbs": "^4.1.1",
     "jsondiffpatch": "^0.4.1",
     "knex": "^0.21.0",
+    "marked": "^1.0.0",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",
     "mongoose": "^5.9.9",
@@ -43,6 +44,7 @@
     "raven": "^2.6.4",
     "sqlite3": "^4.1.1",
     "swag": "^0.7.0",
+    "turndown": "^6.0.0",
     "winston": "^3.2.1",
     "yappybots-addons": "github:YappyBots/yappy-addons"
   },

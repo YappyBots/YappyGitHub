@@ -109,6 +109,7 @@ process.on('unhandledRejection', console.error);
       const channel = await Channel.forge({
         id,
         guild_id: guildId,
+        ignore_unknown: true,
       }).save(null, {
         method: 'insert',
       });

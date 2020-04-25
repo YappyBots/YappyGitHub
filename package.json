@@ -45,8 +45,7 @@
     "sqlite3": "^4.1.1",
     "swag": "^0.7.0",
     "turndown": "^6.0.0",
-    "winston": "^3.2.1",
-    "yappybots-addons": "github:YappyBots/yappy-addons"
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "discord.js-docgen": "github:hydrabolt/discord.js-docgen",

@@ -20,7 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "@YappyBots/addons": "github:yappybots/yappy-addons#a95f95dad09524ce55709c335db9adcc7e7d5d73",
-    "@octokit/rest": "^17.3.0",
+    "@octokit/rest": "^17.6.0",
     "body-parser": "^1.19.0",
     "bookshelf": "^1.1.1",
     "bookshelf-case-converter-plugin": "^1.0.0",
@@ -37,7 +37,7 @@
     "marked": "^1.0.0",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",
-    "mongoose": "^5.9.9",
+    "mongoose": "^5.9.10",
     "p-queue": "^6.3.0",
     "performance-now": "^2.1.0",
     "pretty-error": "^2.1.1",
@@ -52,6 +52,6 @@
     "discord.js-docgen": "github:hydrabolt/discord.js-docgen",
     "jsdoc": "^3.6.4",
     "jsdoc-strip-async-await": "^0.1.0",
-    "prettier": "^2.0.4"
+    "prettier": "^2.0.5"
   }
 }

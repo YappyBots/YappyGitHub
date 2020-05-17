@@ -7,8 +7,6 @@
   "scripts": {
     "start": "node lib/index.js",
     "lint": "prettier --write lib db",
-    "docs": "docgen --source lib --jsdoc .jsdoc.json --custom docs/index.yml --output docs/docs.json",
-    "docs:test": "docgen --source lib --custom docs/index.yml",
     "db:migrate": "knex migrate:latest",
     "db:rollback": "knex migrate:rollback"
   },
@@ -48,7 +46,6 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "discord.js-docgen": "github:hydrabolt/discord.js-docgen",
     "jsdoc": "^3.6.4",
     "jsdoc-strip-async-await": "^0.1.0",
     "prettier": "^2.0.5"

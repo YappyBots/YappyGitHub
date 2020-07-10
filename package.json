@@ -19,6 +19,7 @@
   "dependencies": {
     "@YappyBots/addons": "github:YappyBots/yappy-addons#34404f851e5114ce79c3a37293822bd4ed48a296",
     "@octokit/rest": "^18.0.0",
+    "@sentry/node": "^5.19.1",
     "body-parser": "^1.19.0",
     "bookshelf": "^1.2.0",
     "bookshelf-case-converter-plugin": "^2.0.0",
@@ -28,6 +29,7 @@
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "git-rev-sync": "^2.0.0",
     "got": "^11.5.0",
     "hbs": "^4.1.1",
     "jsondiffpatch": "^0.4.1",
@@ -39,7 +41,6 @@
     "p-queue": "^6.5.0",
     "performance-now": "^2.1.0",
     "pretty-error": "^2.1.1",
-    "raven": "^2.6.4",
     "sqlite3": "^5.0.0",
     "swag": "^0.7.0",
     "turndown": "^6.0.0",

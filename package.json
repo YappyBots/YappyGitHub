@@ -1,6 +1,6 @@
 {
   "name": "@yappybots/github",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A GitHub repo monitor bot for Discord",
   "main": "lib/index.js",
   "private": true,

@@ -34,7 +34,7 @@
     "hbs": "^4.1.1",
     "jsondiffpatch": "^0.4.1",
     "knex": "^0.21.2",
-    "marked": "^1.1.0",
+    "marked": "^4.0.10",
     "moment": "^2.27.0",
     "moment-duration-format": "^2.3.2",
     "mongoose": "^5.9.22",

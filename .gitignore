@@ -3,3 +3,6 @@ node_modules
 .env
 .vscode
 db/*.sqlite
+
+yalc.lock
+.yalc

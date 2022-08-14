@@ -1,6 +1,6 @@
 {
   "name": "@yappybots/github",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "A GitHub repo monitor bot for Discord",
   "main": "lib/index.js",
   "private": true,
@@ -17,7 +17,7 @@
   "author": "David Sevilla Martin <dsevilla192@icloud.com>",
   "license": "MIT",
   "dependencies": {
-    "@YappyBots/addons": "file:./../discord-yappy-addons/",
+    "@YappyBots/addons": "https://github.com/YappyBots/yappy-addons#408c1f6",
     "@discordjs/builders": "^0.10.0",
     "@discordjs/rest": "^0.2.0-canary.0",
     "@octokit/rest": "^18.12.0",
@@ -28,7 +28,7 @@
     "bugsnag": "^2.4.3",
     "chalk": "^4.1.0",
     "clean-stack": "^3.0.0",
-    "discord-api-types": "^0.26.0",
+    "discord-api-types": "^0.37.2",
     "discord.js": "^13.4.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",

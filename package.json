@@ -33,7 +33,7 @@
     "got": "^11.5.0",
     "hbs": "^4.1.1",
     "jsondiffpatch": "^0.4.1",
-    "knex": "^0.21.2",
+    "knex": "^2.4.0",
     "marked": "^1.1.0",
     "moment": "^2.27.0",
     "moment-duration-format": "^2.3.2",

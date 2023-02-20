@@ -11,7 +11,7 @@ Join our Discord server at https://discord.gg/HHqndMG
 
 ### Commands
 
-Prefixes are `G! ` (with space), custom prefix set up, or mention the bot.
+You can use the following commands through Discord Slash Commands.
 
 __**Util**__:
   - `help` - a help command... yeah :P

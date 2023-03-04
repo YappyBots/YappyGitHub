@@ -17,8 +17,8 @@
   "author": "David Sevilla Martin <dsevilla192@icloud.com>",
   "license": "MIT",
   "dependencies": {
-    "@YappyBots/addons": "https://github.com/YappyBots/yappy-addons#408c1f6",
-    "@discordjs/builders": "^0.10.0",
+    "@YappyBots/addons": "https://github.com/YappyBots/yappy-addons#1a5b7e9",
+    "@discordjs/builders": "^1.4.0",
     "@discordjs/rest": "^1.5.0",
     "@octokit/rest": "^18.12.0",
     "@sentry/node": "^5.19.1",

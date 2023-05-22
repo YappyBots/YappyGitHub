@@ -6,3 +6,4 @@ db/*.sqlite
 
 yalc.lock
 .yalc
+.cloudflared

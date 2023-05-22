@@ -20,7 +20,7 @@
                                     conn.get('type') == 'install' && conn.get('githubId') === install.id
                                 ) %>
 
-                                <li><%= install.account.login %>
+                                <li><%= install.account.login %> (<%= install.repository_selection %> repositories)
                                     <% if (!installConnected) { %>
                                         <a href="./connect/install/<%= install.id %>" class="button is-small is-primary">Add</a>
                                     <% } %>
@@ -45,7 +45,9 @@
                         </div>
                     </div>
                     <div class="column">
-                        <h2>Discord</h2>
+                        <h2>
+                            Discord -- <%= setupData.guild_name %> #<%= setupData.channel_name %>
+                        </h2>
                         <div class="content">
                             <ul>
                                 <% connections.forEach(function (conn) { %>
@@ -54,9 +56,11 @@
                                             #<%= conn.get('channelId') %>
                                         </a> -->
 
+                                        <!-- <%= githubApp[0][0].account.id %> -->
+
                                         <% const result = conn.get('type') == 'install'
-                                            ? githubApp.find(v => v[0].id == conn.get('githubId'))[0]
-                                            : githubApp.map(v => v[1].find(v => v.id == conn.get('githubId')))[0]  %>
+                                            ? githubApp.map(v => v[0]).find(v => v?.id == conn.get('githubId'))
+                                            : githubApp.map(v => v[1]?.find(v => v.id == conn.get('githubId'))).filter(Boolean)[0]  %>
                                         <% const ghName = (conn.get('type') == 'install'
                                             ? result?.account?.login
                                             : result?.full_name || result?.name

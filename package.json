@@ -56,5 +56,10 @@
   },
   "devDependencies": {
     "prettier": "^2.5.1"
+  },
+  "overrides": {
+    "swag": {
+      "handlebars": "^4.7.7"
+    }
   }
 }

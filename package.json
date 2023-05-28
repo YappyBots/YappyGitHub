@@ -60,6 +60,9 @@
   "overrides": {
     "swag": {
       "handlebars": "^4.7.7"
+    },
+    "bookshelf": {
+      "knex": "$knex"
     }
   }
 }

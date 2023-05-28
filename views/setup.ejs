@@ -8,55 +8,111 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
 </head>
 <body>
+    <nav class="navbar is-transparent has-shadow">
+        <div class="navbar-brand">
+          <a class="navbar-item  has-text-weight-semibold" href="https://bulma.io">
+            Yappy GitHub
+          </a>
+        </div>
+      
+        <div class="navbar-menu">
+          <div class="navbar-start has-text-weight-normal">
+            <span class="navbar-item">
+                <%= setupData.github_login %>
+            </span>
+            <span class="navbar-item">
+                <%= setupData.guild_name %> #<%= setupData.channel_name %>
+            </span>
+          </div>
+      
+          <div class="navbar-end">
+            <div class="navbar-item has-text-weight-light">
+                <time datetime="<%= new Date(Date.now() + ttl * 1000).toISOString() %>" title="<%= new Date(Date.now() + ttl * 1000) %>" class="mr-1">
+                    <%= (ttl > 60) ? `${Math.round(ttl / 60)} min.` : `${ttl} sec.` %>
+                </time>
+                remaining
+            </div>
+          </div>
+        </div>
+      </nav>
+
     <section class="section">
         <div class="container">
             <div class="columns">
                 <div class="column">
-                    <h2>GitHub</h2>
-                    <div class="content">
-                        <ul>
-                            <% githubApp.forEach(function ([install,  repos]) { %>
-                                <% const installConnected = connections.some(conn =>
-                                    conn.get('type') == 'install' && conn.get('githubId') === install.id
-                                ) %>
+                    <nav class="panel is-link">
+                        <div class="panel-heading">
+                          GitHub
 
-                                <li><%= install.account.login %> (<%= install.repository_selection %> repositories)
-                                    <% if (!installConnected) { %>
-                                        <a href="./connect/install/<%= install.id %>" class="button is-small is-primary">Add</a>
+                          <form action="./refresh-github" method="POST" class="is-pulled-right">
+                            <button class="button is-info is-inverted is-small is-outlined" title="Refresh GitHub data">
+                                <span class="icon is-small">
+                                    ⟲
+                                  </span>
+                              </button>
+                          </form>
+                        </div>
+                        <% githubApp.forEach(function ([install,  repos]) { %>
+                            <% const installConnected = connections.some(conn =>
+                                conn.get('type') == 'install' && conn.get('githubId') === install.id
+                            ) %>
+                            <% const isSuspended = !!install.suspended_at %>
+
+                            <label class="panel-block is-flex <%= installConnected && 'is-active' %>">
+                                <%- include('./partials/setup-button', { type: 'install', id: install.id, connected: installConnected }) %>
+
+                                <div class="panel-icon"></div>
+                                
+                                <span class="is-flex-grow-1"><%= install.account.login %></span>
+
+                                <span class="mr-2">
+                                    <% if (isSuspended) { %>
+                                        <span class="tag is-danger is-light">Suspended</span>
+                                    <%  } else { %>
+                                        <small><i><%= install.repository_selection %> repositories</i></small>
+                                    <% } %>
+                                </span>
+
+                                <a class="button is-align-self-flex-end is-small is-link is-outlined mr-2" href="<%- install.html_url %>" target="_blank">
+                                    <div class="icon">
+                                        ⚙
+                                    </div>
+                                </a>
+                            </label>
+
+                            <% repos?.forEach(function (repo) { %>
+                                <% const repoConnected = connections.some(conn =>
+                                    conn.get('type') == 'repo' && conn.get('githubId') === repo.id
+                                ) %>
+                                <% const isConnected = installConnected || repoConnected %>
+
+                                <label class="panel-block <%= installConnected || repoConnected && 'is-active' %>">
+                                    <% if (!installConnected || repoConnected) { %>
+                                        <%- include('./partials/setup-button', { type: 'repo', id: repo.id, connected: isConnected }) %>
+                                    <% } else { %>
+                                        <button disabled class="button is-small is-disabled is-danger is-outlined is-rounded is-inverted">−</button>
                                     <% } %>
 
-                                    <ul>
-                                        <% repos.forEach(function (repo) { %>
-                                            <% const repoConnected = connections.some(conn =>
-                                                conn.get('type') == 'repo' && conn.get('githubId') === repo.id
-                                            ) %>
-                                            <li>
-                                                <%= repo.name %>
+                                    <div class="panel-icon"></div>
+                                    <span class="panel-icon">
+                                        <i class="fas fa-book"></i>
+                                    </span>
 
-                                                <% if (!installConnected && !repoConnected) { %>
-                                                    <a href="./connect/repo/<%= repo.id %>" class="button is-small is-primary">Add</a>
-                                                <% } %>
-                                            </li>
-                                        <% }) %>
-                                    </ul>
-                                </li>
-                                <% }) %>
-                            </ul>
-                        </div>
+                                    &nbsp; &nbsp; <%= repo.name %>
+                                </label>
+                            <% }) %>
+
+                            <% }) %>
+                      </nav>
                     </div>
                     <div class="column">
-                        <h2>
-                            Discord -- <%= setupData.guild_name %> #<%= setupData.channel_name %>
-                        </h2>
+                        <h3 class="is-size-3">
+                            Connected to Discord
+                        </h3>
                         <div class="content">
                             <ul>
                                 <% connections.forEach(function (conn) { %>
                                     <li>
-                                        <!-- <a href="https://discord.com/channels/<%= conn.get('channelId') %>" target="_blank">
-                                            #<%= conn.get('channelId') %>
-                                        </a> -->
-
-                                        <!-- <%= githubApp[0][0].account.id %> -->
 
                                         <% const result = conn.get('type') == 'install'
                                             ? githubApp.map(v => v[0]).find(v => v?.id == conn.get('githubId'))
@@ -67,7 +123,7 @@
                                         ) || conn.get('github_name') %>
 
                                         <a href="https://github.com/<%= ghName %>" target="_blank">
-                                            <%- ghName %>
+                                            <%= ghName %>
                                         </a>
 
                                         (<%= conn.get('type') %>)

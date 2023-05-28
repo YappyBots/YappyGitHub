@@ -14,7 +14,7 @@
     "url": "https://github.com/YappyBots/YappyGitHub",
     "type": "git"
   },
-  "author": "David Sevilla Martin <dsevilla192@icloud.com>",
+  "author": "David Sevilla Martin (https://dsevilla.dev)",
   "license": "MIT",
   "dependencies": {
     "@discordjs/builders": "^1.4.0",
@@ -34,6 +34,7 @@
     "dotenv": "^10.0.0",
     "ejs": "^3.1.9",
     "express": "^4.17.2",
+    "express-async-handler": "^1.2.0",
     "git-rev-sync": "^3.0.1",
     "got": "^11.5.0",
     "hbs": "^4.2.0",

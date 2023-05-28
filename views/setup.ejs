@@ -94,11 +94,9 @@
                                     <% } %>
 
                                     <div class="panel-icon"></div>
-                                    <span class="panel-icon">
-                                        <i class="fas fa-book"></i>
-                                    </span>
 
-                                    &nbsp; &nbsp; <%= repo.name %>
+
+                                    ↳ &nbsp; <%= repo.name %>
                                 </label>
                             <% }) %>
 
@@ -112,7 +110,10 @@
                         <div class="content">
                             <ul>
                                 <% connections.forEach(function (conn) { %>
-                                    <li>
+                                    <li class="is-clearfix">
+                                        <div class="is-pulled-left mr-2">
+                                            <%- include('./partials/setup-button', { type: conn.get('type'), id: conn.get('githubId'), connected: true }) %>
+                                        </div>
 
                                         <% const result = conn.get('type') == 'install'
                                             ? githubApp.map(v => v[0]).find(v => v?.id == conn.get('githubId'))

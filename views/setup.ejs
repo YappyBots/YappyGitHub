@@ -121,7 +121,7 @@
                                         <% const ghName = (conn.get('type') == 'install'
                                             ? result?.account?.login
                                             : result?.full_name || result?.name
-                                        ) || conn.get('github_name') %>
+                                        ) || conn.get('githubName') %>
 
                                         <a href="https://github.com/<%= ghName %>" target="_blank">
                                             <%= ghName %>

@@ -40,6 +40,7 @@
     "hbs": "^4.2.0",
     "jsondiffpatch": "^0.4.1",
     "knex": "^2.4.2",
+    "markdown-escape": "^2.0.0",
     "marked": "^5.0.2",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",

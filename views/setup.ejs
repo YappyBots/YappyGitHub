@@ -52,6 +52,11 @@
                               </button>
                           </form>
                         </div>
+
+                        <div class="panel-block is-flex">
+                            <a class="button is-small is-dark mr-2 is-fullwidth" href="https://github.com/apps/<%= process.env.GITHUB_APP_SLUG %>" target="_blank">Install GitHub App</a>
+                        </div>
+
                         <% githubApp.forEach(function ([install,  repos]) { %>
                             <% const installConnected = connections.some(conn =>
                                 conn.get('type') == 'install' && conn.get('githubId') === install.account.id

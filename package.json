@@ -39,6 +39,7 @@
     "got": "^11.5.0",
     "hbs": "^4.2.0",
     "helmet": "^7.0.0",
+    "hpp": "^0.2.3",
     "jsondiffpatch": "^0.4.1",
     "knex": "^2.4.2",
     "markdown-escape": "^2.0.0",

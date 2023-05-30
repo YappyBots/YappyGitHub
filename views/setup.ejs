@@ -59,12 +59,12 @@
 
                         <% githubApp.forEach(function ([install,  repos]) { %>
                             <% const installConnected = connections.some(conn =>
-                                conn.get('type') == 'install' && conn.get('githubId') === install.account.id
+                                conn.get('type') == 'install' && conn.get('githubId') === install.id
                             ) %>
                             <% const isSuspended = !!install.suspended_at %>
 
                             <label class="panel-block is-flex <%= installConnected && 'is-active' %>">
-                                <%- include('./partials/setup-button', { type: 'install', id: install.account.id, connected: installConnected }) %>
+                                <%- include('./partials/setup-button', { type: 'install', id: install.id, connected: installConnected }) %>
 
                                 <div class="panel-icon"></div>
                                 
@@ -121,7 +121,7 @@
                                         </div>
 
                                         <% const result = conn.get('type') == 'install'
-                                            ? githubApp.map(v => v[0]).find(v => v?.account?.id == conn.get('githubId'))
+                                            ? githubApp.map(v => v[0]).find(v => v?.id == conn.get('githubId'))
                                             : githubApp.map(v => v[1]?.find(v => v.id == conn.get('githubId'))).filter(Boolean)[0]  %>
                                         <% const ghName = (conn.get('type') == 'install'
                                             ? result?.account?.login

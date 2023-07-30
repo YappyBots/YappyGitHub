@@ -28,7 +28,7 @@
 
         <pre><%= stack %></pre>
     <% } else { %>
-        <h1><%= name %></h1>
+        <h1><%= name || status %></h1>
 
         <% if (message) { %>
             <p><%= message %></p>

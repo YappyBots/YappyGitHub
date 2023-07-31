@@ -5,9 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Yappy GitHub</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.5.0/css/bulma.min.css" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dansup/bulma-templates/gh-pages/css/landing.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.5.0/css/bulma.min.css" crossorigin="anonymous" />
   <style>
   html {
     overflow-y: auto !important;
@@ -32,6 +30,12 @@
     width: auto !important;
     padding-left: 2px;
   }
+  .nav .circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: <%= statusColor %>;
+  }
   </style>
 </head>
 <body>
@@ -45,8 +49,8 @@
             </div>
             <div class="nav-right nav-menu">
               <span class="nav-item">
-                <i class="fas fa-circle" style="color: {{statusColor}};" aria-hidden="true"></i>&nbsp;
-                {{status}}
+                <i class="circle" aria-hidden="true"></i>&nbsp;
+                <%= status %>
               </span>
             </div>
           </div>
@@ -64,11 +68,11 @@
           </div>
           <div class="column is-6 is-offset-1">
             <h1 class="title is-2">
-              Introducing Yappy, the GitHub Monitor
+              Introducing Yappy GitHub
             </h1>
             <br>
-            <h2 class="subtitle is-4 description">
-              It's time to say hello to GitHub repo events right in your Discord server.<br>
+            <h2 class="subtitle is-5 description">
+              It's time to say hello to GitHub repo events right in your Discord server.<br><br>
               Simply install the GitHub app and set up the connection to your Discord channel with <code>/setup</code>!
             </h2>
             <br>
@@ -76,25 +80,25 @@
               <div class="column">
                 <p>
                   <strong>Guilds</strong><br>
-                  {{bot.guilds.cache.size}}
+                  <%= bot.guilds.cache.size %>
                 </p>
               </div>
               <div class="column">
                 <p>
                   <strong>Channels</strong><br>
-                  {{bot.channels.cache.size}}
+                  <%= bot.channels.cache.size %>
                 </p>
               </div>
               <div class="column">
                 <p>
                   <strong>Users</strong><br>
-                  {{bot.users.cache.size}}
+                  <%= bot.users.cache.size %>
                 </p>
               </div>
               <div class="column">
                 <p>
                   <strong>Connections</strong><br>
-                  {{connections}}
+                  <%= connections %>
                 </p>
               </div>
             </div>

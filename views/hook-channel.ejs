@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+
+    <title>Hook | Yappy GitHub</title>
+</head>
+<body>
+    <nav class="navbar is-transparent has-shadow">
+        <div class="navbar-brand">
+          <a class="navbar-item  has-text-weight-semibold" href="https://bulma.io">
+            Yappy GitHub
+          </a>
+        </div>
+      </nav>
+
+    <div class="container">
+        <h1 class="title mt-6">Configuring a Hook</h1>
+
+        <table class="table">
+            <tr>
+                <th>Payload URL</th>
+                <td>
+                    <% const link = process.env.WEB_HOST + url %>
+
+                    <a href="<%= link %>"><%= link %></a>
+                </td>
+            </tr>
+            <tr>
+                <th>Content Type</th>
+                <td><code>application/json</code></td>
+            </tr>
+            <tr>
+                <th>Secret</th>
+                <td>
+                    <p>View your channel's secret by running <code>/conf option channel item:secret</code>.</p>
+                    <% if (ids.length > 1) { %>
+                        <br>
+                        <p>
+                            Since you're sending the hook to multiple channels at once, make sure their secrets are all the same. <br />
+                            The event will only be sent to channels whose secret matches the incoming webhook's.
+                        </p>
+                    <% } %>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

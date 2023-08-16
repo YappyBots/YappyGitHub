@@ -20,7 +20,7 @@
     "@octokit/auth-app": "^6.0.0",
     "@octokit/rest": "^20.0.1",
     "@sentry/node": "^7.63.0",
-    "@YappyBots/addons": "https://github.com/YappyBots/yappy-addons#1a5b7e9",
+    "@YappyBots/addons": "github:YappyBots/yappy-addons#1107d5d",
     "body-parser": "^1.20.2",
     "bookshelf": "^1.2.0",
     "bookshelf-case-converter-plugin": "^2.0.0",

@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="preload" href="https://unpkg.com/bulma-prefers-dark" as="style" />
+
     <%- include('./partials/head') %>
+    
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/bulma-prefers-dark" />
 
     <title>Hook | Yappy GitHub</title>
 </head>
 <body>
     <nav class="navbar is-transparent has-shadow">
         <div class="navbar-brand">
-          <a class="navbar-item  has-text-weight-semibold" href="https://bulma.io">
+          <a class="navbar-item  has-text-weight-semibold" href="<%= process.env.WEB_HOST %>">
             Yappy GitHub
           </a>
         </div>
@@ -17,11 +21,36 @@
     <div class="container">
         <h1 class="title mt-6">Configuring a Hook</h1>
 
-        <table class="table">
+        <div class="content">
+            This hook will forward events to the following channels:
+
+            <ul>
+                <% for (const [id, data] of channels) { %>
+                    <li>
+                        <% if (data) { %>
+                            <a href="https://discord.com/channels/<%= data.guild.id %>/<%= data.id %>" target="_blank"><%= data.guild.name %> #<%= data.name %></a>
+                        <% } else { %>
+                            ❌ <em>Error</em>
+                        <% } %>
+                        
+                        (<code><%= id %></code>)
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+
+        <h2 class="subtitle is-4">Instructions</h2>
+
+        <p>
+            Create a webhook on the GitHub repository or organization you wish to receive events for in the channels listed above. <br>
+            Keep in mind per-channel configurations apply individually. In other words, events ignored in one channel will still be sent to the others unless you configure them otherwise.
+        </p>
+
+        <table class="table mt-5">
             <tr>
                 <th>Payload URL</th>
                 <td>
-                    <% const link = process.env.WEB_HOST + url %>
+                    <% const link = `${process.env.WEB_HOST}/hook/channels/${ids.join(',')}` %>
 
                     <a href="<%= link %>"><%= link %></a>
                 </td>

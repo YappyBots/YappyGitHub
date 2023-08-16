@@ -17,8 +17,6 @@
   "author": "David Sevilla Martin (https://dsevilla.dev)",
   "license": "MIT",
   "dependencies": {
-    "@discordjs/builders": "^1.6.4",
-    "@discordjs/rest": "^1.7.1",
     "@octokit/auth-app": "^6.0.0",
     "@octokit/rest": "^20.0.1",
     "@sentry/node": "^7.63.0",
@@ -27,8 +25,7 @@
     "bookshelf": "^1.2.0",
     "bookshelf-case-converter-plugin": "^2.0.0",
     "clean-stack": "^3.0.0",
-    "discord-api-types": "^0.37.52",
-    "discord.js": "^13.4.0",
+    "discord.js": "^14.12.1",
     "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
     "express": "^4.17.2",

@@ -28,7 +28,7 @@
                 <% for (const [id, data] of channels) { %>
                     <li>
                         <% if (data) { %>
-                            <a href="https://discord.com/channels/<%= data.guild.id %>/<%= data.id %>" target="_blank"><%= data.guild.name %> #<%= data.name %></a>
+                            <a href="https://discord.com/channels/<%= data.guild?.id || '@me' %>/<%= data.id %>" target="_blank"><%= data.guild?.name || '@me' %> #<%= data.name %></a>
                         <% } else { %>
                             ❌ <em>Not Found. Try again later.</em>
                         <% } %>

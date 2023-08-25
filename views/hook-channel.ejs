@@ -19,60 +19,69 @@
       </nav>
 
     <div class="container">
-        <h1 class="title mt-6">Configuring a Hook</h1>
+        <section>
+            <h1 class="title mt-6">Configuring a Hook</h1>
 
-        <div class="content">
-            This hook will forward events to the following channels:
+            <div class="content">
+                This hook will forward events to the following channels:
 
-            <ul>
-                <% for (const [id, data] of channels) { %>
-                    <li>
-                        <% if (data) { %>
-                            <a href="https://discord.com/channels/<%= data.guild?.id || '@me' %>/<%= data.id %>" target="_blank"><%= data.guild?.name || '@me' %> #<%= data.name %></a>
-                        <% } else { %>
-                            ❌ <em>Not Found. Try again later.</em>
-                        <% } %>
-                        
-                        (<code><%= id %></code>)
-                    </li>
-                <% } %>
-            </ul>
-        </div>
-
-        <h2 class="subtitle is-4">Instructions</h2>
-
-        <p>
-            Create a webhook on the GitHub repository or organization you wish to receive events for in the channels listed above. <br>
-            Keep in mind per-channel configurations apply individually. In other words, events ignored in one channel will still be sent to the others unless you configure them otherwise.
-        </p>
-
-        <table class="table mt-5">
-            <tr>
-                <th>Payload URL</th>
-                <td>
-                    <% const link = `${process.env.WEB_HOST}/hook/channels/${ids.join(',')}` %>
-
-                    <a href="<%= link %>"><%= link %></a>
-                </td>
-            </tr>
-            <tr>
-                <th>Content Type</th>
-                <td><code>application/json</code> is preferred</td>
-            </tr>
-            <tr>
-                <th>Secret</th>
-                <td>
-                    <p>View your channel's secret by running <code>/conf option channel item:secret</code>.</p>
-                    <% if (ids.length > 1) { %>
-                        <br>
-                        <p>
-                            Since you're sending the hook to multiple channels at once, make sure their secrets are all the same. <br />
-                            The event will only be sent to channels whose secret matches the incoming webhook's.
-                        </p>
+                <ul>
+                    <% for (const [id, data] of channels) { %>
+                        <li>
+                            <% if (data) { %>
+                                <a href="https://discord.com/channels/<%= data.guild?.id || '@me' %>/<%= data.id %>" target="_blank"><%= data.guild?.name || '@me' %> #<%= data.name %></a>
+                            <% } else { %>
+                                ❌ <em>Not Found. Try again later.</em>
+                            <% } %>
+                            
+                            (<code><%= id %></code>)
+                        </li>
                     <% } %>
-                </td>
-            </tr>
-        </table>
+                </ul>
+            </div>
+        </section>
+
+        <section class="mt-6">
+            <h2 class="subtitle is-4">Instructions</h2>
+
+            <p>
+                Create a webhook on the GitHub repository or organization you wish to receive events for in the channels listed above. <br>
+                Keep in mind per-channel configurations apply individually. In other words, events ignored in one channel will still be sent to the others unless you configure them otherwise.
+            </p>
+
+            <table class="table mt-5">
+                <tr>
+                    <th>Payload URL</th>
+                    <td>
+                        <% const link = `${process.env.WEB_HOST}/hook/channels/${ids.join(',')}` %>
+
+                        <a href="<%= link %>"><%= link %></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Content Type</th>
+                    <td><code>application/json</code> is preferred</td>
+                </tr>
+                <tr>
+                    <th>Secret</th>
+                    <td>
+                        <div class="notification is-warning mt-4 p-3">
+                            Do not use sensitive data for webhook secrets. Any user with server administrator perms can view a channel's secret.
+                        </div>
+
+                        <p>View your channel's randomly-generated secret by running <code>/conf option channel item:secret</code>.</p>
+
+                        <% if (ids.length > 1) { %>
+                            <br>
+                            <p>
+                                Since you're sending the hook to multiple channels at once, make sure their secrets are all the same. <br />
+                                The event will only be sent to channels whose secret matches the incoming webhook's.
+                            </p>
+                        <% } %>
+                    </td>
+                </tr>
+            </table>
+        </section>
     </div>
 </body>
 </html>

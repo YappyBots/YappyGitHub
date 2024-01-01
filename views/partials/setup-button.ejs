@@ -1,11 +1,11 @@
 <form action="./<%- connected ? 'disconnect' : 'connect' %>/<%= type %>/<%= id %>" method="POST">
     <button
-        class="button is-small is-<%- connected ? 'danger' : 'success' %> is-outlined is-rounded"
+        class="button is-small is-<%- connected ? 'danger' : 'success' %> is-outlined is-rounded has-icon"
         type="submit"
         title="<%= connected ? 'Disconnect' : 'Connect' %> <%= type %>"
         >
-        <!-- <span class="icon"> -->
-            <%= connected ? '−' : '+' %>
-        <!-- </span> -->
+        <span class="icon">
+            <div class="fas fa-<%= connected ? 'minus' : 'plus' %>"></div>
+        </span>
     </button>
 </form>

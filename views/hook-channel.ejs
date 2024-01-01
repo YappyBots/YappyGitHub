@@ -28,16 +28,12 @@
                 <ul>
                     <% for (const [id, data] of channels) { %>
                         <li>
-                            <% if (data) { %>
-                                <a href="https://discord.com/channels/<%= data.guild?.id || '@me' %>/<%= data.id %>" target="_blank"><%= data.guild?.name || '@me' %> #<%= data.name %></a>
-                            <% } else { %>
-                                ❌ <em>Not Found. Try again later.</em>
-                            <% } %>
-                            
-                            (<code><%= id %></code>)
+                            <a href="<%= data.url %>" target="_blank"><code><%= id %></code> ⧉</a>
                         </li>
                     <% } %>
                 </ul>
+
+                <em>This page only verifies the bot knows the non-DM text channel exists. Verify that the bot the appropiate perimssions in the channels listed above.</em>
             </div>
         </section>
 

@@ -10,6 +10,9 @@
     "db:migrate": "knex migrate:latest",
     "db:rollback": "knex migrate:rollback"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "repository": {
     "url": "https://github.com/YappyBots/YappyGitHub",
     "type": "git"

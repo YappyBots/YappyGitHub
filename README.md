@@ -9,6 +9,18 @@ Monitor your github repos by adding this bot to your server, set up a channel fo
 
 Join our Discord server at https://discord.gg/HHqndMG
 
+## GitHub
+
+When setting up the bot, the site will ask you to sign in with GitHub.
+This is temporary & allows the bot to confirm the user has perms in the repositories (enough to install an app!). Installing the app in repositories requires permissions so that the bot can receive events (webhooks) pertaining to those areas; if the bot doesn't have permission to read PRs in the repository, GitHub doesn't allow it to receive webhooks for PR-related activity.
+
+- **Contents**: commit comment, create/delete branch, fork, gollum (wiki), push, release
+- **Metadata**: meta, label, public, repository, star, watch
+- **Issues**: issue, milestone
+- **Pull Requests**: pull requests
+
+## Discord
+
 ### Commands
 
 You can use the following commands through Discord Slash Commands.

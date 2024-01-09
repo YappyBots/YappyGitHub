@@ -45,7 +45,6 @@
     "markdown-escape": "^2.0.0",
     "moment": "^2.30.1",
     "moment-duration-format": "^2.3.2",
-    "mongoose": "^5.9.22",
     "node-cache": "^5.1.2",
     "p-queue": "^6.5.0",
     "performance-now": "^2.1.0",

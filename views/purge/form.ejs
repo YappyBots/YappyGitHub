@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <link rel="preload" href="https://unpkg.com/bulma-prefers-dark" as="style" />
+
+    <%- include('../partials/head') %>
+
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/bulma-prefers-dark" />
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+
+    <title>Purge | Yappy GitHub</title>
+  </head>
+
+  <body>
+    <nav class="navbar is-transparent has-shadow">
+      <div class="navbar-brand">
+        <a class="navbar-item  has-text-weight-semibold" href="<%= process.env.WEB_HOST %>">
+          Yappy GitHub
+        </a>
+      </div>
+    </nav>
+
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Purge GitHub Installation</h1>
+
+        <div class="content">
+          <p>
+            Log in through this page to disconnect installations & repositories configured through the GitHub App from the bot. <br>
+            Note that anyone with administrator access to the repository can re-configure the channels to receive events from GitHub after purging. <br>
+          </p>
+
+          <p>
+            Clicking the button below will allow you to <b>log in with GitHub</b> and select which installations and/or paths to purge. <br>
+            <i>Nothing will happen until you confirm each purge request on the next page.</i>
+          </p>
+
+          <p>
+            The point of this page is to allow repository/org owners to control the channels that receive events from their repositories. <br>
+            If you are not the owner of the repository/org, please ask the owner to use this page to disconnect the bot from their repositories. <br>
+            To configure an individual channel, use the bot's <code>/setup</code> command in the channel.
+          </p>
+
+          <article class="message">
+            <div class="message-body">
+              <div class="notification is-warning is-hidden" id="status">
+                <p id="status-text">Suspend the installation so that the purge request gets processed</p>
+                <time class="mr-1 is-hidden"></time>
+              </div>
+
+              <form action="/purge/start" method="post">
+                <% if (turnstileKey = process.env.TURNSTILE_SITE_KEY) { %>
+                  <div class="cf-turnstile" data-sitekey="<%= turnstileKey %>" data-callback="javascriptCallback"></div>
+                <% } %>
+
+                <% if (error) { %>
+                  <p>ERROR: <%= error %></p>
+                <% }  %>
+
+                <button class="button is-danger" type="submit">Log In with GitHub</button>
+              </form>
+            </div>
+          </article>
+        </div>
+    </section>
+  </body>
+
+</html>

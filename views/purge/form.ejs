@@ -49,7 +49,7 @@
                 <time class="mr-1 is-hidden"></time>
               </div>
 
-              <form action="/purge/start" method="post">
+              <form action="<%= process.env.WEB_HOST %>/purge/start" method="post">
                 <% if (turnstileKey = process.env.TURNSTILE_SITE_KEY) { %>
                   <div class="cf-turnstile" data-sitekey="<%= turnstileKey %>" data-callback="javascriptCallback"></div>
                 <% } %>

@@ -34,12 +34,12 @@
       </div>
 
       <% if (setupData.channel_name) { %>
-        <a class="navbar-item" href="dashboard">
+        <a class="navbar-item" href="<%= process.env.WEB_HOST %>/dashboard">
             Dashboard
           </a>
     <% } %>
 
-      <a class="navbar-item is-active has-text-weight-semibold" href="purge">
+      <a class="navbar-item is-active has-text-weight-semibold" href="<%= process.env.WEB_HOST %>/purge">
         Purge
       </a>
 

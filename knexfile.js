@@ -7,7 +7,11 @@ module.exports = {
   },
   pool: {
     min: 2,
-    max: 10
+    max: 10,
+    afterCreate: (db, done) => {
+      // db is a better-sqlite3 Database instance
+      db();
+    }
   },
   migrations: {
     tableName: 'migrations',

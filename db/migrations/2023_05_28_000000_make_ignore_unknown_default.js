@@ -2,7 +2,7 @@
 exports.up = async (knex) =>
   knex.transaction(async (trx) => {
     await trx.raw(
-      'ALTER TABLE channels ADD COLUMN ignore_unknown_ DEFAULT true'
+      'ALTER TABLE channels ADD COLUMN ignore_unknown_ integer DEFAULT true'
     );
     await trx.raw('ALTER TABLE channels DROP COLUMN ignore_unknown');
     await trx.raw(

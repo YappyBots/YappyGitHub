@@ -1,6 +1,6 @@
 {
   "name": "@yappybots/github",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "A GitHub repo monitor bot for Discord",
   "main": "lib/index.js",
   "private": true,
@@ -10,45 +10,62 @@
     "db:migrate": "knex migrate:latest",
     "db:rollback": "knex migrate:rollback"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "repository": {
     "url": "https://github.com/YappyBots/YappyGitHub",
     "type": "git"
   },
-  "author": "David Sevilla Martin <dsevilla192@icloud.com>",
+  "author": "David Sevilla Martin (https://dsevilla.dev)",
   "license": "MIT",
   "dependencies": {
-    "@octokit/rest": "^18.0.0",
-    "@sentry/node": "^5.19.1",
-    "@YappyBots/addons": "github:YappyBots/yappy-addons#34404f851e5114ce79c3a37293822bd4ed48a296",
-    "body-parser": "^1.19.0",
+    "@octokit/auth-app": "^6.0.2",
+    "@octokit/rest": "^20.0.2",
+    "@sentry/node": "^7.91.0",
+    "@YappyBots/addons": "github:YappyBots/yappy-addons#1107d5d",
+    "better-sqlite3": "^9.2.2",
+    "body-parser": "^1.20.2",
     "bookshelf": "^1.2.0",
     "bookshelf-case-converter-plugin": "^2.0.0",
-    "bugsnag": "^2.4.3",
-    "chalk": "^4.1.0",
     "clean-stack": "^3.0.0",
-    "discord.js": "^12.2.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "git-rev-sync": "^3.0.2",
-    "got": "^11.5.0",
-    "hbs": "^4.1.1",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.17.2",
+    "express-async-handler": "^1.2.0",
+    "express-rate-limit": "^7.1.5",
+    "fast-safe-stringify": "^2.1.1",
+    "git-rev-sync": "^3.0.1",
+    "helmet": "^7.1.0",
+    "hpp": "^0.2.3",
+    "ip-cidr": "^3.1.0",
     "jsondiffpatch": "^0.4.1",
-    "knex": "^0.21.2",
-    "marked": "^1.1.0",
-    "moment": "^2.27.0",
+    "knex": "^3.1.0",
+    "lru-cache": "^10.1.0",
+    "markdown-escape": "^2.0.0",
+    "moment": "^2.30.1",
     "moment-duration-format": "^2.3.2",
-    "mongoose": "^5.9.22",
+    "node-cache": "^5.1.2",
     "p-queue": "^6.5.0",
     "performance-now": "^2.1.0",
-    "pretty-error": "^2.1.1",
-    "sqlite3": "^5.0.0",
+    "pretty-error": "^4.0.0",
+    "redis": "^4.6.12",
+    "showdown": "^2.1.0",
     "swag": "^0.7.0",
-    "turndown": "^6.0.0",
-    "winston": "^3.3.3"
+    "turndown": "^7.1.2",
+    "uuid": "^9.0.1",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
-    "jsdoc": "^3.6.4",
-    "jsdoc-strip-async-await": "^0.1.0",
-    "prettier": "^2.0.5"
+    "prettier": "^3.1.1"
+  },
+  "overrides": {
+    "swag": {
+      "handlebars": "^4.7.7"
+    },
+    "bookshelf": {
+      "knex": "$knex"
+    }
   }
 }

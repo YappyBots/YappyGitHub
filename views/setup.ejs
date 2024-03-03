@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Setup | Yappy GitHub</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" rel="stylesheet">
+
+  <%- include('./partials/head') %>
+</head>
+
+<body>
+  <nav class="navbar is-transparent has-shadow">
+    <div class="navbar-brand">
+      <a class="navbar-item  has-text-weight-semibold" href="<%= process.env.WEB_HOST %>">
+        Yappy GitHub
+      </a>
+    </div>
+
+    <div class="navbar-menu">
+      <div class="navbar-start has-text-weight-normal">
+        <span class="navbar-item">
+          <i class="fab fa-github fa-sm mr-2"></i>
+          <%= setupData.github_login %>
+        </span>
+        <span class="navbar-item">
+          <i class="fab fa-discord fa-sm mr-2"></i>
+          <%= setupData.guild_name %> #<%= setupData.channel_name %>
+        </span>
+      </div>
+
+      <% if (setupData.channel_name) { %>
+      <a class="navbar-item is-active has-text-weight-semibold" href="dashboard">
+        Dashboard
+      </a>
+      <% } %>
+
+      <a class="navbar-item" href="purge">
+        Purge
+      </a>
+
+      <div class="navbar-end">
+        <div class="navbar-item has-text-weight-light">
+          <i class="fas fa-clock fa-sm mr-2"></i>
+          <time datetime="<%= new Date(Date.now() + ttl * 1000).toISOString() %>" title="<%= new Date(Date.now() + ttl * 1000) %>" class="mr-1">
+            <%= (ttl > 60) ? `${Math.round(ttl / 60)} min.` : `${ttl} sec.` %>
+          </time>
+          remaining
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <nav class="panel is-link">
+            <div class="panel-heading">
+              GitHub
+
+              <form action="./refresh-github" method="POST" class="is-pulled-right">
+                <button class="button is-info is-inverted is-small is-outlined" title="Refresh GitHub data">
+                  <span class="icon is-small">
+                    <div class="fas fa-arrows-rotate"></div>
+                  </span>
+                </button>
+              </form>
+            </div>
+
+            <div class="panel-block is-flex">
+              <a class="button is-small is-dark mr-2 is-fullwidth" href="https://github.com/apps/<%= process.env.GITHUB_APP_SLUG %>" target="_blank">Install GitHub App</a>
+            </div>
+
+            <% githubApp.forEach(function ([install,  repos]) { %>
+            <% const installConnected = connections.some(conn =>
+                                conn.get('type') == 'install' && conn.get('githubId') === install.id
+                            ) %>
+            <% const isSuspended = !!install.suspended_at %>
+
+            <label class="panel-block is-flex <%= installConnected && 'is-active' %>">
+              <%- include('./partials/setup-button', { type: 'install', id: install.id, connected: installConnected }) %>
+
+              <div class="panel-icon"></div>
+
+              <span class="is-flex-grow-1"><%= install.account.login %></span>
+
+              <span class="mr-2">
+                <% if (isSuspended) { %>
+                <span class="tag is-danger is-light">Suspended</span>
+                <%  } else { %>
+                <small><i><%= install.repository_selection %> repositories</i></small>
+                <% } %>
+              </span>
+
+              <a class="button is-align-self-flex-end is-small is-link is-outlined mr-2" href="<%- install.html_url %>" target="_blank" rel="noopener noreferrer">
+                <div class="icon">
+                  <i class="fa-solid fa-gear"></i>
+                </div>
+              </a>
+            </label>
+
+            <% repos?.forEach(function (repo) { %>
+            <% const repoConnected = connections.some(conn =>
+                                    conn.get('type') == 'repo' && conn.get('githubId') === repo.id
+                                ) %>
+            <% const isConnected = installConnected || repoConnected %>
+
+            <label class="panel-block <%= installConnected || repoConnected && 'is-active' %>">
+              <% if (!installConnected || repoConnected) { %>
+              <%- include('./partials/setup-button', { type: 'repo', id: repo.id, connected: isConnected }) %>
+              <% } else { %>
+              <button disabled class="button is-small is-disabled is-danger is-outlined is-rounded">
+                <span class="icon"><i class="fas fa-minus"></i></span>
+              </button>
+              <% } %>
+
+              <div class="panel-icon"></div>
+
+
+              ↳ &nbsp; <%= repo.name %>
+            </label>
+            <% }) %>
+
+            <% }) %>
+          </nav>
+        </div>
+        <div class="column">
+          <div class="content">
+            <h3 class="is-size-3">Connected to Discord</h3>
+
+            <% const link = `${process.env.WEB_HOST}/hook/channels/${setupData.channel_id}` %>
+
+            <p>If you'd rather simply use webhooks, change your webhook URLs to specify the channel(s) where to send events to
+              <a href="<%= link %>"><%= link %></a>.
+            </p>
+
+            <% if (legacyOrgs.length || legacyRepos.length) { %>
+            <section class="mb-5">
+              <h4 class="is-size-4">Legacy <i class="fas fa-triangle-exclamation "></i></h4>
+              <p>These were initialized using the old setup system. If the repo/org names have changed since, these will no longer work.
+                We recommend switching away from this system and either using the GitHub App integration or the new webhook URL above.</p>
+
+              <div class="notification is-warning p-3">
+                Removing these is irreversible! This will not remove the webhooks from GitHub -- other Discord channels may continue receiving events through the legacy webhook.
+              </div>
+
+              <ul>
+                <% [legacyOrgs, legacyRepos].forEach(function (legacy) { %>
+                <% legacy.forEach(function (conn) { %>
+                <% const ghName = conn.get('name') %>
+                <% const type = conn.tableName.slice('channel_'.length, -1) %>
+
+                <li class="is-clearfix">
+                  <div class="is-pulled-left mr-2">
+                    <%- include('./partials/setup-button', { type: `legacy-${type}`, id: encodeURIComponent(conn.get('name')), connected: true }) %>
+                  </div>
+
+                  <a href="https://github.com/<%= ghName %>" target="_blank" rel="noopener noreferrer">
+                    <%= ghName %>
+                  </a>
+
+                  (legacy <%= type %>)
+                </li>
+                <% }) %>
+                <% }) %>
+              </ul>
+            </section>
+            <% } %>
+
+            <section>
+              <h4 class="is-size-4">
+                GitHub App
+              </h4>
+              <% let anyMissing = false %>
+              <ul>
+                <% connections.forEach(function (conn) { %>
+                <li class="is-clearfix">
+                  <div class="is-pulled-left mr-2">
+                    <%- include('./partials/setup-button', { type: conn.get('type'), id: conn.get('githubId'), connected: true }) %>
+                  </div>
+
+                  <% const result = conn.get('type') === 'install'
+                                                ? githubApp.map(v => v[0]).find(v => v?.id == conn.get('githubId'))
+                                                : githubApp.map(v => v[1]?.find(v => v.id == conn.get('githubId'))).filter(Boolean)[0]  %>
+                  <% const ghName = (conn.get('type') === 'install'
+                                                ? result?.account?.login
+                                                : result?.full_name || result?.name
+                                            ) || conn.get('githubName') %>
+
+                  <a href="https://github.com/<%= ghName %>" target="_blank">
+                    <%= ghName %>
+                  </a>
+
+                  (<%= conn.get('type') %>)
+
+                  <% if (!result) { %>
+                  <% anyMissing = true %>
+                  <span class="tag is-danger is-light">
+                    <i class="fas fa-exclamation-triangle"></i>
+                  </span>
+                  <% } %>
+                </li>
+                <% }) %>
+              </ul>
+              <% if (anyMissing) { %>
+              <div class="notification is-warning p-3">
+                Some of the connections above are no longer valid. The GitHub app may have lost access to them.
+                You will not receive events from them.
+              </div>
+              <% } %>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>

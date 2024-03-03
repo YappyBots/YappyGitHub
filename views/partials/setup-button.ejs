@@ -1,0 +1,13 @@
+<% const actionText = (typeof action !== 'undefined') ? action : (connected ? 'disconnect' : 'connect') %>
+
+<form action="./<%= actionText %>/<%= type %>/<%= id %>" method="POST">
+    <button
+        class="button is-small is-<%= connected ? 'danger' : 'success' %> is-outlined is-rounded has-icon"
+        type="submit"
+        title="<%= actionText[0].toUpperCase() + actionText.slice(1) %> <%= type %>"
+        >
+        <span class="icon">
+            <div class="fas fa-<%= typeof icon !== 'undefined' ? icon : (connected ? 'minus' : 'plus') %>"></div>
+        </span>
+    </button>
+</form>

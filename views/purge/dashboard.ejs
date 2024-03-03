@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Purge | Yappy GitHub</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" rel="stylesheet">
+
+  <%- include('../partials/head') %>
+</head>
+
+<body>
+  <nav class="navbar is-transparent has-shadow">
+    <div class="navbar-brand">
+      <a class="navbar-item  has-text-weight-semibold" href="<%= process.env.WEB_HOST %>">
+        Yappy GitHub
+      </a>
+    </div>
+
+    <div class="navbar-menu">
+      <div class="navbar-start has-text-weight-normal">
+        <span class="navbar-item">
+          <i class="fab fa-github fa-sm mr-2"></i>
+          <%= setupData.github_login %>
+        </span>
+        <span class="navbar-item">
+          <i class="fab fa-discord fa-sm mr-2"></i>
+          <% if (setupData.channel_name) { %>
+          <%= setupData.guild_name %> #<%= setupData.channel_name %>
+          <% } else { %>
+          N/A
+          <% } %>
+        </span>
+      </div>
+
+      <% if (setupData.channel_name) { %>
+        <a class="navbar-item" href="dashboard">
+            Dashboard
+          </a>
+    <% } %>
+
+      <a class="navbar-item is-active has-text-weight-semibold" href="purge">
+        Purge
+      </a>
+
+      <div class="navbar-end">
+        <div class="navbar-item has-text-weight-light">
+          <i class="fas fa-clock fa-sm mr-2"></i>
+          <time datetime="<%= new Date(Date.now() + ttl * 1000).toISOString() %>" title="<%= new Date(Date.now() + ttl * 1000) %>" class="mr-1">
+            <%= (ttl > 60) ? `${Math.round(ttl / 60)} min.` : `${ttl} sec.` %>
+          </time>
+          remaining
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Disconnect </h1>
+      <div class="message is-danger">
+        <div class="message-body">
+          Unlinking an <b>installation</b> will delete all GitHub App connections configured for that installation and all <i>listed</i> repositories below. <br>
+          &nbsp; Any installation's repositories that are not listed may continue to receive events if they were configured individually. <br>
+          &nbsp; To avoid this, allow the GitHub App to access all repositories (or the ones you know have been configured) so the purge process can remove them. <br>
+          Unlinking a <b>repository</b> will delete all GitHub App connections configured for that repository. <br><br>
+          Note that the GitHub App installation will still exist and new connections can be configured by those with administrator access to the repository. <br>
+          In addition, this does not affect any webhooks you may have created in your GitHub repository & organization settings. <br><br>
+
+          <strong>This action is irreversible.</strong> <br><br>
+
+          You will have to re-configure the channels to receive events from GitHub after purging if you wish to continue using the bot. <br>
+          The number of channels connected to each installation and repository is listed in each row. <br>
+        </div>
+      </div>
+      <nav class="panel is-link mt-3">
+        <div class="panel-heading">
+          GitHub
+
+          <form action="./refresh-github" method="POST" class="is-pulled-right">
+            <button class="button is-info is-inverted is-small is-outlined" title="Refresh GitHub data">
+              <span class="icon is-small">
+                <div class="fas fa-arrows-rotate"></div>
+              </span>
+            </button>
+          </form>
+        </div>
+
+        <div class="panel-block is-flex">
+          <a class="button is-small is-dark mr-2 is-fullwidth" href="https://github.com/apps/<%= process.env.GITHUB_APP_SLUG %>" target="_blank">Install GitHub App</a>
+        </div>
+
+        <% githubApp.forEach(function ([install,  repos]) { %>
+        <label class="panel-block is-flex">
+          <%- include('../partials/setup-button', { action: 'purge', type: 'install', id: install.id, connected: true, icon: 'unlink' }) %>
+
+          <div class="panel-icon"></div>
+
+          <span class="is-danger has-text-weight-semibold"><u><%= idsToCount[install.id] || 0 %></u> </span>
+
+          <div class="panel-icon"></div>
+
+          <span class="is-flex-grow-1"><%= install.account.login %></span>
+
+          <span class="mr-2">
+            <% if (install.suspended_at) { %>
+            <span class="tag is-danger is-light">Suspended</span>
+            <%  } else { %>
+            <small><i><%= install.repository_selection %> repositories</i></small>
+            <% } %>
+          </span>
+
+          <a class="button is-align-self-flex-end is-small is-link is-outlined mr-2" href="<%- install.html_url %>" target="_blank" rel="noopener noreferrer">
+            <div class="icon">
+              <i class="fa-solid fa-gear"></i>
+            </div>
+          </a>
+        </label>
+
+        <% repos?.forEach(function (repo) { %>
+        <label class="panel-block is-flex">
+          <%- include('../partials/setup-button', { action: 'purge', type: 'repo', id: repo.id, connected: true, icon: 'unlink' }) %>
+
+          <div class="panel-icon"></div>
+
+          <span class="is-danger has-text-weight-semibold"><u><%= idsToCount[repo.id] || 0 %></u> </span>
+
+          <div class="panel-icon"></div>
+
+          <span class="is-flex-grow-1">↳ &nbsp; <%= repo.name %></span>
+        </label>
+        <% }) %>
+
+        <div class="mb-5"></div>
+
+        <% }) %>
+      </nav>
+    </div>
+  </section>
+</body>
+
+<script>
+  // Add event listener to all forms
+  const forms = document.querySelectorAll('form');
+  forms.forEach(form => {
+    form.addEventListener('submit', (event) => {
+      // Display alert before submitting the form
+      if (!confirm('Are you sure you want to unlink this?')) {
+        event.preventDefault(); // Prevent form submission
+      }
+    });
+  });
+</script>
+
+</html>

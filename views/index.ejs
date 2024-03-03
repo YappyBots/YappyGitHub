@@ -4,10 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Yappy, the GitHub Monitor</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.5.0/css/bulma.min.css" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dansup/bulma-templates/gh-pages/css/landing.css">
+  <title>Yappy GitHub</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.5/css/bulma.min.css" crossorigin="anonymous" />
   <style>
   html {
     overflow-y: auto !important;
@@ -32,6 +30,12 @@
     width: auto !important;
     padding-left: 2px;
   }
+  .nav .circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: <%= statusColor %>;
+  }
   </style>
 </head>
 <body>
@@ -44,14 +48,12 @@
               Yappy, the GitHub Monitor
             </div>
             <div class="nav-right nav-menu">
+              <a class="nav-item" href="purge">
+                Purge
+              </a>
               <span class="nav-item">
-                <i class="fas fa-circle" style="color: {{statusColor}};" aria-hidden="true"></i>&nbsp;
-                {{status}}
-              </span>
-              <span class="nav-item">
-                <a class="button is-default" href="{{url '/login'}}">
-                  Dashboard
-                </a>
+                <i class="circle" aria-hidden="true"></i>&nbsp;
+                <%= status %>
               </span>
             </div>
           </div>
@@ -69,37 +71,25 @@
           </div>
           <div class="column is-6 is-offset-1">
             <h1 class="title is-2">
-              Introducing Yappy, the GitHub Monitor
+              Introducing Yappy GitHub
             </h1>
             <br>
-            <h2 class="subtitle is-4 description">
-              It's time to say hello to GitHub repo events right in your Discord server.<br>
-              Simply set up webhooks to a server, init repo in channel, and you're good-to-go!
+            <h2 class="subtitle is-5 description">
+              It's time to say hello to GitHub repo events right in your Discord server.<br><br>
+              Simply install the GitHub app and set up the connection to your Discord channel with <code>/setup</code>!
             </h2>
             <br>
             <div class="columns stats">
               <div class="column">
                 <p>
                   <strong>Guilds</strong><br>
-                  {{bot.guilds.cache.size}}
+                  ≈<%= approxGuildCount %>
                 </p>
               </div>
               <div class="column">
                 <p>
-                  <strong>Channels</strong><br>
-                  {{bot.channels.cache.size}}
-                </p>
-              </div>
-              <div class="column">
-                <p>
-                  <strong>Users</strong><br>
-                  {{bot.users.cache.size}}
-                </p>
-              </div>
-              <div class="column">
-                <p>
-                  <strong>Repos</strong><br>
-                  {{repos}}
+                  <strong>Connections</strong><br>
+                  <%= connections %>
                 </p>
               </div>
             </div>
@@ -116,9 +106,9 @@
       <div class="container">
         <div class="tabs is-centered">
           <ul>
-            <li><a href="https://datitisev.me" target="_blank">Copyright © 2020 David Sevilla Martin</a></li>
-            <li><a href="http://bulma.io" target="_blank">Made with Bulma</a></li>
-            <li><a href="http://discordapp.com" target="_blank">Made for Discord</a></li>
+            <li><a href="https://dsev.dev" target="_blank">Copyright © <%= new Date().getFullYear() %> David Sevilla Martin</a></li>
+            <li><a href="http://bulma.io" target="_blank" rel="noopener noreferrer">Made with Bulma</a></li>
+            <li><a href="http://discord.com" target="_blank" rel="noopener noreferrer">Made for Discord</a></li>
           </ul>
         </div>
       </div>

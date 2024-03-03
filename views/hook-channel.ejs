@@ -23,17 +23,18 @@
             <h1 class="title mt-6">Configuring a Hook</h1>
 
             <div class="content">
-                This hook will forward events to the following channels (comma-separated in the URL):
+                This hook will forward events to the following channels (comma-separated in the URL; max 10):
 
                 <ul>
-                    <% for (const [id, data] of channels) { %>
+                    <% for (const id of ids) { %>
                         <li>
-                            <a href="<%= data.url %>" target="_blank" rel="noopener noreferrer"><code><%= id %></code> ⧉</a>
+                            <a href="https://discord.com/channels/@me/<%= id %>" target="_blank" rel="noopener noreferrer"><code><%= id %></code> ⧉</a>
                         </li>
                     <% } %>
                 </ul>
 
-                <em>This page only verifies the bot knows the non-DM text channel exists. Verify that the bot the appropiate perimssions in the channels listed above.</em>
+                <em>Make sure these are text channels in servers (not DMs) and that the bot has access to them. <br>
+                    Additionally, verify that the bot the appropriate permissions in the channels listed above.</em>
             </div>
         </section>
 
@@ -62,7 +63,8 @@
                     <th>Secret</th>
                     <td>
                         <div class="notification is-warning mt-4 p-3">
-                            Do not use sensitive data for webhook secrets. Any user with server administrator perms can view a channel's secret.
+                            Do not use sensitive data for webhook secrets. <br>
+                            Any user with server administrator perms (or access to the <code>/conf option channel</code> command) can view a channel's secret.
                         </div>
 
                         <p>View your channel's randomly-generated secret by running <code>/conf option channel item:secret</code>.</p>

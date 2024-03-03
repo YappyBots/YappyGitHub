@@ -39,6 +39,7 @@
     "git-rev-sync": "^3.0.1",
     "helmet": "^7.1.0",
     "hpp": "^0.2.3",
+    "html-entities": "^2.4.0",
     "ip-cidr": "^3.1.0",
     "jsondiffpatch": "^0.4.1",
     "knex": "^3.1.0",

@@ -10,7 +10,7 @@ module.exports = {
     max: 10,
     afterCreate: (db, done) => {
       // db is a better-sqlite3 Database instance
-      db();
+      done();
     }
   },
   migrations: {

@@ -22,7 +22,7 @@
   "dependencies": {
     "@octokit/auth-app": "^6.0.2",
     "@octokit/rest": "^20.0.2",
-    "@sentry/node": "^8.38.0",
+    "@sentry/node": "^7.120.0",
     "@YappyBots/addons": "github:YappyBots/yappy-addons#1107d5d",
     "better-sqlite3": "^9.2.2",
     "body-parser": "^1.20.2",

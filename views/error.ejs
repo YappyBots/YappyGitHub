@@ -27,12 +27,12 @@
 <body>
     <% if (typeof stack !== 'undefined') { %>
         <% if (typeof status !== 'undefined') { %>
-            <h1><% status %> <%= name || '' %></h1>
+            <h1><%= status %> <%= name || '' %></h1>
         <% } %>
 
         <pre><%= stack %></pre>
     <% } else { %>
-        <h1><% status %> <%= name || '' %></h1>
+        <h1><%= status %> <%= name || '' %></h1>
 
         <% if (message) { %>
             <p><%= message %></p>

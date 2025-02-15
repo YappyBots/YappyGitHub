@@ -20,7 +20,7 @@
   "author": "David Sevilla Martin (https://dsevilla.dev)",
   "license": "MIT",
   "dependencies": {
-    "@octokit/auth-app": "^6.0.2",
+    "@octokit/auth-app": "^7.1.5",
     "@octokit/rest": "^21.1.1",
     "@sentry/node": "^8.49.0",
     "@YappyBots/addons": "github:YappyBots/yappy-addons#1107d5d",

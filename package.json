@@ -43,7 +43,7 @@
     "hpp": "^0.2.3",
     "html-entities": "^2.5.2",
     "ip-cidr": "^3.1.0",
-    "jsondiffpatch": "^0.4.1",
+    "jsondiffpatch": "^0.7.2",
     "knex": "^3.1.0",
     "lru-cache": "^10.1.0",
     "markdown-escape": "^2.0.0",

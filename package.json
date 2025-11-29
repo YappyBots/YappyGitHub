@@ -20,8 +20,10 @@
   "author": "David Sevilla Martin (https://dsevilla.dev)",
   "license": "MIT",
   "dependencies": {
-    "@octokit/auth-app": "^7.1.5",
-    "@octokit/rest": "^21.1.1",
+    "@octokit/auth-app": "^6.1.4",
+    "@octokit/plugin-paginate-rest": "^9.2.2",
+    "@octokit/request": "^8.4.1",
+    "@octokit/rest": "^20.1.2",
     "@sentry/node": "^8.49.0",
     "@YappyBots/addons": "github:YappyBots/yappy-addons#1107d5d",
     "better-sqlite3": "^9.2.2",

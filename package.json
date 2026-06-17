@@ -27,19 +27,19 @@
     "@sentry/node": "^8.49.0",
     "@YappyBots/addons": "github:YappyBots/yappy-addons#7cd25a281576949b3218c03eac01e473a88f1e52",
     "better-sqlite3": "^12.11.1",
-    "body-parser": "^1.20.2",
+    "body-parser": "^2.3.0",
     "bookshelf": "^1.2.0",
     "bookshelf-case-converter-plugin": "^2.0.0",
     "clean-stack": "^3.0.0",
     "discord.js": "^14.26.4",
     "dotenv": "^16.4.5",
-    "ejs": "^4.0.1",
-    "express": "^4.21.1",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
     "express-async-handler": "^1.2.0",
-    "express-rate-limit": "^7.4.1",
+    "express-rate-limit": "^8.5.2",
     "fast-safe-stringify": "^2.1.1",
     "git-rev-sync": "^3.0.1",
-    "helmet": "^7.1.0",
+    "helmet": "^8.2.0",
     "hpp": "^0.2.3",
     "html-entities": "^2.5.2",
     "ip-cidr": "^3.1.0",
@@ -53,7 +53,7 @@
     "p-queue": "^6.5.0",
     "performance-now": "^2.1.0",
     "pretty-error": "^4.0.0",
-    "redis": "^4.7.0",
+    "redis": "^6.0.0",
     "showdown": "^2.1.0",
     "swag": "^0.7.0",
     "turndown": "^7.2.4",
@@ -71,6 +71,9 @@
       "knex": "$knex"
     },
     "lodash": "^4.17.23",
-    "qs": "^6.14.2"
+    "qs": "^6.14.2",
+    "@YappyBots/addons": {
+      "express": "^5"
+    }
   }
 }
